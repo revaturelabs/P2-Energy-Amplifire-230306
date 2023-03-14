@@ -5,6 +5,10 @@
         <members>*</members>
         <name>CustomObject</name>
     </types>
+        <types>
+        <members>Account-Account (Sales) Layout</members>
+        <name>Layout</name>
+    </types>
     <types>
         <members>CloseOpportunityTaskMaker</members>
         <name>ApexClass</name>
