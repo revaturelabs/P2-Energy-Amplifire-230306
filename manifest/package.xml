@@ -5,4 +5,16 @@
         <members>*</members>
         <name>CustomObject</name>
     </types>
+    <types>
+        <members>CloseOpportunityTaskMaker</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>Basic Sales Profile</members>
+        <name>Profile</name>
+    </types>
+    <types>
+        <members>Sales_Manager</members>
+        <name>PermissionSet</name>
+    </types>
 </Package>
