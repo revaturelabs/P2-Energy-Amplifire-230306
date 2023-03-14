@@ -3,9 +3,10 @@
     <version>56.0</version>
     <types>
         <members>*</members>
+        <members>Account</members>
         <name>CustomObject</name>
     </types>
-        <types>
+    <types>
         <members>Account-Account (Sales) Layout</members>
         <name>Layout</name>
     </types>
