@@ -12,10 +12,16 @@
     </types>
     <types>
         <members>CloseOpportunityTaskMaker</members>
+        <members>AccountsAndLeadsController</members>
         <name>ApexClass</name>
     </types>
     <types>
+        <members>AccountsAndLeads</members>
+        <name>ApexPage</name>
+    </types>
+    <types>
         <members>Basic Sales Profile</members>
+        <members>System Administrator</members>
         <name>Profile</name>
     </types>
     <types>
