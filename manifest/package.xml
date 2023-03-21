@@ -15,10 +15,12 @@
         <members>AccountsAndLeadsController</members>
         <members>CheckOppScheduler</members>
         <members>CheckOppSchedulerTest</members>
+        <members>OpportunitiesPageController</members>
         <name>ApexClass</name>
     </types>
     <types>
         <members>AccountsAndLeads</members>
+        <members>Opportunities</members>
         <name>ApexPage</name>
     </types>
     <types>

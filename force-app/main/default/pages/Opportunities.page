@@ -1,0 +1,82 @@
+<apex:page controller="OpportunitiesPageController">
+    <apex:stylesheet value="Opportunities" />
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockSection columns="1" title="Useful Links" >
+                <apex:outputPanel >
+                    <apex:image style="width:17%; display:block; margin:auto" value="{!$Resource.Logo}" />
+                    <table style="display:flex; justify-content:space-evenly">
+                        <tr>
+                            <td><apex:commandButton action="{!OpportunitiesPage}" value="Opportunities" /></td>
+                            <td><apex:commandButton action="{!ContactsPage}" value="Contacts" /></td>
+                            <td><apex:commandButton action="{!OrdersPage}" value="Orders" /></td>
+                            <td><apex:commandButton action="{!AccountsAndLeadsPage}" value="Accounts And Leads" /></td>
+                            <td><apex:commandButton action="{!WorkOrdersPage}" value="Work Orders" /></td>
+                        </tr>
+                    </table>
+                </apex:outputPanel>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection rendered="{!OppAccess}" columns="1" title="Accounts">
+                <apex:outputPanel >
+                    <table style="width:100%">
+                        <tr>
+                            <th style="width:5.3%"> </th>
+                            <th style="width:36%">Search for or Create an Opportunity</th>
+                            <th style="width:29%">Account</th>
+                            <th style="width:19.2%">Stage Name</th>
+                            <th>Close Date</th>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <apex:inputText value="{!NameOpportunitySearchTerm}" style="width:165px">
+                                </apex:inputText>
+                            </td>
+                            <td>
+                                <apex:inputText value="{!AccountOpportunitySearchTerm}" >
+                                </apex:inputText>
+                            </td>
+                            <td>
+                                <apex:inputText value="{!StageOpportunitySearchTerm}" style="width:135px">
+                                </apex:inputText>
+                            </td>
+                            <td>
+                                <apex:inputText value="{!CloseDateOpportunitySearchTerm}" style="width:135px">
+                                </apex:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><apex:commandButton reRender="OppList" value="Search Opportunities" /></td>
+                            <td><apex:commandButton rendered="{!OppCreateAccess}" action="{!SaveOpportunity}" value="Save New Opportunity" /></td>
+                        </tr>
+                    </table>
+                    <apex:pageblockTable style="width:100%" id="OppList" title="List of Opportunities" value="{!SearchedOpportunityList}" var="cOpp">
+                        <apex:inlineEditSupport rendered="{!OppEditAccess}"/>
+                        <apex:column style="width:5.3%" title="Select" headerValue="Select">
+                            <apex:inputCheckbox rendered="{!OppDeleteAccess}" value="{!cOpp.selected}" />
+                        </apex:column>
+                        <apex:column style="width:36%" title="Opportunity Name" headerValue="Opportunity Name">
+                            <apex:outputField rendered="{!OppNameAccess}" value="{!cOpp.opp.Name}" />
+                        </apex:column>
+                        <apex:column style="width:29%" title="Account" headerValue="Account">
+                            <apex:outputField rendered="{!OppAccountAccess}" value="{!cOpp.opp.Account.Name}" />
+                        </apex:column>
+                        <apex:column style="width:19.2%" title="StageName" headerValue="Stage Name">
+                            <apex:outputField rendered="{!OppStageAccess}" value="{!cOpp.opp.StageName}" />
+                        </apex:column>
+                        <apex:column title="CloseDate" headerValue="Close Date">
+                            <apex:outputField rendered="{!OppCloseDateAccess}" value="{!cOpp.opp.CloseDate}" />
+                        </apex:column>
+                    </apex:pageblockTable>
+                    <apex:outputPanel style="display:grid; grid-template-columns: 1fr 5fr 1fr 5fr">
+                        <apex:commandButton rendered="{!OppDeleteAccess}" action="{!DeleteOpportunity}" value="Delete Opportunities" />
+                        <span></span>
+                        <apex:commandButton rendered="{!OppEditAccess}" action="{!UpdateOpportunity}" value="Update Opportunities" />
+                        <span></span>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
