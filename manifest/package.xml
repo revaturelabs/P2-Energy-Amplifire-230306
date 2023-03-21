@@ -13,6 +13,8 @@
     <types>
         <members>CloseOpportunityTaskMaker</members>
         <members>AccountsAndLeadsController</members>
+        <members>CheckOppScheduler</members>
+        <members>CheckOppSchedulerTest</members>
         <name>ApexClass</name>
     </types>
     <types>
@@ -21,7 +23,6 @@
     </types>
     <types>
         <members>Basic Sales Profile</members>
-        <members>System Administrator</members>
         <name>Profile</name>
     </types>
     <types>
