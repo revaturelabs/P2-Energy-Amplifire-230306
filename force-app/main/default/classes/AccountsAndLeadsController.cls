@@ -107,7 +107,7 @@ public with sharing class AccountsAndLeadsController {
     }
     
     public PageReference OpportunitiesPage(){
-        PageReference nextPage = Page.AccountsAndLeads;
+        PageReference nextPage = Page.Opportunities;
         return nextPage;
     }
     

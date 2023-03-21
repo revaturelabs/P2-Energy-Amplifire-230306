@@ -16,6 +16,10 @@
         <apexClass>CloseOpportunityTaskMaker</apexClass>
         <enabled>false</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>OpportunitiesPageController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
     <custom>true</custom>
     <fieldPermissions>
         <editable>true</editable>
@@ -245,6 +249,10 @@
     </objectPermissions>
     <pageAccesses>
         <apexPage>AccountsAndLeads</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>Opportunities</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <tabVisibilities>
