@@ -2,30 +2,55 @@
     <apex:stylesheet value="Account" />
     <apex:form >
         <apex:pageBlock >
+            <apex:pageBlockSection columns="1" title="Useful Links" >
+                <apex:outputPanel >
+                    <apex:image style="width:17%; display:block; margin:auto" value="{!$Resource.Logo}" />
+                    <table style="display:flex; justify-content:space-evenly">
+                        <tr>
+                            <td><apex:commandButton action="{!OpportunitiesPage}" value="Opportunities" /></td>
+                            <td><apex:commandButton action="{!ContactsPage}" value="Contacts" /></td>
+                            <td><apex:commandButton action="{!OrdersPage}" value="Orders" /></td>
+                            <td><apex:commandButton action="{!AccountsAndLeadsPage}" value="Accounts And Leads" /></td>
+                            <td><apex:commandButton action="{!WorkOrdersPage}" value="Work Orders" /></td>
+                        </tr>
+                    </table>
+                </apex:outputPanel>
+            </apex:pageBlockSection>
             <apex:pageBlockSection columns="1" title="Accounts">
                 <apex:outputPanel >
-                    <apex:pageBlockTable style="width:100%" id="SearchAccountList" title="Account to Search" value="{!SearchTermAccounts}" var="acct">
-                        <apex:column title="Account Name" headerValue="Search Name">
-                            <apex:inputField value="{!acct.Name}" >
-                                <apex:actionSupport event="onchange" reRender="AccountList" />
-                            </apex:inputField>
-                        </apex:column>
-                        <apex:column title="Phone" headerValue="Search Phone">
-                            <apex:inputField value="{!acct.Phone}" >
-                                <apex:actionSupport event="onchange" reRender="AccountList" />
-                            </apex:inputField>
-                        </apex:column>
-                        <apex:column title="Industry" headerValue="Search Industry">
-                            <apex:inputField value="{!acct.Industry}" >
-                                <apex:actionSupport event="onchange" reRender="AccountList" />
-                            </apex:inputField>
-                        </apex:column>
-                        <apex:column title="Rating" headerValue="Search Rating">
-                            <apex:inputField value="{!acct.Rating}" >
-                                <apex:actionSupport event="onchange" reRender="AccountList" />
-                            </apex:inputField>
-                        </apex:column>
-                    </apex:pageBlockTable>
+                    <table style="width:100%">
+                        <tr>
+                            <th style="width:30.55%">Search for or Create an Account</th>
+                            <th style="width:30%">Phone</th>
+                            <th style="width:26%">Industry</th>
+                            <th>Rating</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <apex:inputText value="{!NameAccountSearchTerm}" style="width:165px">
+                                    <apex:actionSupport event="onchange" reRender="AccountList" />
+                                </apex:inputText>
+                            </td>
+                            <td>
+                                <apex:inputText value="{!PhoneAccountSearchTerm}" >
+                                    <apex:actionSupport event="onchange" reRender="AccountList" />
+                                </apex:inputText>
+                            </td>
+                            <td>
+                                <apex:inputText value="{!IndustryAccountSearchTerm}" style="width:135px">
+                                    <apex:actionSupport event="onchange" reRender="AccountList" />
+                                </apex:inputText>
+                            </td>
+                            <td>
+                                <apex:inputText value="{!RatingAccountSearchTerm}" style="width:70px">
+                                    <apex:actionSupport event="onchange" reRender="AccountList" />
+                                </apex:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                    		<td><apex:commandButton action="{!SaveAccount}" value="Save New Account" /></td>
+                        </tr>
+                    </table>
                     <apex:pageblockTable style="width:100%" id="AccountList" title="List of Accounts" value="{!SearchedAccountList}" var="acc">
                         <apex:inlineEditSupport />
                         <apex:column title="Account Name" headerValue="Account Name">
@@ -41,27 +66,79 @@
                             <apex:inputField value="{!acc.Rating}" />
                         </apex:column>
                     </apex:pageblockTable>
+                    <apex:commandButton action="{!UpdateAccount}" value="Update Accounts" />
                 </apex:outputPanel>
             </apex:pageBlockSection>
             <apex:pageBlockSection columns="1" title="Leads">
-                <apex:inputText value="{!LeadSearchTerm}" >
-                    <apex:actionSupport event="onchange" reRender="LeadList" />
-                </apex:inputText>
-                <apex:pageblocktable style="width:100%" id="LeadList" title="List of Leads" value="{!SearchedLeadList}" var="lead">
-                    <apex:inlineEditSupport />
-                    <apex:column headerClass="Lead Name">
-                        <apex:inputField value="{!lead.Name}" />
-                    </apex:column>
-                    <apex:column headerClass="Company" >
-                        <apex:inputField value="{!lead.Company}" />
-                    </apex:column>
-                    <apex:column headerClass="Email" >
-                        <apex:inputField value="{!lead.Email}" />
-                    </apex:column>
-                    <apex:column headerClass="Phone" >
-                        <apex:inputField value="{!lead.Phone}" />
-                    </apex:column>
-                </apex:pageblocktable>
+                <apex:outputPanel >
+                    <table style="width:100%">
+                        <tr>
+                            <th style="width:12%">Search or Create Lead</th>
+                            <th style="width:20%">Company</th>
+                            <th style="width:20%">Phone</th>
+                            <th style="width:20%">Email</th>
+                            <th style="width:9%">Rating</th>
+                            <th>Status</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <apex:inputText value="{!NameLeadSearchTerm}" style="width:165px">
+                                    <apex:actionSupport event="onchange" reRender="LeadList" />
+                                </apex:inputText>
+                            </td>
+                            <td>
+                                <apex:inputText value="{!CompanyLeadSearchTerm}" style="width:165px">
+                                    <apex:actionSupport event="onchange" reRender="LeadList" />
+                                </apex:inputText>
+                            </td>
+                            <td>
+                                <apex:inputText value="{!PhoneLeadSearchTerm}" style="width:165px">
+                                    <apex:actionSupport event="onchange" reRender="LeadList" />
+                                </apex:inputText>
+                            </td>
+                            <td>
+                                <apex:inputText value="{!EmailLeadSearchTerm}" >
+                                    <apex:actionSupport event="onchange" reRender="LeadList" />
+                                </apex:inputText>
+                            </td>
+                            <td>
+                                <apex:inputText value="{!RatingLeadSearchTerm}" style="width:65px">
+                                    <apex:actionSupport event="onchange" reRender="LeadList" />
+                                </apex:inputText>
+                            </td>
+                            <td>
+                                <apex:inputText value="{!StatusLeadSearchTerm}" style="width:155px">
+                                    <apex:actionSupport event="onchange" reRender="LeadList" />
+                                </apex:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                    		<td><apex:commandButton action="{!SaveLead}" value="Save New Lead" /></td>
+                        </tr>
+                    </table>
+                    <apex:pageblocktable style="width:100%" id="LeadList" title="List of Leads" value="{!SearchedLeadList}" var="lead">
+                        <apex:inlineEditSupport />
+                        <apex:column headerClass="Lead Name">
+                            <apex:inputField value="{!lead.Name}" />
+                        </apex:column>
+                        <apex:column headerClass="Company" >
+                            <apex:inputField value="{!lead.Company}" />
+                        </apex:column>
+                        <apex:column headerClass="Phone" >
+                            <apex:inputField value="{!lead.Phone}" />
+                        </apex:column>
+                        <apex:column headerClass="Email" >
+                            <apex:inputField value="{!lead.Email}" />
+                        </apex:column>
+                        <apex:column headerClass="Rating">
+                            <apex:inputField value="{!lead.Rating}" />
+                        </apex:column>
+                        <apex:column headerClass="Status">
+                            <apex:inputField value="{!lead.Status}" />
+                        </apex:column>
+                    </apex:pageblocktable>
+                     <apex:commandButton action="{!UpdateLead}" value="Update Leads" />
+                </apex:outputPanel>
             </apex:pageBlockSection>
         </apex:pageBlock>
     </apex:form>
