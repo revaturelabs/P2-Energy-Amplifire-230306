@@ -15,8 +15,9 @@ public with sharing class AccountsAndLeadsController {
     public String RatingLeadSearchTerm { get; set; }
     public String StatusLeadSearchTerm { get; set; }
     
-    public List<Account> SearchedAccountList { get{
-        List<Account> temp = new List<Account>();
+    public List<cAccount> cAccountList { get; set; }
+    public List<cAccount> SearchedAccountList { get{
+        List<cAccount> temp = new List<cAccount>();
         for(Account acc : AccountList){
             String AcctPhone = '';
             String AcctIndustry = '';
@@ -35,18 +36,19 @@ public with sharing class AccountsAndLeadsController {
                 if(AcctPhone.containsIgnoreCase(PhoneAccountSearchTerm)){
                     if(AcctIndustry.containsIgnoreCase(IndustryAccountSearchTerm)){
                         if(AcctRating.ContainsIgnoreCase(RatingAccountSearchTerm)){
-                            temp.add(acc);
+                            temp.add(new cAccount(acc));
                         }
                     }
                 }
             }
         }
+        cAccountList = temp;
         return temp;
     }}
     
-    public String LeadSearchTerm { get; set; }
-    public List<Lead> SearchedLeadList { get{
-        List<Lead> temp = new List<Lead>();
+    public List<cLead> cLeadList { get; set; }
+    public List<cLead> SearchedLeadList { get{
+        List<cLead> temp = new List<cLead>();
         for(Lead Le : LeadList){
             String LeadPhone = '';
             String LeadCompany = '';
@@ -75,7 +77,7 @@ public with sharing class AccountsAndLeadsController {
                         if(LeadEmail.containsIgnoreCase(EmailLeadSearchTerm)){
                             if(LeadRating.ContainsIgnoreCase(RatingLeadSearchTerm)){
                                 if(LeadStatus.ContainsIgnoreCase(StatusLeadSearchTerm)){
-                                   temp.add(le);
+                                    temp.add(new cLead(le));
                                 }
                             }
                         }
@@ -83,6 +85,7 @@ public with sharing class AccountsAndLeadsController {
                 }
             }
         }
+        cLeadList = temp;
         return temp;
     }}
     
@@ -94,11 +97,13 @@ public with sharing class AccountsAndLeadsController {
         IndustryAccountSearchTerm = '';
         RatingAccountSearchTerm = '';
         NameLeadSearchTerm = '';
-    	CompanyLeadSearchTerm = '';
-    	PhoneLeadSearchTerm = '';
-    	EmailLeadSearchTerm = '';
-    	RatingLeadSearchTerm = '';
-    	StatusLeadSearchTerm = '';
+        CompanyLeadSearchTerm = '';
+        PhoneLeadSearchTerm = '';
+        EmailLeadSearchTerm = '';
+        RatingLeadSearchTerm = '';
+        StatusLeadSearchTerm = '';
+        cAccountList = new List<cAccount>();
+        cLeadList = new List<cLead>();
     }
     
     public PageReference OpportunitiesPage(){
@@ -126,20 +131,56 @@ public with sharing class AccountsAndLeadsController {
         return nextPage;
     }
     
-    public void SaveAccount(){
+    public PageReference SaveAccount(){
         Account newAccount = new Account(
-        	Name = NameAccountSearchTerm, 
-        	Phone = PhoneAccountSearchTerm,
-        	Industry = IndustryAccountSearchTerm,
-        	Rating = RatingAccountSearchTerm);
+            Name = NameAccountSearchTerm, 
+            Phone = PhoneAccountSearchTerm,
+            Industry = IndustryAccountSearchTerm,
+            Rating = RatingAccountSearchTerm);
         insert newAccount;
+        PageReference nextPage = Page.AccountsAndLeads;
+        AccountList = [SELECT Name, Phone, Industry, Rating FROM Account];
+        NameAccountSearchTerm = '';
+        PhoneAccountSearchTerm = '';
+        IndustryAccountSearchTerm = '';
+        RatingAccountSearchTerm = '';
+        return nextPage;
     }
     
-    public void UpdateAccount(){
+    public PageReference UpdateAccount(){
         update AccountList;
+        PageReference nextPage = Page.AccountsAndLeads;
+        AccountList = [SELECT Name, Phone, Industry, Rating FROM Account];
+        return nextPage;
     }
     
-    public void SaveLead(){
+    public PageReference DeleteAccount(){
+        List<Account> AccountsToDelete = new List<Account>();
+        for(cAccount cAcc : cAccountList){
+            if(cAcc.selected == true){
+                AccountsToDelete.add(cAcc.acc);
+            }
+        }
+        delete AccountsToDelete;
+        PageReference nextPage = Page.AccountsAndLeads;
+        AccountList = [SELECT Name, Phone, Industry, Rating FROM Account];
+        return nextPage;
+    }
+    
+    public PageReference DeleteLead(){
+        List<Lead> LeadsToDelete = new List<Lead>();
+        for(cLead cLe : cLeadList){
+            if(cLe.selected == true){
+                LeadsToDelete.add(cLe.le);
+            }
+        }
+        delete LeadsToDelete;
+        PageReference nextPage = Page.AccountsAndLeads;
+        LeadList = [SELECT Name, Company, Email, Phone, Rating, Status FROM Lead];
+        return nextPage;
+    }
+    
+    public PageReference SaveLead(){
         String LeadsFirstName;
         String LeadsLastName;
         if(NameLeadSearchTerm.contains(' ')){
@@ -153,31 +194,106 @@ public with sharing class AccountsAndLeadsController {
         Lead newLead = new Lead(
             FirstName = LeadsFirstName,
             LastName = LeadsLastName,
-        	Phone = PhoneLeadSearchTerm,
-        	Company = CompanyLeadSearchTerm,
-        	Rating = RatingLeadSearchTerm,
-        	Email = EmailLeadSearchTerm,
-        	Status = StatusLeadSearchTerm);
+            Phone = PhoneLeadSearchTerm,
+            Company = CompanyLeadSearchTerm,
+            Rating = RatingLeadSearchTerm,
+            Email = EmailLeadSearchTerm,
+            Status = StatusLeadSearchTerm);
         insert newLead;
+        PageReference nextPage = Page.AccountsAndLeads;
+        LeadList = [SELECT Name, Company, Email, Phone, Rating, Status FROM Lead];
+        return nextPage;
     }
     
-    public void UpdateLead(){
+    public PageReference UpdateLead(){
         update LeadList;
+        PageReference nextPage = Page.AccountsAndLeads;
+        LeadList = [SELECT Name, Company, Email, Phone, Rating, Status FROM Lead];
+        return nextPage;
     }
     
-    public boolean LeadAccess(){
+    // Object Read/Edit/Delete Access Testing
+    public boolean getLeadAccess(){
         return Schema.sObjectType.Lead.isAccessible();
     }
-    
-    public boolean LeadEditAccess(){
+    public boolean getLeadEditAccess(){
         return Schema.sObjectType.Lead.isUpdateable();
     }
-    
-    public boolean AccountAccess(){
+    public boolean getLeadDeleteAccess(){
+        return Schema.sObjectType.Lead.isDeletable();
+    }
+    public boolean getAccountAccess(){
         return Schema.sObjectType.Account.isAccessible();
     }
-    
-    public boolean AccountEditAccess(){
+    public boolean getAccountEditAccess(){
         return Schema.sObjectType.Account.isUpdateable();
+    }
+    public boolean getAccountDeleteAccess(){
+        return Schema.sObjectType.Account.isDeletable();
+    }
+    public boolean getAccountCreateAccess(){
+        return Schema.sObjectType.Account.isCreateable();
+    }
+    public boolean getLeadCreateAccess(){
+        return Schema.sObjectType.Lead.isCreateable();
+    }
+    
+    // Account Field Access Testing
+    public boolean getAccountNameAccess(){
+        return Schema.sObjectType.Account.Fields.Name.isAccessible();
+    }
+    public boolean getAccountPhoneAccess(){
+        return Schema.sObjectType.Account.Fields.Phone.isAccessible();
+    }
+    public boolean getAccountIndustryAccess(){
+        return Schema.sObjectType.Account.Fields.Industry.isAccessible();
+    }
+    public boolean getAccountRatingAccess(){
+        return Schema.sObjectType.Account.Fields.Rating.isAccessible();
+    }
+    
+    // Lead Field Access Testing
+    public boolean getLeadNameAccess(){
+        return Schema.sObjectType.Lead.Fields.Name.isAccessible();
+    }
+    public boolean getLeadCompanyAccess(){
+        return Schema.sObjectType.Lead.Fields.Company.isAccessible();
+    }
+    public boolean getLeadPhoneAccess(){
+        return Schema.sObjectType.Lead.Fields.Phone.isAccessible();
+    }
+    public boolean getLeadEmailAccess(){
+        return Schema.sObjectType.Lead.Fields.Email.isAccessible();
+    }
+    public boolean getLeadRatingAccess(){
+        return Schema.sObjectType.Lead.Fields.Rating.isAccessible();
+    }
+    public boolean getLeadStatusAccess(){
+        return Schema.sObjectType.Lead.Fields.Status.isAccessible();
+    }
+    
+    // Wrapper Class Definitions
+    public class cAccount
+    {
+        public Account acc {get;set;}
+        public Boolean selected {get;set;}
+        
+        public cAccount(Account a)
+        {
+            acc = a;
+            selected = false;
+        }
+    }
+    
+    public class cLead
+    {
+        public Lead le {get;set;}
+        public Boolean selected {get;set;}
+        
+        public cLead(Lead l)
+        {
+            le = l;
+            selected = false;
+        }
     }
 }
