@@ -16,128 +16,141 @@
                     </table>
                 </apex:outputPanel>
             </apex:pageBlockSection>
-            <apex:pageBlockSection columns="1" title="Accounts">
+            <apex:pageBlockSection rendered="{!AccountAccess}" columns="1" title="Accounts">
                 <apex:outputPanel >
                     <table style="width:100%">
                         <tr>
-                            <th style="width:30.55%">Search for or Create an Account</th>
-                            <th style="width:30%">Phone</th>
-                            <th style="width:26%">Industry</th>
+                            <th style="width:7.5%"> </th>
+                            <th style="width:40.4%">Search for or Create an Account</th>
+                            <th style="width:22.3%">Phone</th>
+                            <th style="width:19.2%">Industry</th>
                             <th>Rating</th>
                         </tr>
                         <tr>
+                            <td></td>
                             <td>
                                 <apex:inputText value="{!NameAccountSearchTerm}" style="width:165px">
-                                    <apex:actionSupport event="onchange" reRender="AccountList" />
                                 </apex:inputText>
                             </td>
                             <td>
                                 <apex:inputText value="{!PhoneAccountSearchTerm}" >
-                                    <apex:actionSupport event="onchange" reRender="AccountList" />
                                 </apex:inputText>
                             </td>
                             <td>
                                 <apex:inputText value="{!IndustryAccountSearchTerm}" style="width:135px">
-                                    <apex:actionSupport event="onchange" reRender="AccountList" />
                                 </apex:inputText>
                             </td>
                             <td>
                                 <apex:inputText value="{!RatingAccountSearchTerm}" style="width:70px">
-                                    <apex:actionSupport event="onchange" reRender="AccountList" />
                                 </apex:inputText>
                             </td>
                         </tr>
                         <tr>
-                    		<td><apex:commandButton action="{!SaveAccount}" value="Save New Account" /></td>
+                            <td></td>
+                            <td><apex:commandButton reRender="AccountList" value="Search Accounts" /></td>
+                            <td><apex:commandButton rendered="{!AccountCreateAccess}" action="{!SaveAccount}" value="Save New Account" /></td>
                         </tr>
                     </table>
-                    <apex:pageblockTable style="width:100%" id="AccountList" title="List of Accounts" value="{!SearchedAccountList}" var="acc">
-                        <apex:inlineEditSupport />
+                    <apex:pageblockTable style="width:100%" id="AccountList" title="List of Accounts" value="{!SearchedAccountList}" var="cAcc">
+                        <apex:inlineEditSupport rendered="{!AccountEditAccess}"/>
+                        <apex:column title="Select" headerValue="Select">
+                            <apex:inputCheckbox rendered="{!AccountDeleteAccess}" value="{!cAcc.selected}" />
+                        </apex:column>
                         <apex:column title="Account Name" headerValue="Account Name">
-                            <apex:inputField value="{!acc.Name}" />
+                            <apex:outputField rendered="{!AccountNameAccess}" value="{!cAcc.acc.Name}" />
                         </apex:column>
                         <apex:column title="Phone" headerValue="Phone">
-                            <apex:inputField value="{!acc.Phone}" />
+                            <apex:outputField rendered="{!AccountPhoneAccess}" value="{!cAcc.acc.Phone}" />
                         </apex:column>
                         <apex:column title="Industry" headerValue="Industry">
-                            <apex:inputField value="{!acc.Industry}" />
+                            <apex:outputField rendered="{!AccountIndustryAccess}" value="{!cAcc.acc.Industry}" />
                         </apex:column>
                         <apex:column title="Rating" headerValue="Rating">
-                            <apex:inputField value="{!acc.Rating}" />
+                            <apex:outputField rendered="{!AccountRatingAccess}" value="{!cAcc.acc.Rating}" />
                         </apex:column>
                     </apex:pageblockTable>
-                    <apex:commandButton action="{!UpdateAccount}" value="Update Accounts" />
+                    <apex:outputPanel style="display:grid; grid-template-columns: 1fr 5fr 1fr 5fr">
+                        <apex:commandButton rendered="{!AccountDeleteAccess}" action="{!DeleteAccount}" value="Delete Accounts" />
+                        <span></span>
+                        <apex:commandButton rendered="{!AccountEditAccess}" action="{!UpdateAccount}" value="Update Accounts" />
+                        <span></span>
+                    </apex:outputPanel>
                 </apex:outputPanel>
             </apex:pageBlockSection>
-            <apex:pageBlockSection columns="1" title="Leads">
+            <apex:pageBlockSection rendered="{!LeadAccess}" columns="1" title="Leads">
                 <apex:outputPanel >
                     <table style="width:100%">
                         <tr>
+                            <th style="width:4%"></th>
                             <th style="width:12%">Search or Create Lead</th>
-                            <th style="width:20%">Company</th>
-                            <th style="width:20%">Phone</th>
-                            <th style="width:20%">Email</th>
-                            <th style="width:9%">Rating</th>
+                            <th style="width:23.3%">Company</th>
+                            <th style="width:12.4%">Phone</th>
+                            <th style="width:26%">Email</th>
+                            <th style="width:6%">Rating</th>
                             <th>Status</th>
                         </tr>
                         <tr>
+                            <td></td>
                             <td>
                                 <apex:inputText value="{!NameLeadSearchTerm}" style="width:165px">
-                                    <apex:actionSupport event="onchange" reRender="LeadList" />
                                 </apex:inputText>
                             </td>
                             <td>
                                 <apex:inputText value="{!CompanyLeadSearchTerm}" style="width:165px">
-                                    <apex:actionSupport event="onchange" reRender="LeadList" />
                                 </apex:inputText>
                             </td>
                             <td>
                                 <apex:inputText value="{!PhoneLeadSearchTerm}" style="width:165px">
-                                    <apex:actionSupport event="onchange" reRender="LeadList" />
                                 </apex:inputText>
                             </td>
                             <td>
                                 <apex:inputText value="{!EmailLeadSearchTerm}" >
-                                    <apex:actionSupport event="onchange" reRender="LeadList" />
                                 </apex:inputText>
                             </td>
                             <td>
                                 <apex:inputText value="{!RatingLeadSearchTerm}" style="width:65px">
-                                    <apex:actionSupport event="onchange" reRender="LeadList" />
                                 </apex:inputText>
                             </td>
                             <td>
                                 <apex:inputText value="{!StatusLeadSearchTerm}" style="width:155px">
-                                    <apex:actionSupport event="onchange" reRender="LeadList" />
                                 </apex:inputText>
                             </td>
                         </tr>
-                        <tr>
-                    		<td><apex:commandButton action="{!SaveLead}" value="Save New Lead" /></td>
+                        <tr><td></td>
+                            <td><apex:commandButton reRender="LeadList" value="Search Leads" /></td>
+                            <td></td>
+                            <td><apex:commandButton rendered="{!LeadCreateAccess}" action="{!SaveLead}" value="Save New Lead" /></td>
                         </tr>
                     </table>
-                    <apex:pageblocktable style="width:100%" id="LeadList" title="List of Leads" value="{!SearchedLeadList}" var="lead">
-                        <apex:inlineEditSupport />
+                    <apex:pageblocktable rendered="{!LeadAccess}" style="width:100%" id="LeadList" title="List of Leads" value="{!SearchedLeadList}" var="cLead">
+                        <apex:inlineEditSupport rendered="{!LeadEditAccess}"/>
+                        <apex:column title="Select" headerValue="Select">
+                            <apex:inputCheckbox rendered="{!LeadDeleteAccess}" value="{!cLead.selected}" />
+                        </apex:column>
                         <apex:column headerClass="Lead Name">
-                            <apex:inputField value="{!lead.Name}" />
+                            <apex:outputField rendered="{!LeadNameAccess}" value="{!cLead.le.Name}" />
                         </apex:column>
                         <apex:column headerClass="Company" >
-                            <apex:inputField value="{!lead.Company}" />
+                            <apex:outputField rendered="{!LeadCompanyAccess}" value="{!cLead.le.Company}" />
                         </apex:column>
                         <apex:column headerClass="Phone" >
-                            <apex:inputField value="{!lead.Phone}" />
+                            <apex:outputField rendered="{!LeadPhoneAccess}" value="{!cLead.le.Phone}" />
                         </apex:column>
                         <apex:column headerClass="Email" >
-                            <apex:inputField value="{!lead.Email}" />
+                            <apex:outputField rendered="{!LeadEmailAccess}" value="{!cLead.le.Email}" />
                         </apex:column>
                         <apex:column headerClass="Rating">
-                            <apex:inputField value="{!lead.Rating}" />
+                            <apex:outputField rendered="{!LeadRatingAccess}" value="{!cLead.le.Rating}" />
                         </apex:column>
                         <apex:column headerClass="Status">
-                            <apex:inputField value="{!lead.Status}" />
+                            <apex:outputField rendered="{!LeadStatusAccess}" value="{!cLead.le.Status}" />
                         </apex:column>
-                    </apex:pageblocktable>
-                     <apex:commandButton action="{!UpdateLead}" value="Update Leads" />
+                    </apex:pageblocktable><apex:outputPanel style="display:grid; grid-template-columns: 1fr 5fr 1fr 5fr">
+                    <apex:commandButton rendered="{!LeadDeleteAccess}" action="{!DeleteLead}" value="Delete Leads" />
+                    <span></span>
+                    <apex:commandButton rendered="{!LeadEditAccess}" action="{!UpdateLead}" value="Update Leads" />
+                    <span></span>
+                    </apex:outputPanel>
                 </apex:outputPanel>
             </apex:pageBlockSection>
         </apex:pageBlock>
