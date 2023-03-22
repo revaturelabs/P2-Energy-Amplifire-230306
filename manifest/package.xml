@@ -16,6 +16,7 @@
         <members>CheckOppScheduler</members>
         <members>CheckOppSchedulerTest</members>
         <members>OpportunitiesPageController</members>
+        <members>Customer_Success_Cascade_Helper</members>
         <name>ApexClass</name>
     </types>
     <types>
@@ -31,4 +32,9 @@
         <members>Sales_Manager</members>
         <name>PermissionSet</name>
     </types>
+    <types>
+        <members>CustomerSuccessCascade</members>
+        <name>ApexTrigger</name>
+    </types>
 </Package>
+
