@@ -5,8 +5,7 @@ public with sharing class AccountsAndLeadsController {
     
     public String NameAccountSearchTerm { get; set; }
     public String PhoneAccountSearchTerm { get; set; }
-    public String IndustryAccountSearchTerm { get; set; }
-    public String RatingAccountSearchTerm { get; set; }
+    public Account EmptyAccount { get; set; }
     
     public String NameLeadSearchTerm { get; set; }
     public String CompanyLeadSearchTerm { get; set; }
@@ -32,10 +31,16 @@ public with sharing class AccountsAndLeadsController {
             if(acc.Rating != NULL){
                 AcctRating = (String)acc.Rating;
             }
+            if(EmptyAccount.Industry == NULL){
+                EmptyAccount.Industry = '';
+            }
+            if(EmptyAccount.Rating == NULL){
+                EmptyAccount.Rating = '';
+            }
             if(AcctName.containsIgnoreCase(NameAccountSearchTerm)){
                 if(AcctPhone.containsIgnoreCase(PhoneAccountSearchTerm)){
-                    if(AcctIndustry.containsIgnoreCase(IndustryAccountSearchTerm)){
-                        if(AcctRating.ContainsIgnoreCase(RatingAccountSearchTerm)){
+                    if(AcctIndustry.containsIgnoreCase(EmptyAccount.Industry)){
+                        if(AcctRating.ContainsIgnoreCase(EmptyAccount.Rating)){
                             temp.add(new cAccount(acc));
                         }
                     }
@@ -94,8 +99,6 @@ public with sharing class AccountsAndLeadsController {
         AccountList = [SELECT Name, Phone, Industry, Rating FROM Account];
         NameAccountSearchTerm = '';
         PhoneAccountSearchTerm = '';
-        IndustryAccountSearchTerm = '';
-        RatingAccountSearchTerm = '';
         NameLeadSearchTerm = '';
         CompanyLeadSearchTerm = '';
         PhoneLeadSearchTerm = '';
@@ -104,6 +107,11 @@ public with sharing class AccountsAndLeadsController {
         StatusLeadSearchTerm = '';
         cAccountList = new List<cAccount>();
         cLeadList = new List<cLead>();
+        EmptyAccount = new Account(
+        	Name = '',
+            Phone = '',
+        	Industry = '',
+        	Rating = '');
     }
     
     public PageReference OpportunitiesPage(){
@@ -135,17 +143,16 @@ public with sharing class AccountsAndLeadsController {
         Account newAccount = new Account(
             Name = NameAccountSearchTerm, 
             Phone = PhoneAccountSearchTerm,
-            Industry = IndustryAccountSearchTerm,
-            Rating = RatingAccountSearchTerm);
+            Industry = EmptyAccount.Industry,
+            Rating = EmptyAccount.Rating);
         insert newAccount;
-        PageReference nextPage = Page.AccountsAndLeads;
         AccountList = [SELECT Name, Phone, Industry, Rating FROM Account];
         NameAccountSearchTerm = '';
         PhoneAccountSearchTerm = '';
-        IndustryAccountSearchTerm = '';
-        RatingAccountSearchTerm = '';
+        EmptyAccount = new Account();
+        PageReference nextPage = Page.AccountsAndLeads;
         return nextPage;
-    }
+    	}
     
     public PageReference UpdateAccount(){
         update AccountList;
