@@ -37,5 +37,9 @@
         <members>CustomerSuccessCascade</members>
         <name>ApexTrigger</name>
     </types>
+    <types>
+        <members>Logo</members>
+        <name>StaticResource</name>
+    </types>
 </Package>
 
