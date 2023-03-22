@@ -8,6 +8,7 @@
     </types>
     <types>
         <members>Account-Account %28Sales%29 Layout</members>
+        <members>Order-Order Layout</members>
         <name>Layout</name>
     </types>
     <types>
@@ -17,6 +18,7 @@
         <members>CheckOppSchedulerTest</members>
         <members>OpportunitiesPageController</members>
         <members>Customer_Success_Cascade_Helper</members>
+        <members>OrderItemTriggerHelper</members>
         <name>ApexClass</name>
     </types>
     <types>
@@ -35,7 +37,15 @@
     </types>
     <types>
         <members>CustomerSuccessCascade</members>
+        <members>OrderItemTrigger</members>
         <name>ApexTrigger</name>
     </types>
+    <types>
+        <members>Order.Order_Update_Approval</members>
+        <name>ApprovalProcess</name>
+    </types>
+    <types>
+        <members>Order_Update_Approval</members>
+        <name>Flow</name>
+    </types>
 </Package>
-
