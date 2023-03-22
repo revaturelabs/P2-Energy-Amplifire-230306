@@ -44,5 +44,13 @@
         <members>Logo</members>
         <name>StaticResource</name>
     </types>
+    <types>
+        <members>Order.Order_Update_Approval</members>
+        <name>ApprovalProcess</name>
+    </types>
+    <types>
+        <members>Order_Update_Approval</members>
+        <name>Flow</name>
+    </types>
 </Package>
 
