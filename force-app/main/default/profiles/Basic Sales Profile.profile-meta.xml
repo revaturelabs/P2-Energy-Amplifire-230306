@@ -17,6 +17,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>Customer_Success_Cascade_Helper</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>OpportunitiesPageController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -207,9 +211,19 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Available_Zip_Code__c.Zip_Code__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Customer_Success_Story__c.Products__c</field>
         <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Customer_Success_Story__c.Rank__c</field>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -225,6 +239,11 @@
         <editable>true</editable>
         <field>Work_Order__c.Order__c</field>
         <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Work_Order__c.Zip_Code__c</field>
+        <readable>false</readable>
     </fieldPermissions>
     <layoutAssignments>
         <layout>Account-Account %28Sales%29 Layout</layout>
