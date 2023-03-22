@@ -8,11 +8,25 @@
     </types>
     <types>
         <members>Account-Account %28Sales%29 Layout</members>
+        <members>Order-Order Layout</members>
         <name>Layout</name>
     </types>
     <types>
         <members>CloseOpportunityTaskMaker</members>
+        <members>OrderItemTriggerHelper</members>
         <name>ApexClass</name>
+    </types>
+    <types>
+        <members>OrderItemTrigger</members>
+        <name>ApexTrigger</name>
+    </types>
+    <types>
+        <members>Order.Order_Update_Approval</members>
+        <name>ApprovalProcess</name>
+    </types>
+    <types>
+        <members>Order_Update_Approval</members>
+        <name>Flow</name>
     </types>
     <types>
         <members>Basic Sales Profile</members>
