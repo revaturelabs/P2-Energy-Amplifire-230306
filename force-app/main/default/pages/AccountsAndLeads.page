@@ -2,6 +2,7 @@
     <apex:stylesheet value="Account" />
     <apex:form >
         <apex:pageBlock >
+            <apex:pageMessages />
             <apex:pageBlockSection columns="1" title="Useful Links" >
                 <apex:outputPanel >
                     <apex:image style="width:17%; display:block; margin:auto" value="{!$Resource.Logo}" />
@@ -37,12 +38,12 @@
                                 </apex:inputText>
                             </td>
                             <td>
-                                <apex:inputText value="{!IndustryAccountSearchTerm}" style="width:135px">
-                                </apex:inputText>
+                                <apex:inputField value="{!EmptyAccount.Industry}" style="width:135px">
+                                </apex:inputField>
                             </td>
                             <td>
-                                <apex:inputText value="{!RatingAccountSearchTerm}" style="width:70px">
-                                </apex:inputText>
+                                <apex:inputField value="{!EmptyAccount.Rating}" style="width:70px">
+                                </apex:inputField>
                             </td>
                         </tr>
                         <tr>
