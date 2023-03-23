@@ -77,16 +77,20 @@ public with sharing class OpportunitiesPageController {
     
     // Save, Edit, and Delete functions
     public PageReference SaveOpportunity(){
+        List<Account> RelatedAcc = [SELECT Id FROM Account WHERE Name LIKE :AccountOpportunitySearchTerm LIMIT 1];
+        id RelatedAccId = RelatedAcc[0].Id;
         Opportunity newOpportunity = new Opportunity(
             Name = NameOpportunitySearchTerm,
-            Account = [SELECT Name FROM Account WHERE Name = :AccountOpportunitySearchTerm],
-            StageName = StageOpportunitySearchTerm);
+            AccountId = RelatedAccId,
+            StageName = StageOpportunitySearchTerm,
+        	CloseDate = Date.parse(CloseDateOpportunitySearchTerm));
         insert newOpportunity;
         PageReference nextPage = Page.Opportunities;
         OpportunityList = [SELECT Name, Account.Name, StageName, CloseDate FROM Opportunity];
         NameOpportunitySearchTerm = '';
         AccountOpportunitySearchTerm = '';
         StageOpportunitySearchTerm = '';
+        CloseDateOpportunitySearchTerm = '';
         return nextPage;
     }
     
@@ -129,12 +133,8 @@ public with sharing class OpportunitiesPageController {
         return Schema.sObjectType.Opportunity.Fields.Name.isAccessible();
     }
     public boolean getOppAccountAccess(){
-        if(Schema.sObjectType.Opportunity.Fields.AccountId.isAccessible() && Schema.sObjectType.Account.Fields.Name.isAccessible()){
-            return true;
-        }
-        else{
-            return false;
-        }
+        boolean oppAccountAccess = Schema.sObjectType.Opportunity.Fields.AccountId.isAccessible() && Schema.sObjectType.Account.Fields.Name.isAccessible();
+        return oppAccountAccess;
     }
     public boolean getOppStageAccess(){
         return Schema.sObjectType.Opportunity.Fields.StageName.isAccessible();
@@ -148,12 +148,9 @@ public with sharing class OpportunitiesPageController {
         public Opportunity opp { get; set; }
         public Boolean selected { get; set; }
         
-        public cOpportunity(Opportunity o)
-        {
+        public cOpportunity(Opportunity o){
             opp = o;
             selected = false;
         }
     }
-    
-    
 }

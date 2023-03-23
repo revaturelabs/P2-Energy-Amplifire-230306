@@ -14,10 +14,13 @@
     </types>
     <types>
         <members>CloseOpportunityTaskMaker</members>
+        <members>CloseOpportunityTaskMakerTest</members>
         <members>AccountsAndLeadsController</members>
+        <members>AccountsAndLeadsControllerTest</members>
         <members>CheckOppScheduler</members>
         <members>CheckOppSchedulerTest</members>
         <members>OpportunitiesPageController</members>
+        <members>OpportunitiesPageControllerTest</members>
         <members>Customer_Success_Cascade_Helper</members>
         <members>OrderItemTriggerHelper</members>
         <name>ApexClass</name>
@@ -29,7 +32,7 @@
     </types>
     <types>
         <members>Basic Sales Profile</members>
-        <members>System Administrator Clone</members>
+        <members>Admin</members>
         <name>Profile</name>
     </types>
     <types>
