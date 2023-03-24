@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Office_Infrastructure</fullName>
+    <active>true</active>
+    <label>Office Infrastructure</label>
+    <picklistValues>
+        <picklist>Family</picklist>
+        <values>
+            <fullName>Backup Server</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chair</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Computer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Desk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ethernet Cable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Main Server</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Norton 360</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Printer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Projector</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Windows 11</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>QuantityUnitOfMeasure</picklist>
+        <values>
+            <fullName>Each</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+</RecordType>
