@@ -42,6 +42,7 @@
     <types>
         <members>CustomerSuccessCascade</members>
         <members>OrderItemTrigger</members>
+        <members>ContactRelatedAccounts</members>
         <name>ApexTrigger</name>
     </types>
     <types>
