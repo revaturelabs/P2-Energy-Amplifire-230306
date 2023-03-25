@@ -10,6 +10,8 @@
     <types>
         <members>Account-Account %28Sales%29 Layout</members>
         <members>Order-Order Layout</members>
+        <members>Product2-Infrastructure Layout</members>
+        <members>Product2-Office Supplies</members>
         <name>Layout</name>
     </types>
     <types>
@@ -59,4 +61,5 @@
         <name>Flow</name>
     </types>
 </Package>
+
 

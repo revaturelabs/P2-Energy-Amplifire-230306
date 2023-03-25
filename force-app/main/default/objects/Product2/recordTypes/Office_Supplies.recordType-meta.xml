@@ -4,6 +4,13 @@
     <active>true</active>
     <label>Office Supplies</label>
     <picklistValues>
+        <picklist>Family</picklist>
+        <values>
+            <fullName>None</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>QuantityUnitOfMeasure</picklist>
         <values>
             <fullName>Each</fullName>
