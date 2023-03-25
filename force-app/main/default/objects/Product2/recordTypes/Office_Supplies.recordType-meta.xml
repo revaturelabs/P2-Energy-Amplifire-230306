@@ -4,45 +4,6 @@
     <active>true</active>
     <label>Office Supplies</label>
     <picklistValues>
-        <picklist>Family</picklist>
-        <values>
-            <fullName>Ink%2FToner</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Marker</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>None</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Notepad</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Paper Clip</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Pen</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Pencil</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Stapler</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Sticky Note</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>QuantityUnitOfMeasure</picklist>
         <values>
             <fullName>Each</fullName>
