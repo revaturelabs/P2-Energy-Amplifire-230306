@@ -10,8 +10,8 @@
                         <tr>
                             <td><apex:commandButton action="{!OpportunitiesPage}" value="Opportunities" /></td>
                             <td><apex:commandButton action="{!ContactsPage}" value="Contacts" /></td>
-                            <td><apex:commandButton action="{!OrdersPage}" value="Orders" /></td>
-                            <td><apex:commandButton action="{!AccountsAndLeadsPage}" value="Accounts And Leads" /></td>
+                            <td><apex:commandButton action="{!OrdersPage}" value="Orders and Products" /></td>
+                            <td><apex:commandButton action="{!AccountsAndLeadsPage}" value="Accounts and Leads" /></td>
                             <td><apex:commandButton action="{!WorkOrdersPage}" value="Work Orders" /></td>
                         </tr>
                     </table>

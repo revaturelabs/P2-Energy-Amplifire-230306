@@ -9,14 +9,14 @@
                         <tr>
                             <td><apex:commandButton action="{!OpportunitiesPage}" value="Opportunities" /></td>
                             <td><apex:commandButton action="{!ContactsPage}" value="Contacts" /></td>
-                            <td><apex:commandButton action="{!OrdersPage}" value="Orders" /></td>
-                            <td><apex:commandButton action="{!AccountsAndLeadsPage}" value="Accounts And Leads" /></td>
+                            <td><apex:commandButton action="{!OrdersPage}" value="Orders and Products" /></td>
+                            <td><apex:commandButton action="{!AccountsAndLeadsPage}" value="Accounts and Leads" /></td>
                             <td><apex:commandButton action="{!WorkOrdersPage}" value="Work Orders" /></td>
                         </tr>
                     </table>
                 </apex:outputPanel>
             </apex:pageBlockSection>
-            <apex:pageBlockSection rendered="{!OppAccess}" columns="1" title="Accounts">
+            <apex:pageBlockSection rendered="{!OppAccess}" columns="1" title="Opportunities">
                 <apex:outputPanel >
                     <table style="width:100%">
                         <tr>
