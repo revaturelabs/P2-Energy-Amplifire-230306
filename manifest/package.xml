@@ -23,6 +23,7 @@
         <members>OpportunitiesPageControllerTest</members>
         <members>Customer_Success_Cascade_Helper</members>
         <members>OrderItemTriggerHelper</members>
+        <members>NewWork</members>
         <name>ApexClass</name>
     </types>
     <types>
