@@ -14,12 +14,16 @@
     </types>
     <types>
         <members>CloseOpportunityTaskMaker</members>
+        <members>CloseOpportunityTaskMakerTest</members>
         <members>AccountsAndLeadsController</members>
+        <members>AccountsAndLeadsControllerTest</members>
         <members>CheckOppScheduler</members>
         <members>CheckOppSchedulerTest</members>
         <members>OpportunitiesPageController</members>
+        <members>OpportunitiesPageControllerTest</members>
         <members>Customer_Success_Cascade_Helper</members>
         <members>OrderItemTriggerHelper</members>
+        <members>NewWork</members>
         <name>ApexClass</name>
     </types>
     <types>
@@ -39,6 +43,7 @@
     <types>
         <members>CustomerSuccessCascade</members>
         <members>OrderItemTrigger</members>
+        <members>ContactRelatedAccounts</members>
         <name>ApexTrigger</name>
     </types>
     <types>

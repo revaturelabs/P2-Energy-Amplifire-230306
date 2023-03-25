@@ -108,10 +108,10 @@ public with sharing class AccountsAndLeadsController {
         cAccountList = new List<cAccount>();
         cLeadList = new List<cLead>();
         EmptyAccount = new Account(
-        	Name = '',
+            Name = '',
             Phone = '',
-        	Industry = '',
-        	Rating = '');
+            Industry = '',
+            Rating = '');
     }
     
     public PageReference OpportunitiesPage(){
@@ -152,7 +152,7 @@ public with sharing class AccountsAndLeadsController {
         EmptyAccount = new Account();
         PageReference nextPage = Page.AccountsAndLeads;
         return nextPage;
-    	}
+        }
     
     public PageReference UpdateAccount(){
         update AccountList;
