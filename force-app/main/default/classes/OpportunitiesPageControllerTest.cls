@@ -50,13 +50,13 @@ public class OpportunitiesPageControllerTest {
         Test.setCurrentPage(Page.Opportunities);
         Test.setCurrentPageReference(OPC.ContactsPage());
         
-        System.assertEquals(Page.AccountsAndLeads.getUrl(), ApexPages.currentPage().getUrl());
+        System.assertEquals(Page.ContactsAndTechs.getUrl(), ApexPages.currentPage().getUrl());
         
         //Test Orders Page Link
         Test.setCurrentPage(Page.Opportunities);
         Test.setCurrentPageReference(OPC.OrdersPage());
         
-        System.assertEquals(Page.AccountsAndLeads.getUrl(), ApexPages.currentPage().getUrl());
+        System.assertEquals(Page.OrdersWithProducts.getUrl(), ApexPages.currentPage().getUrl());
         
         //Test Accounts And Leads Page Link
         Test.setCurrentPage(Page.Opportunities);
@@ -135,7 +135,7 @@ public class OpportunitiesPageControllerTest {
         User devonDemo = [
      		SELECT Name
       		FROM User
-      		WHERE Profile.Name = 'Custom: Marketing Profile'
+      		WHERE Profile.Name = 'Basic Sales Profile'
       		LIMIT 1
     		];
         System.runAs(devonDemo){

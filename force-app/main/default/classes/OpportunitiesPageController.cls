@@ -55,7 +55,7 @@ public with sharing class OpportunitiesPageController {
     }
     
     public PageReference ContactsPage(){
-        PageReference nextPage = Page.AccountsAndLeads;
+        PageReference nextPage = Page.ContactsAndTechs;
         return nextPage;
     }
     
