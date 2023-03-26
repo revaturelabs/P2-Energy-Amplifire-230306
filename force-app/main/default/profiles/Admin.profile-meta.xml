@@ -25,6 +25,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>ContactsAndTechsController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>Customer_Success_Cascade_Helper</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -418,6 +422,10 @@
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>ContactsAndTechs</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>Opportunities</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
@@ -427,7 +435,6 @@
     </pageAccesses>
     <recordTypeVisibilities>
         <default>true</default>
-        <personAccountDefault>true</personAccountDefault>
         <recordType>Product2.Office_Infrastructure</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>

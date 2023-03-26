@@ -29,12 +29,14 @@
         <members>NewWork</members>
         <members>OrderswithProductsController</members>
         <members>OrderswithProductsControllerTest</members>
+        <members>ContactsAndTechsController</members>
         <name>ApexClass</name>
     </types>
     <types>
         <members>AccountsAndLeads</members>
         <members>Opportunities</members>
         <members>OrderswithProducts</members>
+        <members>ContactsAndTechs</members>
         <name>ApexPage</name>
     </types>
     <types>

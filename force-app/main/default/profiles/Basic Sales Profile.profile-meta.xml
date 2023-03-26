@@ -25,6 +25,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>ContactsAndTechsController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>Customer_Success_Cascade_Helper</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -400,6 +404,10 @@
     </objectPermissions>
     <pageAccesses>
         <apexPage>AccountsAndLeads</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>ContactsAndTechs</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
