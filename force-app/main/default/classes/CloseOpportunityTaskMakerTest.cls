@@ -6,10 +6,11 @@ public class CloseOpportunityTaskMakerTest {
         CloseOpportunityTaskMaker tester = new CloseOpportunityTaskMaker();
         Date StartDate = Date.today();
         List<user> devonDemo = [SELECT Name FROM User LIMIT 1];
+        List<Account> TestAccount = [SELECT Name FROM Account LIMIT 1];
         Opportunity opp = new Opportunity();
         	opp.OwnerId = devonDemo[0].Id;
         	opp.Name = 'Dancing Bears';
-            opp.AccountId = '0018b00002Mf4joAAB';
+            opp.AccountId = TestAccount[0].Id;
             opp.StageName = 'Perception Analysis';
             opp.CloseDate = StartDate.addDays(7);
         insert opp;
