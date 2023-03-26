@@ -1,0 +1,144 @@
+<apex:page controller="ContactsAndTechsController">
+    <apex:stylesheet value="Account" />
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockSection columns="1" title="Useful Links" >
+                <apex:outputPanel >
+                    <apex:image style="width:17%; display:block; margin:auto" value="{!$Resource.Logo}" />
+                    <table style="display:flex; justify-content:space-evenly">
+                        <tr>
+                            <td><apex:commandButton action="{!OpportunitiesPage}" value="Opportunities" /></td>
+                            <td><apex:commandButton action="{!ContactsPage}" value="Contacts" /></td>
+                            <td><apex:commandButton action="{!OrdersPage}" value="Orders" /></td>
+                            <td><apex:commandButton action="{!AccountsAndLeadsPage}" value="Accounts And Leads" /></td>
+                            <td><apex:commandButton action="{!WorkOrdersPage}" value="Work Orders" /></td>
+                        </tr>
+                    </table>
+                </apex:outputPanel>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="1" title="Customers">
+                <apex:outputPanel >
+                    <table style="width:100%">
+                        <tr>
+                            <th style="width:5%"> </th>
+                            <th style="width:20%">Search for or Create a Customer</th>
+                            <th style="width:15%">Phone</th>
+                            <th style="width:20%">Email</th>
+                            <th>Account</th>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <apex:inputText value="{!NameCustSearchTerm}" style="width:165px">
+                                </apex:inputText>
+                            </td>
+                            <td>
+                                <apex:inputText value="{!PhoneCustSearchTerm}" >
+                                </apex:inputText>
+                            </td>
+                            <td>
+                                <apex:inputText value="{!EmailCustSearchTerm}" style="width:135px">
+                                </apex:inputText>
+                            </td>
+                            <td>
+                                <apex:inputText value="{!AccountCustSearchTerm}" style="width:200px">
+                                </apex:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><apex:commandButton reRender="CustomerList" value="Search Customers" /></td>
+                            <td><apex:commandButton action="{!SaveCustomers}" value="Save New Customer" /></td>
+                        </tr>
+                    </table>
+                    <apex:pageblockTable style="width:100%" id="CustomerList" title="List of Customers" value="{!SearchedCustList}" var="cCust">
+                        <apex:inlineEditSupport />
+                        <apex:column style="width:5%" title="Select" headerValue="Select">
+                            <apex:inputCheckbox value="{!cCust.selected}" />
+                        </apex:column>
+                        <apex:column style="width:20%" title="Customer Name" headerValue="Customer Name">
+                            <apex:outputField value="{!cCust.con.Name}" />
+                        </apex:column>
+                        <apex:column style="width:15%" title="Phone" headerValue="Phone">
+                            <apex:outputField value="{!cCust.con.MobilePhone}" />
+                        </apex:column>
+                        <apex:column style="width:20%" title="Email" headerValue="Email">
+                            <apex:outputField value="{!cCust.con.Email}" />
+                        </apex:column>
+                        <apex:column title="Account" headerValue="Account">
+                            <apex:outputField value="{!cCust.con.Account.Name}" />
+                        </apex:column>
+                    </apex:pageblockTable>
+                    <apex:outputPanel style="display:grid; grid-template-columns: 1fr 5fr 1fr 5fr">
+                        <apex:commandButton action="{!DeleteCustomers}" value="Delete Customers" />
+                        <span></span>
+                        <apex:commandButton action="{!UpdateCustomers}" value="Update Customers" />
+                        <span></span>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection rendered="{!TechnicianAccess}" columns="1" title="Technicians">
+                <apex:outputPanel >
+                    <table style="width:100%">
+                        <tr>
+                            <th style="width:5%"> </th>
+                            <th style="width:20%">Search for or Create a Technician</th>
+                            <th style="width:15%">Phone</th>
+                            <th style="width:20%">Email</th>
+                            <th>Account</th>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <apex:inputText value="{!NameTechSearchTerm}" style="width:165px">
+                                </apex:inputText>
+                            </td>
+                            <td>
+                                <apex:inputText value="{!PhoneTechSearchTerm}" >
+                                </apex:inputText>
+                            </td>
+                            <td>
+                                <apex:inputText value="{!EmailTechSearchTerm}" style="width:135px">
+                                </apex:inputText>
+                            </td>
+                            <td>
+                                <apex:inputText value="{!AccountTechSearchTerm}" style="width:200px">
+                                </apex:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><apex:commandButton reRender="TechnicianList" value="Search Technicians" /></td>
+                            <td></td>
+                            <td><apex:commandButton action="{!SaveTechnicians}" value="Save New Technician" /></td>
+                        </tr>
+                    </table>
+                    <apex:pageblockTable style="width:100%" id="TechnicianList" title="List of Customers" value="{!SearchedTechList}" var="cTech">
+                        <apex:inlineEditSupport />
+                        <apex:column style="width:5%" title="Select" headerValue="Select">
+                            <apex:inputCheckbox value="{!cTech.selected}" />
+                        </apex:column>
+                        <apex:column style="width:20%" title="Customer Name" headerValue="Technician Name">
+                            <apex:outputField value="{!cTech.con.Name}" />
+                        </apex:column>
+                        <apex:column style="width:15%" title="Phone" headerValue="Phone">
+                            <apex:outputField value="{!cTech.con.MobilePhone}" />
+                        </apex:column>
+                        <apex:column style="width:20%" title="Email" headerValue="Email">
+                            <apex:outputField value="{!cTech.con.Email}" />
+                        </apex:column>
+                        <apex:column title="Account" headerValue="Account">
+                            <apex:outputField value="{!cTech.con.Account.Name}" />
+                        </apex:column>
+                    </apex:pageblockTable>
+                    <apex:outputPanel style="display:grid; grid-template-columns: 1fr 5fr 1fr 5fr">
+                        <apex:commandButton action="{!DeleteTechnicians}" value="Delete Technicians" />
+                        <span></span>
+                        <apex:commandButton action="{!UpdateTechnicians}" value="Update Technicians" />
+                        <span></span>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
