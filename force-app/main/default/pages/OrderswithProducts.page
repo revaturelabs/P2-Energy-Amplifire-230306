@@ -1,0 +1,35 @@
+<apex:page controller="OrderswithProductsController">
+    <apex:stylesheet value="Order" />
+    <style type="text/css">
+        p { font-weight: bold; font-size: 1rem; text-align: center; display: flex; justify-content: space-evenly;}
+        .list {display:flex; justify-content: space-evenly;}
+    </style>
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageMessages />
+            <apex:pageBlockSection columns="1" title="Useful Links" >
+                <apex:outputPanel >
+                    <apex:image style="width:17%; display:block; margin:auto" value="{!$Resource.Logo}" />
+                    <table style="display:flex; justify-content:space-evenly">
+                        <tr>
+                            <td><apex:commandButton action="{!OpportunitiesPage}" value="Opportunities" /></td>
+                            <td><apex:commandButton action="{!ContactsPage}" value="Contacts" /></td>
+                            <td><apex:commandButton action="{!OrdersPage}" value="Orders and Products" /></td>
+                            <td><apex:commandButton action="{!AccountsAndLeadsPage}" value="Accounts and Leads" /></td>
+                            <td><apex:commandButton action="{!WorkOrdersPage}" value="Work Orders" /></td>
+                        </tr>
+                    </table>
+                </apex:outputPanel>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Orders" columns="1">
+                <p>Select an Order</p>
+                <div><apex:selectList value="{!orderId}" multiselect="false" size="1" styleClass="list">
+                    <apex:actionSupport event="onchange"/>
+                    <apex:selectOptions value="{!orderOptions}"/>
+                </apex:selectList></div>
+                <div><apex:detail subject="{!orderId}" inlineEdit="true"/></div>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
