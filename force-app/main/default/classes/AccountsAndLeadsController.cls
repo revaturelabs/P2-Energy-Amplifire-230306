@@ -120,7 +120,7 @@ public with sharing class AccountsAndLeadsController {
     }
     
     public PageReference ContactsPage(){
-        PageReference nextPage = Page.AccountsAndLeads;
+        PageReference nextPage = Page.ContactsAndTechs;
         return nextPage;
     }
     

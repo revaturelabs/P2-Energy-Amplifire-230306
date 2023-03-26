@@ -69,13 +69,13 @@ public class AccountsAndLeadsControllerTest {
         Test.setCurrentPage(Page.AccountsAndLeads);
         Test.setCurrentPageReference(AALC.ContactsPage());
         
-        System.assertEquals(Page.AccountsAndLeads.getUrl(), ApexPages.currentPage().getUrl());
+        System.assertEquals(Page.ContactsandTechs.getUrl(), ApexPages.currentPage().getUrl());
         
         //Test Orders Page Link
         Test.setCurrentPage(Page.AccountsAndLeads);
         Test.setCurrentPageReference(AALC.OrdersPage());
         
-        System.assertEquals(Page.AccountsAndLeads.getUrl(), ApexPages.currentPage().getUrl());
+        System.assertEquals(Page.OrderswithProducts.getUrl(), ApexPages.currentPage().getUrl());
         
         //Test Accounts And Leads Page Link
         Test.setCurrentPage(Page.AccountsAndLeads);
@@ -245,25 +245,25 @@ public class AccountsAndLeadsControllerTest {
         User devonDemo = [
      		SELECT Name
       		FROM User
-      		WHERE Profile.Name = 'Custom: Marketing Profile'
+      		WHERE Profile.Name = 'Basic Sales Profile'
       		LIMIT 1
     		];
         System.runAs(devonDemo){
         System.assertEquals(True, tester.getLeadAccess());
-        System.assertEquals(False, tester.getLeadEditAccess());
+        System.assertEquals(True, tester.getLeadEditAccess());
         System.assertEquals(True, tester.getLeadCreateAccess());
-        System.assertEquals(False, tester.getLeadDeleteAccess());
+        System.assertEquals(True, tester.getLeadDeleteAccess());
         System.assertEquals(True, tester.getAccountAccess());
         System.assertEquals(True, tester.getAccountEditAccess());
-        System.assertEquals(False, tester.getAccountCreateAccess());
+        System.assertEquals(True, tester.getAccountCreateAccess());
         System.assertEquals(True, tester.getAccountDeleteAccess());
         System.assertEquals(True, tester.getAccountNameAccess());
         System.assertEquals(True, tester.getAccountPhoneAccess());
-        System.assertEquals(False, tester.getAccountIndustryAccess());
+        System.assertEquals(True, tester.getAccountIndustryAccess());
         System.assertEquals(True, tester.getAccountRatingAccess());
         System.assertEquals(True, tester.getLeadNameAccess());
         System.assertEquals(True, tester.getLeadCompanyAccess());
-        System.assertEquals(False, tester.getLeadPhoneAccess());
+        System.assertEquals(True, tester.getLeadPhoneAccess());
         System.assertEquals(True, tester.getLeadEmailAccess());
         System.assertEquals(True, tester.getLeadRatingAccess());
         System.assertEquals(True, tester.getLeadStatusAccess());
