@@ -264,6 +264,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Product2.Attendant_Software__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Product2.Contact__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -363,7 +368,7 @@
         <recordType>Product2.Office_Infrastructure</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Product2-Office Supplies</layout>
+        <layout>Product2-Office Supplies Layout</layout>
         <recordType>Product2.Office_Supplies</recordType>
     </layoutAssignments>
     <objectPermissions>
