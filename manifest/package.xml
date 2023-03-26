@@ -25,6 +25,7 @@
         <members>OpportunitiesPageController</members>
         <members>OpportunitiesPageControllerTest</members>
         <members>Customer_Success_Cascade_Helper</members>
+        <members>CustomerSuccessCascadeTest</members>
         <members>OrderItemTriggerHelper</members>
         <members>OrderItemTriggerHelperTest</members>
         <members>NewWork</members>
