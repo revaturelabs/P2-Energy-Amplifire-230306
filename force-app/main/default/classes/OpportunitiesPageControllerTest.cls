@@ -77,9 +77,10 @@ public class OpportunitiesPageControllerTest {
         test.startTest();
         OpportunitiesPageController tester = new OpportunitiesPageController();
         tester.NameOpportunitySearchTerm = 'Dancing Bears Eat More Cheese';
-        tester.AccountOpportunitySearchTerm = 'Edge Communications';
+        tester.AccountOpportunitySearchTerm = 'TestAccount';
         tester.StageOpportunitySearchTerm = 'Closed Won';
         tester.CloseDateOpportunitySearchTerm = '8/21/2025';
+        Account TestAccount = [SELECT Name FROM Account];
         
         Try{
             List<Opportunity> TestNoOpportunity = [SELECT Name FROM Opportunity WHERE Name = 'Dancing Bears Eat More Cheese'];
@@ -92,7 +93,7 @@ public class OpportunitiesPageControllerTest {
         Opportunity NewOpportunity = [SELECT Name, AccountId, StageName, CloseDate FROM Opportunity WHERE Name = 'Dancing Bears Eat More Cheese'];
         Opportunity TestOpportunity = new Opportunity(
             Name = 'Dancing Bears Eat More Cheese',
-            AccountId = '0018b00002Mf4joAAB',
+            AccountId = TestAccount.Id,
             StageName = 'Closed Won',
             CloseDate = Date.newInstance(2025, 08, 21));
         test.stopTest();
@@ -157,15 +158,20 @@ public class OpportunitiesPageControllerTest {
     
     @testSetup
     public static void TestSetup(){
+        Account TestAccount = new Account(
+        	Name = 'TestAccount');
+        insert TestAccount;
         List<Opportunity> DummyOpportunities = new List<Opportunity>();
         for(Integer i = 0; i<300; i++){
             Opportunity opp = new Opportunity();
             opp.Name = 'Acme ' + i;
-            opp.AccountId = '0018b00002Mf4joAAB';
+            opp.AccountId = TestAccount.Id;
             opp.StageName = 'Closed Won';
             opp.CloseDate = Date.newInstance(2023, 06, 09);
         	DummyOpportunities.add(opp);
         }
         insert DummyOpportunities;
+        
+        
     }
 }
