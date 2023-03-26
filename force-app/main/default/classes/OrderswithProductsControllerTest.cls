@@ -30,7 +30,7 @@ public class OrderswithProductsControllerTest {
         Test.setCurrentPage(Page.OrderswithProducts);
         Test.setCurrentPageReference(OPC.ContactsPage());
         
-        System.assertEquals(Page.OrderswithProducts.getUrl(), ApexPages.currentPage().getUrl());
+        System.assertEquals(Page.ContactsAndTechs.getUrl(), ApexPages.currentPage().getUrl());
         
         //Test Orders Page Link
         Test.setCurrentPage(Page.OrderswithProducts);
@@ -50,5 +50,25 @@ public class OrderswithProductsControllerTest {
         
         System.assertEquals(Page.OrderswithProducts.getUrl(), ApexPages.currentPage().getUrl());
         test.stopTest();
+    }
+    
+    @TestSetup
+    public static void SetupTest(){
+        List<Order> OrderList = new List<Order>();
+        Account NewAccount = new Account(
+        	Name = 'Test Account');
+        insert NewAccount;
+        Date StartDate = Date.today();
+        List<Account> TestAccount = [SELECT Name FROM Account WHERE Name = 'Test Account'];
+        
+        for(Integer i = 0; i<200; i++){
+            Order OrderAdd = new Order(
+            	AccountId = TestAccount[0].Id,
+            	Status = 'Draft',
+            	EffectiveDate = StartDate);
+          	OrderList.add(OrderAdd);
+        }
+        
+        insert OrderList;
     }
 }

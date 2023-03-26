@@ -6,7 +6,7 @@ public class OrderswithProductsController {
     }
     
     public PageReference ContactsPage(){
-        PageReference nextPage = Page.OrderswithProducts;
+        PageReference nextPage = Page.ContactsAndTechs;
         return nextPage;
     }
     
