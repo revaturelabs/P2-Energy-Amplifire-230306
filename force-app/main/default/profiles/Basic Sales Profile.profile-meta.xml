@@ -44,6 +44,18 @@
         <apexClass>OrderItemTriggerHelper</apexClass>
         <enabled>false</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>OrderItemTriggerHelperTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>OrderswithProductsController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>OrderswithProductsControllerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
     <custom>true</custom>
     <fieldPermissions>
         <editable>true</editable>
@@ -387,6 +399,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>Opportunities</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>OrderswithProducts</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <recordTypeVisibilities>

@@ -60,7 +60,7 @@ public with sharing class OpportunitiesPageController {
     }
     
     public PageReference OrdersPage(){
-        PageReference nextPage = Page.AccountsAndLeads;
+        PageReference nextPage = Page.OrderswithProducts;
         return nextPage;
     }
     

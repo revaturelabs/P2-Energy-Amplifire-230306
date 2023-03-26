@@ -25,12 +25,16 @@
         <members>OpportunitiesPageControllerTest</members>
         <members>Customer_Success_Cascade_Helper</members>
         <members>OrderItemTriggerHelper</members>
+        <members>OrderItemTriggerHelperTest</members>
         <members>NewWork</members>
+        <members>OrderswithProductsController</members>
+        <members>OrderswithProductsControllerTest</members>
         <name>ApexClass</name>
     </types>
     <types>
         <members>AccountsAndLeads</members>
         <members>Opportunities</members>
+        <members>OrderswithProducts</members>
         <name>ApexPage</name>
     </types>
     <types>
