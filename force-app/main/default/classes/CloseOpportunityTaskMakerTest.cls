@@ -20,4 +20,11 @@ public class CloseOpportunityTaskMakerTest {
         System.assertNotEquals(0, tasklist);
             
     }
+    
+    @testSetup
+    public static void SetupTest(){
+        Account TestAccount = new Account(
+            Name = 'Test Account');
+        insert TestAccount;
+    }
 }
