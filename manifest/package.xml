@@ -9,6 +9,10 @@
         <name>CustomObject</name>
     </types>
     <types>
+        <members>Employee_Hub</members>
+        <name>CustomTab</name>
+    </types>
+    <types>
         <members>Account-Account %28Sales%29 Layout</members>
         <members>Order-Order Layout</members>
         <members>Product2-Infrastructure Layout</members>
