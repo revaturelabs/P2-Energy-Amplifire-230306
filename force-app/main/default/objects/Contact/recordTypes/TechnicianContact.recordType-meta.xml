@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Customer</fullName>
+    <fullName>TechnicianContact</fullName>
     <active>true</active>
-    <description>Customer Contact</description>
-    <label>Customer</label>
+    <label>Technician Contact</label>
     <picklistValues>
         <picklist>Customers__c</picklist>
         <values>
