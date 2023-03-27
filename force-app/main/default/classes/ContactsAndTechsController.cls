@@ -97,17 +97,17 @@ public with sharing class ContactsAndTechsController {
     }
     
     public PageReference OpportunitiesPage(){
-        PageReference nextPage = Page.AccountsAndLeads;
+        PageReference nextPage = Page.Opportunities;
         return nextPage;
     }
     
     public PageReference ContactsPage(){
-        PageReference nextPage = Page.AccountsAndLeads;
+        PageReference nextPage = Page.ContactsAndTechs;
         return nextPage;
     }
     
     public PageReference OrdersPage(){
-        PageReference nextPage = Page.AccountsAndLeads;
+        PageReference nextPage = Page.OrdersWithProducts;
         return nextPage;
     }
     
