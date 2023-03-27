@@ -21,7 +21,7 @@ public class OrderswithProductsController {
     }
     
     public PageReference WorkOrdersPage(){
-        PageReference nextPage = Page.OrderswithProducts;
+        PageReference nextPage = Page.AccountsAndLeads;
         return nextPage;
     }
     
