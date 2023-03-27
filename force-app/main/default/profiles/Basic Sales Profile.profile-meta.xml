@@ -252,6 +252,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Product2.Attendant_Software__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Product2.Contact__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -350,10 +355,6 @@
         <layout>Product2-Infrastructure Layout</layout>
         <recordType>Product2.Office_Infrastructure</recordType>
     </layoutAssignments>
-    <layoutAssignments>
-        <layout>Product2-Office Supplies</layout>
-        <recordType>Product2.Office_Supplies</recordType>
-    </layoutAssignments>
     <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
@@ -383,11 +384,11 @@
     </objectPermissions>
     <pageAccesses>
         <apexPage>AccountsAndLeads</apexPage>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
         <apexPage>Opportunities</apexPage>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </pageAccesses>
     <recordTypeVisibilities>
         <default>false</default>

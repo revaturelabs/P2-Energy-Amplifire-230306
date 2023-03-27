@@ -73,7 +73,7 @@ public with sharing class AccountsAndLeadsController {
             if(Le.Status != NULL){
                 LeadStatus = (String)Le.Status;
             }
-            if(Le.Company != NULL){
+            if(Le.Email != NULL){
                 LeadEmail = (String)Le.Email;
             }
             if(LeadName.containsIgnoreCase(NameLeadSearchTerm)){
@@ -120,12 +120,12 @@ public with sharing class AccountsAndLeadsController {
     }
     
     public PageReference ContactsPage(){
-        PageReference nextPage = Page.AccountsAndLeads;
+        PageReference nextPage = Page.ContactsAndTechs;
         return nextPage;
     }
     
     public PageReference OrdersPage(){
-        PageReference nextPage = Page.AccountsAndLeads;
+        PageReference nextPage = Page.OrderswithProducts;
         return nextPage;
     }
     
