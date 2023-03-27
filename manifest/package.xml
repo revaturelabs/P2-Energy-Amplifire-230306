@@ -5,13 +5,18 @@
         <members>*</members>
         <members>Account</members>
         <members>Product2</members>
+        <members>Contact</members>
         <name>CustomObject</name>
+    </types>
+    <types>
+        <members>Employee_Hub</members>
+        <name>CustomTab</name>
     </types>
     <types>
         <members>Account-Account %28Sales%29 Layout</members>
         <members>Order-Order Layout</members>
         <members>Product2-Infrastructure Layout</members>
-        <members>Product2-Office Supplies</members>
+        <members>Product2-Office Supplies Layout</members>
         <name>Layout</name>
     </types>
     <types>
@@ -24,13 +29,20 @@
         <members>OpportunitiesPageController</members>
         <members>OpportunitiesPageControllerTest</members>
         <members>Customer_Success_Cascade_Helper</members>
+        <members>CustomerSuccessCascadeTest</members>
         <members>OrderItemTriggerHelper</members>
+        <members>OrderItemTriggerHelperTest</members>
         <members>NewWork</members>
+        <members>OrderswithProductsController</members>
+        <members>OrderswithProductsControllerTest</members>
+        <members>ContactsAndTechsController</members>
         <name>ApexClass</name>
     </types>
     <types>
         <members>AccountsAndLeads</members>
         <members>Opportunities</members>
+        <members>OrderswithProducts</members>
+        <members>ContactsAndTechs</members>
         <name>ApexPage</name>
     </types>
     <types>
