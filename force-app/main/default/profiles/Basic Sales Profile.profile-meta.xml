@@ -557,7 +557,7 @@
     </objectPermissions>
     <pageAccesses>
         <apexPage>AccountsAndLeads</apexPage>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
         <apexPage>ContactsAndTechs</apexPage>
@@ -565,7 +565,7 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>Opportunities</apexPage>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
         <apexPage>OrderswithProducts</apexPage>
