@@ -21,10 +21,10 @@ trigger ContactRelatedAccounts on Contact (before insert, before update) {
                     }
                 }
             }
-            
-            if(!OldContactEmailEndings.contains(NewContactEmailEnding)){
-                contactList.add(c);
-                
+            if(OldContactEmailEndings.size() != 0){
+                if(!OldContactEmailEndings.contains(NewContactEmailEnding)){
+                    contactList.add(c);
+                }
             }
         }
     }

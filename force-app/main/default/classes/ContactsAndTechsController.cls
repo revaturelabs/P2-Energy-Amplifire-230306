@@ -124,8 +124,11 @@ public with sharing class ContactsAndTechsController {
     public PageReference SaveTechnicians(){
         String TechFirstName = '';
         String TechLastName = '';
-        String AccountSearch = '%' + AccountTechSearchTerm + '%';
-        List<Account> IdAccount = [SELECT Id FROM Account WHERE Name LIKE :AccountSearch];
+        List<Account> IdAccount = new List<account>();
+        if(AccountTechSearchTerm != NULL){
+        	String AccountSearch = '%' + AccountTechSearchTerm + '%';
+        	IdAccount = [SELECT Id FROM Account WHERE Name LIKE :AccountSearch];
+        }
         if(NameTechSearchTerm.contains(' ')){
             Integer index = NameTechSearchTerm.indexOf(' ');
             TechFirstName = NameTechSearchTerm.substring(0, index);
@@ -171,15 +174,18 @@ public with sharing class ContactsAndTechsController {
         }
         delete TechniciansToDelete;
         Technicians = [SELECT Name, MobilePhone, Email, Account.Name FROM Contact WHERE RecordType.Name = 'Technician'];
-        PageReference nextPage = Page.AccountsAndLeads;
+        PageReference nextPage = Page.ContactsAndTechs;
         return nextPage;
     }
     
     public PageReference SaveCustomers(){
         String CustFirstName = '';
         String CustLastName = '';
-        String AccountSearch = '%' + AccountCustSearchTerm + '%';
-        List<Account> IdAccount = [SELECT Id FROM Account WHERE Name LIKE :AccountSearch];
+        List<Account> IdAccount = new List<account>();
+        if(AccountTechSearchTerm != NULL){
+        	String AccountSearch = '%' + AccountTechSearchTerm + '%';
+        	IdAccount = [SELECT Id FROM Account WHERE Name LIKE :AccountSearch];
+        }
         if(NameCustSearchTerm.contains(' ')){
             Integer index = NameCustSearchTerm.indexOf(' ');
             CustFirstName = NameCustSearchTerm.substring(0, index);
@@ -225,7 +231,7 @@ public with sharing class ContactsAndTechsController {
         }
         delete CustomersToDelete;
         Customers = [SELECT Name, MobilePhone, Email, Account.Name FROM Contact WHERE RecordType.Name = 'Customer'];
-        PageReference nextPage = Page.AccountsAndLeads;
+        PageReference nextPage = Page.ContactsAndTechs;
         return nextPage;
     }
     
