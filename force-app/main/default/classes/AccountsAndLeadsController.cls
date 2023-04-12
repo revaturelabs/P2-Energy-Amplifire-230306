@@ -73,7 +73,7 @@ public with sharing class AccountsAndLeadsController {
             if(Le.Status != NULL){
                 LeadStatus = (String)Le.Status;
             }
-            if(Le.Company != NULL){
+            if(Le.Email != NULL){
                 LeadEmail = (String)Le.Email;
             }
             if(LeadName.containsIgnoreCase(NameLeadSearchTerm)){

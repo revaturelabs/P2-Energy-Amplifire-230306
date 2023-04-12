@@ -2,6 +2,7 @@
     <apex:stylesheet value="Opportunities" />
     <apex:form >
         <apex:pageBlock >
+            <apex:pageMessages />
             <apex:pageBlockSection columns="1" title="Useful Links" >
                 <apex:outputPanel >
                     <apex:image style="width:17%; display:block; margin:auto" value="{!$Resource.Logo}" />

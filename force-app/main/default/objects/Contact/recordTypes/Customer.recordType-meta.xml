@@ -5,6 +5,13 @@
     <description>Customer Contact</description>
     <label>Customer</label>
     <picklistValues>
+        <picklist>Customers__c</picklist>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>GenderIdentity</picklist>
         <values>
             <fullName>Female</fullName>
@@ -108,6 +115,13 @@
         </values>
         <values>
             <fullName>They%2FThem</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Technicians__c</picklist>
+        <values>
+            <fullName>ABC System</fullName>
             <default>false</default>
         </values>
     </picklistValues>

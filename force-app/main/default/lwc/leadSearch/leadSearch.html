@@ -1,0 +1,22 @@
+<template>
+    <lightning-card  title="Lead Search">
+        <lightning-input class="slds-p-horizontal_small" type="text" label="Name" value={nameSearchTerm} onchange={handleName}></lightning-input>
+        <lightning-input class="slds-p-horizontal_small" type="text" label="Company" value={companySearchTerm} onchange={handleCompany}></lightning-input>
+        <lightning-input class="slds-p-horizontal_small" type="text" label="Phone" value={phoneSearchTerm} onchange={handlePhone}></lightning-input>
+        <lightning-input class="slds-p-horizontal_small" type="text" label="Email" value={emailSearchTerm} onchange={handleEmail}></lightning-input>
+        <template lwc:if={ratingOptions.data}>
+            <lightning-combobox class="slds-p-horizontal_small" name="Rating" label="Rating" value={ratingSearchTerm} 
+                                options={ratingOptions.data.values} onchange={handleRating} ></lightning-combobox>
+        </template>
+        <template lwc:else>
+            <lightning-combobox class="slds-p-horizontal_small" name="DisabledRating" label="Rating" value="" disabled></lightning-combobox>
+        </template>
+        <template lwc:if={statusOptions.data}>
+            <lightning-combobox class="slds-p-horizontal_small" name="Status" label="Lead Status" value={statusSearchTerm} 
+                                options={statusOptions.data.values} onchange={handleStatus} ></lightning-combobox>
+        </template>
+        <template lwc:else>
+            <lightning-combobox class="slds-p-horizontal_small" name="DisabledStatus" label="Status" value="" disabled></lightning-combobox>
+        </template>
+    </lightning-card>
+</template>

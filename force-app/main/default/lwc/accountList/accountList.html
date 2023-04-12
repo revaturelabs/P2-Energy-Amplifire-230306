@@ -1,0 +1,18 @@
+<template>
+    <lightning-card  title="Accounts">
+        <div slot="actions">
+            <lightning-button-group>
+                <lightning-button label="Edit"></lightning-button>
+                <lightning-button label="Delete"></lightning-button>
+                <lightning-button label="New"></lightning-button>
+            </lightning-button-group>
+        </div>
+        <template if:true={accList}>
+            <lightning-datatable data={accList} columns={columns} key-field="Id">
+            </lightning-datatable>
+        </template>
+        <template if:true={error}>
+            {error}
+        </template>
+    </lightning-card>
+</template>
