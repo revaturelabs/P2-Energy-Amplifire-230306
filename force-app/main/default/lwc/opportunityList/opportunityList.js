@@ -1,70 +1,56 @@
 import { LightningElement , wire, track} from 'lwc';
-import getLeadList from '@salesforce/apex/LWCHelper.getLeadList';
+import getOppList from '@salesforce/apex/LWCHelper.getOppList';
 import DELETE from '@salesforce/apex/LWCHelper.deleter';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
 export default class LightningDatatableLWCExample extends LightningElement {
     @track columns = [{
-            label: 'Lead name',
+            label: 'Opportunity name',
             fieldName: 'Name',
             type: 'text',
         },
         {
-            label: 'Company',
-            fieldName: 'Company',
+            label: 'Account Name',
+            fieldName: 'Account.Name',
             type: 'text',
         },
         {
-            label: 'Phone',
-            fieldName: 'Phone',
-            type: 'phone',
-        },
-        {
-            label: 'Email',
-            fieldName: 'Email',
+            label: 'Stage',
+            fieldName: 'StageName',
             type: 'text',
         },
         {
-            label: 'Rating',
-            fieldName: 'Rating',
-            type: 'text',
-        },
-        {
-            label: 'Status',
-            fieldName: 'Status',
-            type: 'text',
-        },
+            label: 'Close Date',
+            fieldName: 'CloseDate',
+            type: 'date',
+        }
     ];
  
-    leadNameSearch = '';
-    leadCompanySearch = '';
-    leadPhoneSearch = '';
-    leadEmailSearch = '';
-    leadRatingSearch = '';
-    leadStatusSearch = '';
+    oppNameSearch = '';
+    oppAccountSearch = '';
+    oppStageSearch = '';
+    oppDateSearch = '';
 
     @track error;
-    @track leadList;
-    wiredLeadsResult;
+    @track oppList;
+    wiredOppResult;
 
-    @wire(getLeadList,
+    @wire(getOppList,
         {
-            nameLeadSearchTerm: '$leadNameSearch', 
-            companyLeadSearchTerm: '$leadCompanySearch',
-            phoneLeadSearchTerm: '$leadPhoneSearch',
-            emailLeadSearchTerm: '$leadEmailSearch',
-            ratingLeadSearchTerm: '$leadRatingSearch',
-            statusLeadSearchTerm: '$leadStatusSearch',
+            name: '$oppNameSearch', 
+            account: '$oppAccountSearch',
+            stage: '$oppStageSearch',
+            close: '$oppDateSearch',
         }
         )
-    wiredLeads(result) {
-        this.wiredLeadsResult = result;
+    wiredOpps(result) {
+        this.wiredOppResult = result;
         if (result.data) {
-            this.leadList = result.data;
+            this.oppList = result.data;
             this.error = undefined;
         } else if (result.error) {
             this.error = result.error;
-            this.leadList = undefined;
+            this.oppList = undefined;
         }
     }
     selectedIds;
@@ -73,7 +59,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
         var selectedRecords =  this.template.querySelector("lightning-datatable").getSelectedRows();
         if(selectedRecords.length > 0){
             console.log('selectedRecords are ', selectedRecords);
-   
+    
             let ids = '';
             selectedRecords.forEach(currentItem => {
                 ids = ids + ',' + currentItem.Id;
@@ -85,17 +71,17 @@ export default class LightningDatatableLWCExample extends LightningElement {
     handleDelete() {
         DELETE({
             idsToDelete: this.selectedIds, 
-            sObjectType: 'Lead',
+            sObjectType: 'Opportunity',
         })
         .then(() => {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
-                    message: 'Lead deleted',
+                    message: 'Opportunity deleted',
                     variant: 'success'
                 })
             );
-            return refreshApex(this.wiredLeadsResult);
+            return refreshApex(this.wiredOppResult);
         })
         .catch((error) => {
             this.dispatchEvent(

@@ -47,4 +47,8 @@ export default class AccountSearch extends LightningElement {
     handlePhone(event) {
         this.phoneSearchTerm = event.detail.value;
     }
+
+    handleCreate(event){
+        this.dispatchEvent(new CustomEvent('create'));
+    }
 }

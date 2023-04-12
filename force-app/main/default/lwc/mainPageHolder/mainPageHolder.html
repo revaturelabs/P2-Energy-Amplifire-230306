@@ -6,23 +6,25 @@
             </lightning-layout-item>
             <lightning-layout-item size="6">
                 <lightning-button-group>
-                    <lightning-button label="Accounts and Leads" onclick={handleAcc} ></lightning-button>
+                    <lightning-button label="Accounts" onclick={handleAcc} ></lightning-button>
+                    <lightning-button label="Leads" onclick={handleLea} ></lightning-button>
                     <lightning-button label="Opportunities" onclick={handleOpp} ></lightning-button>
                     <lightning-button label="Orders and Products" onclick={handleOrd} ></lightning-button>
-                    <lightning-button label="Customers and Technicians" onclick={handleCon} ></lightning-button>
+                    <lightning-button label="Customers" onclick={handleCus} ></lightning-button>
+                    <lightning-button label="Technicians" onclick={handleTec} ></lightning-button>
                     <lightning-button label="Work Orders" onclick={handleWO}></lightning-button>
                 </lightning-button-group>
             </lightning-layout-item>
         </lightning-layout>
     </div>
     <template lwc:if={createAccount}>
-        <lightning-record-form object-api-name="Account" layout-type="Full"></lightning-record-form>
+        <lightning-record-form object-api-name="Account" fields={accountFields}></lightning-record-form>
     </template>
     <template if:true={displayAcc}>
         <lightning-layout>
-            <lightning-layout-item size="2" padding="around-small">
+            <lightning-layout-item size="3" padding="around-small">
                 <div>
-                    <c-account-search></c-account-search>
+                    <c-account-search oncreate={handleCreateAccount}></c-account-search>
                 </div>
             </lightning-layout-item>
             <lightning-layout-item padding="around-small">
@@ -31,16 +33,27 @@
                 </div>
             </lightning-layout-item>
         </lightning-layout>
-        <template lwc:if={createLead}>
-            <lightning-record-form object-api-name="Lead" fields={leadFields}></lightning-record-form>
-        </template>
-        <lightning-layout>
-            <lightning-layout-item size="2" padding="around-small">
-                <c-lead-search oncreate={handleCreateLead}></c-lead-search>
-            </lightning-layout-item>
-            <lightning-layout-item padding="around-small">
-                <c-lead-list></c-lead-list>
-            </lightning-layout-item>
-        </lightning-layout>
     </template>
+    <template lwc:if={createLead}>
+        <lightning-record-form object-api-name="Lead" fields={leadFields}></lightning-record-form>
+    </template>
+    
+    <lightning-layout lwc:if={displayLea}>
+        <lightning-layout-item size="3" padding="around-small">
+            <c-lead-search oncreate={handleCreateLead}></c-lead-search>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small">
+            <c-lead-list></c-lead-list>
+        </lightning-layout-item>
+    </lightning-layout>
+    
+    <lightning-record-form lwc:if={createOpp} object-api-name="Opportunity" fields={oppFields}></lightning-record-form>
+    <lightning-layout lwc:if={displayOpp}>
+        <lightning-layout-item size="3" padding="around-small">
+            <c-opportunity-search oncreate={handleCreateOpp}></c-opportunity-search>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small">
+            <c-opportunity-list></c-opportunity-list>
+        </lightning-layout-item>
+    </lightning-layout>
 </template>

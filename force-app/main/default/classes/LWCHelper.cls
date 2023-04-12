@@ -69,6 +69,38 @@ public with sharing class LWCHelper {
         return temp;
     }
 
+    @AuraEnabled(cacheable=true)
+    public static List<Opportunity> getOppList(String name, String account, String stage, String close){
+        try {
+            List<Opportunity> fullOppList = [SELECT Id, Name, Account.Name, StageName, CloseDate FROM Opportunity];
+            List<Opportunity> temp = new List<Opportunity>();
+            for(Opportunity opp : fullOppList){
+                String OppName = opp.Name;
+                String OppAccount = '';
+                String OppStage = '';
+                String OppDate = '';
+                if(opp.Account.Name != NULL){
+                    oppAccount = (String)opp.Account.Name;
+                }
+                if(opp.StageName != NULL){
+                    OppStage = (String)opp.StageName;
+                }
+                if(Opp.CloseDate != NULL){
+                    OppDate = Opp.CloseDate.format();
+                }
+                if(OppName.containsIgnoreCase(Name) &&
+                    OppAccount.containsIgnoreCase(Account) &&
+                    OppStage.containsIgnoreCase(Stage) &&
+                    OppDate.containsIgnoreCase(Close)){
+                                temp.add(opp);
+                }
+            }
+            return temp;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
     @AuraEnabled
     public static void deleter(String idsToDelete, String sObjectType){
         try {
