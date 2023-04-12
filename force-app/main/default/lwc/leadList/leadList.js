@@ -1,6 +1,8 @@
 import { LightningElement , wire, track} from 'lwc';
-import getLeadList from '@salesforce/apex/LWCAccountHelper.getLeadList';
-import DELETE from '@salesforce/apex/LWCAccountHelper.Deleter';
+import getLeadList from '@salesforce/apex/LWCHelper.getLeadList';
+import DELETE from '@salesforce/apex/LWCHelper.deleter';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { refreshApex } from '@salesforce/apex';
 export default class LightningDatatableLWCExample extends LightningElement {
     @track columns = [{
             label: 'Lead name',
@@ -43,6 +45,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
 
     @track error;
     @track leadList;
+    wiredLeadsResult;
 
     @wire(getLeadList,
         {
@@ -54,14 +57,14 @@ export default class LightningDatatableLWCExample extends LightningElement {
             statusLeadSearchTerm: '$leadStatusSearch',
         }
         )
-    wiredAccounts({
-        error,
-        data
-    }) {
-        if (data) {
-            this.leadList = data;
-        } else if (error) {
-            this.error = error;
+    wiredLeads(result) {
+        this.wiredLeadsResult = result;
+        if (result.data) {
+            this.leadList = result.data;
+            this.error = undefined;
+        } else if (result.error) {
+            this.error = result.error;
+            this.leadList = undefined;
         }
     }
     selectedIds;
@@ -80,10 +83,28 @@ export default class LightningDatatableLWCExample extends LightningElement {
     }
 
     handleDelete() {
-        DELETE(param: 
-        {
-            IdsToDelete: this.selectedIds, 
+        DELETE({
+            idsToDelete: this.selectedIds, 
             sObjectType: 'Lead',
+        })
+        .then(() => {
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Success',
+                    message: 'Account deleted',
+                    variant: 'success'
+                })
+            );
+            return refreshApex(this.wiredLeadsResult);
+        })
+        .catch((error) => {
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Error deleting record',
+                    message: reduceErrors(error).join(', '),
+                    variant: 'error'
+                })
+            );
         });
     }
 }

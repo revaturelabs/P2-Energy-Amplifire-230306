@@ -36,6 +36,7 @@
         <members>OrderswithProductsController</members>
         <members>OrderswithProductsControllerTest</members>
         <members>ContactsAndTechsController</members>
+        <members>LWCHelper</members>
         <name>ApexClass</name>
     </types>
     <types>
@@ -71,6 +72,14 @@
     <types>
         <members>Order_Update_Approval</members>
         <name>Flow</name>
+    </types>
+    <types>
+        <members>accountList</members>
+        <members>leadList</members>
+        <members>accountSearch</members>
+        <members>leadSearch</members>
+        <members>mainPageHolder</members>
+        <name>LightningComponentBundle</name>
     </types>
 </Package>
 

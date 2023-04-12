@@ -15,6 +15,9 @@
             </lightning-layout-item>
         </lightning-layout>
     </div>
+    <template lwc:if={createAccount}>
+        <lightning-record-form object-api-name="Account" layout-type="Full"></lightning-record-form>
+    </template>
     <template if:true={displayAcc}>
         <lightning-layout>
             <lightning-layout-item size="2" padding="around-small">
@@ -28,9 +31,12 @@
                 </div>
             </lightning-layout-item>
         </lightning-layout>
+        <template lwc:if={createLead}>
+            <lightning-record-form object-api-name="Lead" fields={leadFields}></lightning-record-form>
+        </template>
         <lightning-layout>
             <lightning-layout-item size="2" padding="around-small">
-                <c-lead-search></c-lead-search>
+                <c-lead-search oncreate={handleCreateLead}></c-lead-search>
             </lightning-layout-item>
             <lightning-layout-item padding="around-small">
                 <c-lead-list></c-lead-list>
