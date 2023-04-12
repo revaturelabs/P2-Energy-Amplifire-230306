@@ -1,0 +1,40 @@
+<template>
+    <div>
+        <lightning-layout horizontal-align="center" vertical-align="center">
+            <lightning-layout-item size="2" >
+                <img src={logo} />
+            </lightning-layout-item>
+            <lightning-layout-item size="6">
+                <lightning-button-group>
+                    <lightning-button label="Accounts and Leads" onclick={handleAcc} ></lightning-button>
+                    <lightning-button label="Opportunities" onclick={handleOpp} ></lightning-button>
+                    <lightning-button label="Orders and Products" onclick={handleOrd} ></lightning-button>
+                    <lightning-button label="Customers and Technicians" onclick={handleCon} ></lightning-button>
+                    <lightning-button label="Work Orders" onclick={handleWO}></lightning-button>
+                </lightning-button-group>
+            </lightning-layout-item>
+        </lightning-layout>
+    </div>
+    <template if:true={displayAcc}>
+        <lightning-layout>
+            <lightning-layout-item size="2" padding="around-small">
+                <div>
+                    <c-account-search></c-account-search>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small">
+                <div>
+                    <c-account-list></c-account-list>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout>
+            <lightning-layout-item size="2" padding="around-small">
+                <c-lead-search></c-lead-search>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small">
+                <c-lead-list></c-lead-list>
+            </lightning-layout-item>
+        </lightning-layout>
+    </template>
+</template>
