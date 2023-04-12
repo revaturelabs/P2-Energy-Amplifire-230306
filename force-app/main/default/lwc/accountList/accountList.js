@@ -1,5 +1,5 @@
 import { LightningElement , wire, track} from 'lwc';
-import getAccountList from '@salesforce/apex/LWCAccountHelper.getAccountList';
+import getAccountList from '@salesforce/apex/LWCHelper.getAccountList';
 export default class LightningDatatableLWCExample extends LightningElement {
     @track columns = [{
             label: 'Account name',

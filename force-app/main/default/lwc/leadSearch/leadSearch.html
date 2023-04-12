@@ -1,5 +1,8 @@
 <template>
     <lightning-card  title="Lead Search">
+        <div slot="actions">
+            <lightning-button label="Create" onclick={handleCreate}></lightning-button>
+        </div>
         <lightning-input class="slds-p-horizontal_small" type="text" label="Name" value={nameSearchTerm} onchange={handleName}></lightning-input>
         <lightning-input class="slds-p-horizontal_small" type="text" label="Company" value={companySearchTerm} onchange={handleCompany}></lightning-input>
         <lightning-input class="slds-p-horizontal_small" type="text" label="Phone" value={phoneSearchTerm} onchange={handlePhone}></lightning-input>

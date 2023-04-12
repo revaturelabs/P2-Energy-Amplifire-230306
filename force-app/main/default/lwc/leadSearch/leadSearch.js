@@ -55,4 +55,8 @@ export default class AccountSearch extends LightningElement {
     handleStatus(event) {
         this.statusSearchTerm = event.detail.value;
     }
+
+    handleCreate(event){
+        this.dispatchEvent(new CustomEvent('create'));
+    }
 }
