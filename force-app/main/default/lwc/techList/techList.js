@@ -1,18 +1,19 @@
 import { LightningElement , wire, track} from 'lwc';
-import getLeadList from '@salesforce/apex/LWCHelper.getLeadList';
+import getTechList from '@salesforce/apex/LWCHelper.getTechList';
 import DELETE from '@salesforce/apex/LWCHelper.deleter';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
+
 export default class LightningDatatableLWCExample extends LightningElement {
     @track columns = [{
-            label: 'Lead name',
-            fieldName: 'Name',
+            label: 'First name',
+            fieldName: 'FirstName',
             type: 'text',
             editable: true,
         },
         {
-            label: 'Company',
-            fieldName: 'Company',
+            label: 'Last Name',
+            fieldName: 'LastName',
             type: 'text',
             editable: true,
         },
@@ -29,48 +30,48 @@ export default class LightningDatatableLWCExample extends LightningElement {
             editable: true,
         },
         {
-            label: 'Rating',
-            fieldName: 'Rating',
+            label: 'Account',
+            fieldName: 'accountName',
             type: 'text',
-            editable: true,
-        },
-        {
-            label: 'Status',
-            fieldName: 'Status',
-            type: 'text',
-            editable: true,
+            editable: false,
         },
     ];
  
-    leadNameSearch = '';
-    leadCompanySearch = '';
-    leadPhoneSearch = '';
-    leadEmailSearch = '';
-    leadRatingSearch = '';
-    leadStatusSearch = '';
+    techFirstNameSearch = '';
+    techLastNameSearch = '';
+    techPhoneSearch = '';
+    techEmailSearch = '';
+    techAccountSearch = '';
 
     @track error;
-    @track leadList;
-    wiredLeadsResult;
+    @track techList;
+    wiredTechResult;
 
-    @wire(getLeadList,
+    @wire(getTechList,
         {
-            nameLeadSearchTerm: '$leadNameSearch', 
-            companyLeadSearchTerm: '$leadCompanySearch',
-            phoneLeadSearchTerm: '$leadPhoneSearch',
-            emailLeadSearchTerm: '$leadEmailSearch',
-            ratingLeadSearchTerm: '$leadRatingSearch',
-            statusLeadSearchTerm: '$leadStatusSearch',
+            first: '$techFirstNameSearch', 
+            last: '$techLastNameSearch',
+            phone: '$techPhoneSearch',
+            email: '$techEmailSearch',
+            account: '$techAccountSearch',
         }
         )
-    wiredLeads(result) {
-        this.wiredLeadsResult = result;
+    wiredTechs(result) {
+        this.wiredTechResult = result;
         if (result.data) {
-            this.leadList = result.data;
+            console.log(result.data);
+            this.techList = result.data;
+            this.techList = this.techList.map( item =>{
+                item = {...item};
+                item['accountName'] = item.Account.Name;
+                return item;
+            }
+            )
+            console.log(this.techList);
             this.error = undefined;
         } else if (result.error) {
             this.error = result.error;
-            this.leadList = undefined;
+            this.techList = undefined;
         }
     }
     selectedIds;
@@ -91,17 +92,17 @@ export default class LightningDatatableLWCExample extends LightningElement {
     handleDelete() {
         DELETE({
             idsToDelete: this.selectedIds, 
-            sObjectType: 'Lead',
+            sObjectType: 'Contact',
         })
         .then(() => {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
-                    message: 'Lead deleted',
+                    message: 'Technician deleted',
                     variant: 'success'
                 })
             );
-            return refreshApex(this.wiredLeadsResult);
+            return refreshApex(this.wiredTechResult);
         })
         .catch((error) => {
             this.dispatchEvent(
@@ -134,16 +135,16 @@ export default class LightningDatatableLWCExample extends LightningElement {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
-                    message: 'Leads updated',
+                    message: 'Technicians updated',
                     variant: 'success'
                 })
             );
-            await refreshApex(this.contacts);
+            await refreshApex(this.wiredTechResult);
 
         } catch (error) {
             this.dispatchEvent(
                 new ShowToastEvent({
-                    title: 'Error updating or reloading Leads',
+                    title: 'Error updating or reloading Technicians',
                     message: error.body.message,
                     variant: 'error'
                 })

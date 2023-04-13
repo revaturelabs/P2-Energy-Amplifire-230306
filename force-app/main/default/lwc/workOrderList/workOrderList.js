@@ -1,76 +1,61 @@
 import { LightningElement , wire, track} from 'lwc';
-import getLeadList from '@salesforce/apex/LWCHelper.getLeadList';
+import getWOList from '@salesforce/apex/LWCHelper.getWOList';
 import DELETE from '@salesforce/apex/LWCHelper.deleter';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
+
 export default class LightningDatatableLWCExample extends LightningElement {
     @track columns = [{
-            label: 'Lead name',
+            label: 'Name',
             fieldName: 'Name',
             type: 'text',
             editable: true,
         },
         {
-            label: 'Company',
-            fieldName: 'Company',
+            label: 'Account',
+            fieldName: 'accountName',
             type: 'text',
-            editable: true,
+            editable: false,
         },
         {
-            label: 'Phone',
-            fieldName: 'Phone',
-            type: 'phone',
-            editable: true,
-        },
-        {
-            label: 'Email',
-            fieldName: 'Email',
+            label: 'Product Owner',
+            fieldName: 'pOwner',
             type: 'text',
-            editable: true,
-        },
-        {
-            label: 'Rating',
-            fieldName: 'Rating',
-            type: 'text',
-            editable: true,
-        },
-        {
-            label: 'Status',
-            fieldName: 'Status',
-            type: 'text',
-            editable: true,
+            editable: false,
         },
     ];
  
-    leadNameSearch = '';
-    leadCompanySearch = '';
-    leadPhoneSearch = '';
-    leadEmailSearch = '';
-    leadRatingSearch = '';
-    leadStatusSearch = '';
+    nameSearch = '';
+    accountSearch = '';
+    productOwnerSearch = '';
 
     @track error;
-    @track leadList;
-    wiredLeadsResult;
+    @track workOrderList;
+    wiredWorkOrderResult;
 
-    @wire(getLeadList,
+    @wire(getWOList,
         {
-            nameLeadSearchTerm: '$leadNameSearch', 
-            companyLeadSearchTerm: '$leadCompanySearch',
-            phoneLeadSearchTerm: '$leadPhoneSearch',
-            emailLeadSearchTerm: '$leadEmailSearch',
-            ratingLeadSearchTerm: '$leadRatingSearch',
-            statusLeadSearchTerm: '$leadStatusSearch',
+            name: '$nameSearch', 
+            account: '$accountSearch',
+            productOwner: '$productOwnerSearch',
         }
         )
-    wiredLeads(result) {
-        this.wiredLeadsResult = result;
+    wiredWO(result) {
+        this.wiredWorkOrderResult = result;
         if (result.data) {
-            this.leadList = result.data;
+            console.log(result.data);
+            this.workOrderList = result.data;
+            this.workOrderList = this.workOrderList.map( item =>{
+                item = {...item};
+                item['accountName'] = item.Account__r.Name;
+                item['pOwner'] = item.Product_Owner__r.Name;
+                return item;
+            }
+            )
             this.error = undefined;
         } else if (result.error) {
             this.error = result.error;
-            this.leadList = undefined;
+            this.workOrderList = undefined;
         }
     }
     selectedIds;
@@ -91,17 +76,17 @@ export default class LightningDatatableLWCExample extends LightningElement {
     handleDelete() {
         DELETE({
             idsToDelete: this.selectedIds, 
-            sObjectType: 'Lead',
+            sObjectType: 'Work_Order__c',
         })
         .then(() => {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
-                    message: 'Lead deleted',
+                    message: 'Work Order deleted',
                     variant: 'success'
                 })
             );
-            return refreshApex(this.wiredLeadsResult);
+            return refreshApex(this.wiredWorkOrderResult);
         })
         .catch((error) => {
             this.dispatchEvent(
@@ -134,16 +119,16 @@ export default class LightningDatatableLWCExample extends LightningElement {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
-                    message: 'Leads updated',
+                    message: 'Work Order updated',
                     variant: 'success'
                 })
             );
-            await refreshApex(this.contacts);
+            await refreshApex(this.wiredWorkOrderResult);
 
         } catch (error) {
             this.dispatchEvent(
                 new ShowToastEvent({
-                    title: 'Error updating or reloading Leads',
+                    title: 'Error updating or reloading Work Order',
                     message: error.body.message,
                     variant: 'error'
                 })

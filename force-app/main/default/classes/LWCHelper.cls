@@ -69,6 +69,139 @@ public with sharing class LWCHelper {
         return temp;
     }
 
+    @AuraEnabled(cacheable=true)
+    public static List<Opportunity> getOppList(String name, String account, String stage, String close){
+        try {
+            List<Opportunity> fullOppList = [SELECT Id, Name, Account.Name, StageName, CloseDate FROM Opportunity];
+            List<Opportunity> temp = new List<Opportunity>();
+            for(Opportunity opp : fullOppList){
+                String oppName = opp.Name;
+                String oppAccount = '';
+                String oppStage = '';
+                String oppDate = '';
+                if(opp.Account.Name != NULL){
+                    oppAccount = (String)opp.Account.Name;
+                }
+                if(opp.StageName != NULL){
+                    OppStage = (String)opp.StageName;
+                }
+                if(Opp.CloseDate != NULL){
+                    OppDate = Opp.CloseDate.format();
+                }
+                if(OppName.containsIgnoreCase(Name) &&
+                    OppAccount.containsIgnoreCase(Account) &&
+                    OppStage.containsIgnoreCase(Stage) &&
+                    OppDate.containsIgnoreCase(Close)){
+                                temp.add(opp);
+                }
+            }
+            return temp;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    @AuraEnabled(cacheable=true)
+    public static List<Contact> getCustomerList(String first, String last, String phone, String email, String account){
+        try {
+            List<Contact> customers = [SELECT FirstName, LastName, Phone, Email, Account.Name FROM Contact WHERE RecordType.Name = 'Customer'];
+            List<Contact> temp = new List<Contact>();
+            for(Contact cust : customers){
+                String custPhone = '';
+                String custEmail = '';
+                String custAccountName = '';
+                String custFirstName = '';
+                String custLastName = cust.LastName;
+                if(cust.FirstName != NULL){
+                    custFirstName = (String)cust.FirstName;
+                }
+                if(cust.Phone != NULL){
+                    custPhone = (String)cust.Phone;
+                }
+                if(cust.Email != NULL){
+                    custEmail = (String)cust.Email;
+                }
+                if(cust.AccountId != NULL){
+                    custAccountName = cust.Account.Name;
+                }
+                if(custFirstName.containsIgnoreCase(first) && 
+                    custLastName.containsIgnoreCase(last) &&
+                    custPhone.containsIgnoreCase(phone) &&
+                    custEmail.containsIgnoreCase(email) &&
+                    custAccountName.ContainsIgnoreCase(account)){
+                        temp.add(cust);
+                }
+            }
+            return temp;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    @AuraEnabled(cacheable=true)
+    public static List<Work_Order__c> getWOList(String name, String account, String productOwner){
+        try{
+            List<Work_Order__c> workOrders = [SELECT Name, Account__r.Name, Product_Owner__r.Name FROM Work_Order__c];
+            List<Work_Order__c> temp = new List<Work_Order__c>();
+            for(Work_Order__c wo : workOrders){
+                String woName = wo.Name;
+                String woAccount = '';
+                String woPOwner = '';
+                if(wo.Account__c != NULL){
+                    woAccount = wo.Account__r.Name;
+                }
+                if(wo.Product_Owner__c != NULL){
+                    woPOwner = wo.Product_Owner__r.Name;
+                }
+                if(woName.containsIgnoreCase(name) &&
+                woAccount.containsIgnoreCase(account) &&
+                woPOwner.containsIgnoreCase(productOwner)){
+                    temp.add(wo);
+                }
+            }
+            return temp;
+        }catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    @AuraEnabled(cacheable=true)
+    public static List<Contact> getTechList(String first, String last, String phone, String email, String account){
+        try {
+            List<Contact> technicians = [SELECT FirstName, LastName, Phone, Email, Account.Name FROM Contact WHERE RecordType.Name = 'Technician'];
+            List<Contact> temp = new List<Contact>();
+            for(Contact tech : technicians){
+                String techPhone = '';
+                String techEmail = '';
+                String techAccountName = '';
+                String techFirstName = '';
+                String techLastName = tech.LastName;
+                if(tech.FirstName != NULL){
+                    techFirstName = (String)tech.FirstName;
+                }
+                if(tech.Phone != NULL){
+                    techPhone = (String)tech.Phone;
+                }
+                if(tech.Email != NULL){
+                    techEmail = (String)tech.Email;
+                }
+                if(tech.AccountId != NULL){
+                    techAccountName = tech.Account.Name;
+                }
+                if(techFirstName.containsIgnoreCase(first) && 
+                techLastName.containsIgnoreCase(last) &&
+                techPhone.containsIgnoreCase(phone) &&
+                techEmail.containsIgnoreCase(email) &&
+                techAccountName.ContainsIgnoreCase(account)){
+                        temp.add(tech);
+                }
+            }
+            return temp;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
     @AuraEnabled
     public static void deleter(String idsToDelete, String sObjectType){
         try {
