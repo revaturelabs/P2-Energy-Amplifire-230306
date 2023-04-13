@@ -101,6 +101,43 @@ public with sharing class LWCHelper {
         }
     }
 
+    @AuraEnabled(cacheable=true)
+    public static List<contact> getCustomerList(String first, String last, String phone, String email, String account){
+        try {
+            List<Contact> Customers = [SELECT Name, Phone, Email, Account.Name FROM Contact WHERE RecordType.Name = 'Customer'];
+            List<Contact> temp = new List<Contact>();
+            for(Contact cust : Customers){
+                String custPhone = '';
+                String custEmail = '';
+                String custAccountName = '';
+                String custName = cust.Name;
+                if(cust.MobilePhone != NULL){
+                    custPhone = (String)cust.MobilePhone;
+                }
+                if(cust.Email != NULL){
+                    custEmail = (String)cust.Email;
+                }
+                if(cust.AccountId != NULL){
+                    custAccountName = cust.Account.Name;
+                }
+                if(custName.containsIgnoreCase(NamecustSearchTerm)){
+                    if(custPhone.containsIgnoreCase(PhonecustSearchTerm)){
+                        if(custEmail.containsIgnoreCase(EmailcustSearchTerm)){
+                            if(custAccountName.ContainsIgnoreCase(AccountcustSearchTerm)){
+                                temp.add(new cContact(cust));
+                            }
+                        }
+                    }
+                }
+            }
+            cCustList = temp;
+            return temp;
+        }
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
     @AuraEnabled
     public static void deleter(String idsToDelete, String sObjectType){
         try {

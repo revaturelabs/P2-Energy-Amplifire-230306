@@ -1,10 +1,8 @@
 <template>
     <div>
+        <img src={logo} style="display:block; margin:auto; width:15%"/>
         <lightning-layout horizontal-align="center" vertical-align="center">
-            <lightning-layout-item size="2" >
-                <img src={logo} />
-            </lightning-layout-item>
-            <lightning-layout-item size="6">
+            <lightning-layout-item>
                 <lightning-button-group style="--slds-c-button-stateful-color-background-selected: #dddddd">
                     <lightning-button-stateful label-when-off="Accounts" label-when-on="Accounts" icon-name-when-off="utility:add" 
                                                     icon-name-when-on="utility:check" onclick={handleAcc} selected={displayAcc}></lightning-button-stateful>
