@@ -5,55 +5,55 @@
                 <img src={logo} />
             </lightning-layout-item>
             <lightning-layout-item size="6">
-                <lightning-button-group>
-                    <lightning-button label="Accounts" onclick={handleAcc} ></lightning-button>
-                    <lightning-button label="Leads" onclick={handleLea} ></lightning-button>
-                    <lightning-button label="Opportunities" onclick={handleOpp} ></lightning-button>
-                    <lightning-button label="Orders and Products" onclick={handleOrd} ></lightning-button>
-                    <lightning-button label="Customers" onclick={handleCus} ></lightning-button>
-                    <lightning-button label="Technicians" onclick={handleTec} ></lightning-button>
-                    <lightning-button label="Work Orders" onclick={handleWO}></lightning-button>
+                <lightning-button-group style="--slds-c-button-stateful-color-background-selected: #dddddd">
+                    <lightning-button-stateful label-when-off="Accounts" label-when-on="Accounts" icon-name-when-off="utility:add" 
+                                                    icon-name-when-on="utility:check" onclick={handleAcc} selected={displayAcc}></lightning-button-stateful>
+                    <lightning-button-stateful label-when-off="Leads" label-when-on="Leads" icon-name-when-off="utility:add" 
+                                                    icon-name-when-on="utility:check" onclick={handleLea} selected={displayLea}></lightning-button-stateful>
+                    <lightning-button-stateful label-when-off="Opportunities" label-when-on="Opportunities" icon-name-when-off="utility:add" 
+                                                    icon-name-when-on="utility:check" onclick={handleOpp} selected={displayOpp}></lightning-button-stateful>
+                    <lightning-button-stateful label-when-off="Orders and Products" label-when-on="Orders and Products" icon-name-when-off="utility:add" 
+                                                    icon-name-when-on="utility:check" onclick={handleOrd} selected={displayOrd}></lightning-button-stateful>
+                    <lightning-button-stateful label-when-off="Customers" label-when-on="Customers" icon-name-when-off="utility:add" 
+                                                    icon-name-when-on="utility:check" onclick={handleCus} selected={displayCus}></lightning-button-stateful>
+                    <lightning-button-stateful label-when-off="Technicians" label-when-on="Technicians" icon-name-when-off="utility:add" 
+                                                    icon-name-when-on="utility:check" onclick={handleTec} selected={displayTec}></lightning-button-stateful>
+                    <lightning-button-stateful label-when-off="Work Orders" label-when-on="Work Orders" icon-name-when-off="utility:add" 
+                                                    icon-name-when-on="utility:check" onclick={handleWO} selected={displayWO}></lightning-button-stateful>
                 </lightning-button-group>
             </lightning-layout-item>
         </lightning-layout>
     </div>
-    <template lwc:if={createAccount}>
-        <lightning-record-form object-api-name="Account" fields={accountFields}></lightning-record-form>
-    </template>
-    <template if:true={displayAcc}>
-        <lightning-layout>
-            <lightning-layout-item size="3" padding="around-small">
-                <div>
-                    <c-account-search oncreate={handleCreateAccount}></c-account-search>
-                </div>
-            </lightning-layout-item>
-            <lightning-layout-item padding="around-small">
-                <div>
-                    <c-account-list></c-account-list>
-                </div>
-            </lightning-layout-item>
-        </lightning-layout>
-    </template>
-    <template lwc:if={createLead}>
-        <lightning-record-form object-api-name="Lead" fields={leadFields}></lightning-record-form>
-    </template>
-    
-    <lightning-layout lwc:if={displayLea}>
+    <lightning-layout if:true={displayAcc}>
         <lightning-layout-item size="3" padding="around-small">
-            <c-lead-search oncreate={handleCreateLead}></c-lead-search>
+                <c-account-search></c-account-search>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small">
+                <c-account-list></c-account-list>
+        </lightning-layout-item>
+    </lightning-layout>
+    <lightning-layout if:true={displayLea}>
+        <lightning-layout-item size="3" padding="around-small">
+            <c-lead-search></c-lead-search>
         </lightning-layout-item>
         <lightning-layout-item padding="around-small">
             <c-lead-list></c-lead-list>
         </lightning-layout-item>
     </lightning-layout>
-    
-    <lightning-record-form lwc:if={createOpp} object-api-name="Opportunity" fields={oppFields}></lightning-record-form>
-    <lightning-layout lwc:if={displayOpp}>
+    <lightning-layout if:true={displayOpp}>
         <lightning-layout-item size="3" padding="around-small">
-            <c-opportunity-search oncreate={handleCreateOpp}></c-opportunity-search>
+            <c-opportunity-search></c-opportunity-search>
         </lightning-layout-item>
         <lightning-layout-item padding="around-small">
             <c-opportunity-list></c-opportunity-list>
+        </lightning-layout-item>
+    </lightning-layout>
+    <lightning-layout if:true={displayCus}>
+        <lightning-layout-item size="3" padding="around-small">
+            <c-customer-search></c-customer-search>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small">
+            <c-customer-list></c-customer-list>
         </lightning-layout-item>
     </lightning-layout>
 </template>

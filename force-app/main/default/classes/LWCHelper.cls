@@ -75,10 +75,10 @@ public with sharing class LWCHelper {
             List<Opportunity> fullOppList = [SELECT Id, Name, Account.Name, StageName, CloseDate FROM Opportunity];
             List<Opportunity> temp = new List<Opportunity>();
             for(Opportunity opp : fullOppList){
-                String OppName = opp.Name;
-                String OppAccount = '';
-                String OppStage = '';
-                String OppDate = '';
+                String oppName = opp.Name;
+                String oppAccount = '';
+                String oppStage = '';
+                String oppDate = '';
                 if(opp.Account.Name != NULL){
                     oppAccount = (String)opp.Account.Name;
                 }

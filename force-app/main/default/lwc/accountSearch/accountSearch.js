@@ -4,12 +4,15 @@ import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 import ACCOUNT_OBJECT from '@salesforce/schema/Account';
 import INDUSTRY_FIELD from '@salesforce/schema/Account.Industry';
 import RATING_FIELD from '@salesforce/schema/Account.Rating';
+import NAME_FIELD from '@salesforce/schema/Account.Name';
+import PHONE_FIELD from '@salesforce/schema/Account.Phone';
 
 export default class AccountSearch extends LightningElement {
     industrySearchTerm;
     ratingSearchTerm;
     nameSearchTerm;
     phoneSearchTerm;
+    fields = [ NAME_FIELD, PHONE_FIELD, INDUSTRY_FIELD, RATING_FIELD ];
 
     @wire(getObjectInfo, { objectApiName: ACCOUNT_OBJECT })
     accountMetadata;
@@ -47,8 +50,9 @@ export default class AccountSearch extends LightningElement {
     handlePhone(event) {
         this.phoneSearchTerm = event.detail.value;
     }
+    create = false;
 
     handleCreate(event){
-        this.dispatchEvent(new CustomEvent('create'));
+        this.create = !this.create;
     }
 }

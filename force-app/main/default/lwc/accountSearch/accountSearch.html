@@ -1,24 +1,27 @@
 <template>
     <lightning-card title="Account Search">
-        <div slot="actions">
-            <lightning-button label="Create" onclick={handleCreate}></lightning-button>
+        <div slot="actions" style="--slds-c-button-stateful-color-background-selected: #ffffff">
+            <lightning-button-stateful label-when-off="Create" label-when-on="Search" onclick={handleCreate} selected={create}></lightning-button-stateful>
         </div>
-        <lightning-input class="slds-p-horizontal_small" type="text" label="Name" value={nameSearchTerm} onchange={handleName}></lightning-input>
-        <lightning-input class="slds-p-horizontal_small" type="text" label="Phone" value={phoneSearchTerm} onchange={handlePhone}></lightning-input>
-        
-        <template lwc:if={industryOptions.data}>
-            <lightning-combobox class="slds-p-horizontal_small" name="Industry" label="Industry" value={industrySearchTerm} 
-                                options={industryOptions.data.values} onchange={handleIndustry} ></lightning-combobox>
-        </template>
-        <template lwc:else>
-            <lightning-combobox class="slds-p-horizontal_small" name="DisabledIndustry" label="Industry" value="" disabled></lightning-combobox>
-        </template>
-        <template lwc:if={ratingOptions.data}>
-            <lightning-combobox class="slds-p-horizontal_small" name="Rating" label="Rating" value={ratingSearchTerm} 
-                                options={ratingOptions.data.values} onchange={handleRating} ></lightning-combobox>
-        </template>
-        <template lwc:else>
-            <lightning-combobox class="slds-p-horizontal_small" name="DisabledRating" label="Rating" value="" disabled></lightning-combobox>
-        </template>
+        <div if:false={create}>
+            <lightning-input class="slds-p-horizontal_small" type="text" label="Name" value={nameSearchTerm} onchange={handleName}></lightning-input>
+            <lightning-input class="slds-p-horizontal_small" type="text" label="Phone" value={phoneSearchTerm} onchange={handlePhone}></lightning-input>
+            
+            <template lwc:if={industryOptions.data}>
+                <lightning-combobox class="slds-p-horizontal_small" name="Industry" label="Industry" value={industrySearchTerm} 
+                                    options={industryOptions.data.values} onchange={handleIndustry} ></lightning-combobox>
+            </template>
+            <template lwc:else>
+                <lightning-combobox class="slds-p-horizontal_small" name="DisabledIndustry" label="Industry" value="" disabled></lightning-combobox>
+            </template>
+            <template lwc:if={ratingOptions.data}>
+                <lightning-combobox class="slds-p-horizontal_small" name="Rating" label="Rating" value={ratingSearchTerm} 
+                                    options={ratingOptions.data.values} onchange={handleRating} ></lightning-combobox>
+            </template>
+            <template lwc:else>
+                <lightning-combobox class="slds-p-horizontal_small" name="DisabledRating" label="Rating" value="" disabled></lightning-combobox>
+            </template>
+        </div>
+        <lightning-record-form if:true={create} object-api-name="Account" fields={fields}></lightning-record-form>
     </lightning-card>
 </template>

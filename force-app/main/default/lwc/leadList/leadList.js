@@ -107,4 +107,41 @@ export default class LightningDatatableLWCExample extends LightningElement {
             );
         });
     }
+
+    
+    draftValues = [];
+
+    async handleSave(event) {
+        const records = event.detail.draftValues.slice().map((draftValue) => {
+            const fields = Object.assign({}, draftValue);
+            return { fields };
+        });
+
+        this.draftValues = [];
+
+        try {
+            const recordUpdatePromises = records.map((record) =>
+                updateRecord(record)
+            );
+            await Promise.all(recordUpdatePromises);
+
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Success',
+                    message: 'Leads updated',
+                    variant: 'success'
+                })
+            );
+            await refreshApex(this.contacts);
+
+        } catch (error) {
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Error updating or reloading Leads',
+                    message: error.body.message,
+                    variant: 'error'
+                })
+            );
+        }
+    }
 }

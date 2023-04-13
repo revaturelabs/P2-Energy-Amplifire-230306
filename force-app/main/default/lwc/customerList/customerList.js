@@ -1,62 +1,65 @@
 import { LightningElement , wire, track} from 'lwc';
-import getAccountList from '@salesforce/apex/LWCHelper.getAccountList';
+import getLeadList from '@salesforce/apex/LWCHelper.getLeadList';
 import DELETE from '@salesforce/apex/LWCHelper.deleter';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
-import { updateRecord } from 'lightning/uiRecordApi';
-
 export default class LightningDatatableLWCExample extends LightningElement {
     @track columns = [{
-            label: 'Account name',
-            fieldName: 'Name',
+            label: 'First name',
+            fieldName: 'FirstName',
             type: 'text',
-            editable: true,
+        },
+        {
+            label: 'Last Name',
+            fieldName: 'LastName',
+            type: 'text',
         },
         {
             label: 'Phone',
             fieldName: 'Phone',
             type: 'phone',
-            editable: true,
         },
         {
-            label: 'Industry',
-            fieldName: 'Industry',
+            label: 'Email',
+            fieldName: 'Email',
             type: 'text',
-            editable: true,
         },
         {
-            label: 'Rating',
-            fieldName: 'Rating',
+            label: 'Account',
+            fieldName: 'Account',
             type: 'text',
-            editable: true,
-        }
+        },
     ];
  
-    accNameSearch = '';
-    accPhoneSearch = '';
-    accIndustrySearch = '';
-    accRatingSearch = '';
+    leadNameSearch = '';
+    leadCompanySearch = '';
+    leadPhoneSearch = '';
+    leadEmailSearch = '';
+    leadRatingSearch = '';
+    leadStatusSearch = '';
 
     @track error;
-    @track accList;
-    wiredAccountsResult;
+    @track leadList;
+    wiredLeadsResult;
 
-    @wire(getAccountList,
+    @wire(getLeadList,
         {
-            nameAccountSearchTerm: '$accNameSearch', 
-            phoneAccountSearchTerm: '$accPhoneSearch',
-            industryAccountSearchTerm: '$accIndustrySearch',
-            ratingAccountSearchTerm: '$accRatingSearch',
+            nameLeadSearchTerm: '$leadNameSearch', 
+            companyLeadSearchTerm: '$leadCompanySearch',
+            phoneLeadSearchTerm: '$leadPhoneSearch',
+            emailLeadSearchTerm: '$leadEmailSearch',
+            ratingLeadSearchTerm: '$leadRatingSearch',
+            statusLeadSearchTerm: '$leadStatusSearch',
         }
         )
-    wiredAccounts(result) {
-        this.wiredAccountsResult = result;
+    wiredLeads(result) {
+        this.wiredLeadsResult = result;
         if (result.data) {
-            this.accList = result.data;
+            this.leadList = result.data;
             this.error = undefined;
         } else if (result.error) {
             this.error = result.error;
-            this.accList = undefined;
+            this.leadList = undefined;
         }
     }
     selectedIds;
@@ -65,7 +68,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
         var selectedRecords =  this.template.querySelector("lightning-datatable").getSelectedRows();
         if(selectedRecords.length > 0){
             console.log('selectedRecords are ', selectedRecords);
-    
+   
             let ids = '';
             selectedRecords.forEach(currentItem => {
                 ids = ids + ',' + currentItem.Id;
@@ -77,17 +80,17 @@ export default class LightningDatatableLWCExample extends LightningElement {
     handleDelete() {
         DELETE({
             idsToDelete: this.selectedIds, 
-            sObjectType: 'Account',
+            sObjectType: 'Lead',
         })
         .then(() => {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
-                    message: 'Account deleted',
+                    message: 'Lead deleted',
                     variant: 'success'
                 })
             );
-            return refreshApex(this.wiredAccountsResult);
+            return refreshApex(this.wiredLeadsResult);
         })
         .catch((error) => {
             this.dispatchEvent(
@@ -99,6 +102,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
             );
         });
     }
+
     
     draftValues = [];
 
@@ -119,7 +123,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
-                    message: 'Accounts updated',
+                    message: 'Leads updated',
                     variant: 'success'
                 })
             );
@@ -128,7 +132,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
         } catch (error) {
             this.dispatchEvent(
                 new ShowToastEvent({
-                    title: 'Error updating or reloading Accounts',
+                    title: 'Error updating or reloading Leads',
                     message: error.body.message,
                     variant: 'error'
                 })
