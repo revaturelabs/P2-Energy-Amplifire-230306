@@ -1,0 +1,10 @@
+Things to add to pages:
+
+Customers, Technicians, and Work Orders
+Pausing on change (debouncing?)
+Icons for the Objects
+Pagination
+LWC for the Header instead of this Janky thing
+
+Maybes:
+Sort functions based on columns
