@@ -1,6 +1,7 @@
 Things to add to pages:
 
-Customers, Technicians, and Work Orders
+picklists
+lookup relationships
 Pausing on change (debouncing?)
 Icons for the Objects
 Pagination

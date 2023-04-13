@@ -123,7 +123,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
                     variant: 'success'
                 })
             );
-            await refreshApex(this.contacts);
+            await refreshApex(this.wiredAccountsResult);
 
         } catch (error) {
             this.dispatchEvent(

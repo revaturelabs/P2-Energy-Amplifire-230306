@@ -1,66 +1,61 @@
 import { LightningElement , wire, track} from 'lwc';
-import getOppList from '@salesforce/apex/LWCHelper.getOppList';
+import getWOList from '@salesforce/apex/LWCHelper.getWOList';
 import DELETE from '@salesforce/apex/LWCHelper.deleter';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
+
 export default class LightningDatatableLWCExample extends LightningElement {
     @track columns = [{
-            label: 'Opportunity name',
+            label: 'Name',
             fieldName: 'Name',
             type: 'text',
             editable: true,
         },
         {
-            label: 'Account Name',
+            label: 'Account',
             fieldName: 'accountName',
             type: 'text',
-            editable: true,
+            editable: false,
         },
         {
-            label: 'Stage',
-            fieldName: 'StageName',
+            label: 'Product Owner',
+            fieldName: 'pOwner',
             type: 'text',
-            editable: true,
+            editable: false,
         },
-        {
-            label: 'Close Date',
-            fieldName: 'CloseDate',
-            type: 'date',
-            editable: true,
-        }
     ];
  
-    oppNameSearch = '';
-    oppAccountSearch = '';
-    oppStageSearch = '';
-    oppDateSearch = '';
+    nameSearch = '';
+    accountSearch = '';
+    productOwnerSearch = '';
 
     @track error;
-    @track oppList;
-    wiredOppResult;
+    @track workOrderList;
+    wiredWorkOrderResult;
 
-    @wire(getOppList,
+    @wire(getWOList,
         {
-            name: '$oppNameSearch', 
-            account: '$oppAccountSearch',
-            stage: '$oppStageSearch',
-            close: '$oppDateSearch',
+            name: '$nameSearch', 
+            account: '$accountSearch',
+            productOwner: '$productOwnerSearch',
         }
         )
-    wiredOpps(result) {
-        this.wiredOppResult = result;
+    wiredWO(result) {
+        this.wiredWorkOrderResult = result;
         if (result.data) {
-            this.oppList = result.data;
-            this.oppList = this.oppList.map( item =>{
+            console.log(result.data);
+            this.workOrderList = result.data;
+            this.workOrderList = this.workOrderList.map( item =>{
                 item = {...item};
-                item['accountName'] = item.Account.Name;
+                item['accountName'] = item.Account__r.Name;
+                item['pOwner'] = item.Product_Owner__r.Name;
                 return item;
             }
             )
             this.error = undefined;
         } else if (result.error) {
             this.error = result.error;
-            this.oppList = undefined;
+            this.workOrderList = undefined;
         }
     }
     selectedIds;
@@ -69,7 +64,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
         var selectedRecords =  this.template.querySelector("lightning-datatable").getSelectedRows();
         if(selectedRecords.length > 0){
             console.log('selectedRecords are ', selectedRecords);
-    
+   
             let ids = '';
             selectedRecords.forEach(currentItem => {
                 ids = ids + ',' + currentItem.Id;
@@ -81,17 +76,17 @@ export default class LightningDatatableLWCExample extends LightningElement {
     handleDelete() {
         DELETE({
             idsToDelete: this.selectedIds, 
-            sObjectType: 'Opportunity',
+            sObjectType: 'Work_Order__c',
         })
         .then(() => {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
-                    message: 'Opportunity deleted',
+                    message: 'Work Order deleted',
                     variant: 'success'
                 })
             );
-            return refreshApex(this.wiredOppResult);
+            return refreshApex(this.wiredWorkOrderResult);
         })
         .catch((error) => {
             this.dispatchEvent(
@@ -103,6 +98,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
             );
         });
     }
+
     
     draftValues = [];
 
@@ -123,16 +119,16 @@ export default class LightningDatatableLWCExample extends LightningElement {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
-                    message: 'Accounts updated',
+                    message: 'Work Order updated',
                     variant: 'success'
                 })
             );
-            await refreshApex(this.contacts);
+            await refreshApex(this.wiredWorkOrderResult);
 
         } catch (error) {
             this.dispatchEvent(
                 new ShowToastEvent({
-                    title: 'Error updating or reloading Accounts',
+                    title: 'Error updating or reloading Work Order',
                     message: error.body.message,
                     variant: 'error'
                 })

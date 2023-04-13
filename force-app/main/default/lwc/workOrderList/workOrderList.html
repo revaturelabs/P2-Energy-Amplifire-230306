@@ -1,12 +1,12 @@
 <template>
-    <lightning-card  title="Customers">
+    <lightning-card  title="Work Orders">
         <div slot="actions">
             <lightning-button-group>
                 <lightning-button label="Delete" onclick={handleDelete}></lightning-button>
             </lightning-button-group>
         </div>
-        <template if:true={customerList}>
-            <lightning-datatable data={customerList} columns={columns} key-field="Id" onrowselection={getSelectedRec} onsave={handleSave}>
+        <template if:true={workOrderList}>
+            <lightning-datatable data={workOrderList} columns={columns} key-field="Id" onrowselection={getSelectedRec} onsave={handleSave}>
             </lightning-datatable>
         </template>
         <template if:true={error}>

@@ -54,4 +54,20 @@
             <c-customer-list></c-customer-list>
         </lightning-layout-item>
     </lightning-layout>
+    <lightning-layout if:true={displayTec}>
+        <lightning-layout-item size="3" padding="around-small">
+            <c-tech-search></c-tech-search>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small">
+            <c-tech-list></c-tech-list>
+        </lightning-layout-item>
+    </lightning-layout>
+    <lightning-layout if:true={displayWO}>
+        <lightning-layout-item size="3" padding="around-small">
+            <c-work-order-search></c-work-order-search>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small">
+            <c-work-order-list></c-work-order-list>
+        </lightning-layout-item>
+    </lightning-layout>
 </template>

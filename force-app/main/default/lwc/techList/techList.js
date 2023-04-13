@@ -1,66 +1,77 @@
 import { LightningElement , wire, track} from 'lwc';
-import getOppList from '@salesforce/apex/LWCHelper.getOppList';
+import getTechList from '@salesforce/apex/LWCHelper.getTechList';
 import DELETE from '@salesforce/apex/LWCHelper.deleter';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
+
 export default class LightningDatatableLWCExample extends LightningElement {
     @track columns = [{
-            label: 'Opportunity name',
-            fieldName: 'Name',
+            label: 'First name',
+            fieldName: 'FirstName',
             type: 'text',
             editable: true,
         },
         {
-            label: 'Account Name',
+            label: 'Last Name',
+            fieldName: 'LastName',
+            type: 'text',
+            editable: true,
+        },
+        {
+            label: 'Phone',
+            fieldName: 'Phone',
+            type: 'phone',
+            editable: true,
+        },
+        {
+            label: 'Email',
+            fieldName: 'Email',
+            type: 'text',
+            editable: true,
+        },
+        {
+            label: 'Account',
             fieldName: 'accountName',
             type: 'text',
-            editable: true,
+            editable: false,
         },
-        {
-            label: 'Stage',
-            fieldName: 'StageName',
-            type: 'text',
-            editable: true,
-        },
-        {
-            label: 'Close Date',
-            fieldName: 'CloseDate',
-            type: 'date',
-            editable: true,
-        }
     ];
  
-    oppNameSearch = '';
-    oppAccountSearch = '';
-    oppStageSearch = '';
-    oppDateSearch = '';
+    techFirstNameSearch = '';
+    techLastNameSearch = '';
+    techPhoneSearch = '';
+    techEmailSearch = '';
+    techAccountSearch = '';
 
     @track error;
-    @track oppList;
-    wiredOppResult;
+    @track techList;
+    wiredTechResult;
 
-    @wire(getOppList,
+    @wire(getTechList,
         {
-            name: '$oppNameSearch', 
-            account: '$oppAccountSearch',
-            stage: '$oppStageSearch',
-            close: '$oppDateSearch',
+            first: '$techFirstNameSearch', 
+            last: '$techLastNameSearch',
+            phone: '$techPhoneSearch',
+            email: '$techEmailSearch',
+            account: '$techAccountSearch',
         }
         )
-    wiredOpps(result) {
-        this.wiredOppResult = result;
+    wiredTechs(result) {
+        this.wiredTechResult = result;
         if (result.data) {
-            this.oppList = result.data;
-            this.oppList = this.oppList.map( item =>{
+            console.log(result.data);
+            this.techList = result.data;
+            this.techList = this.techList.map( item =>{
                 item = {...item};
                 item['accountName'] = item.Account.Name;
                 return item;
             }
             )
+            console.log(this.techList);
             this.error = undefined;
         } else if (result.error) {
             this.error = result.error;
-            this.oppList = undefined;
+            this.techList = undefined;
         }
     }
     selectedIds;
@@ -69,7 +80,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
         var selectedRecords =  this.template.querySelector("lightning-datatable").getSelectedRows();
         if(selectedRecords.length > 0){
             console.log('selectedRecords are ', selectedRecords);
-    
+   
             let ids = '';
             selectedRecords.forEach(currentItem => {
                 ids = ids + ',' + currentItem.Id;
@@ -81,17 +92,17 @@ export default class LightningDatatableLWCExample extends LightningElement {
     handleDelete() {
         DELETE({
             idsToDelete: this.selectedIds, 
-            sObjectType: 'Opportunity',
+            sObjectType: 'Contact',
         })
         .then(() => {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
-                    message: 'Opportunity deleted',
+                    message: 'Technician deleted',
                     variant: 'success'
                 })
             );
-            return refreshApex(this.wiredOppResult);
+            return refreshApex(this.wiredTechResult);
         })
         .catch((error) => {
             this.dispatchEvent(
@@ -103,6 +114,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
             );
         });
     }
+
     
     draftValues = [];
 
@@ -123,16 +135,16 @@ export default class LightningDatatableLWCExample extends LightningElement {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
-                    message: 'Accounts updated',
+                    message: 'Technicians updated',
                     variant: 'success'
                 })
             );
-            await refreshApex(this.contacts);
+            await refreshApex(this.wiredTechResult);
 
         } catch (error) {
             this.dispatchEvent(
                 new ShowToastEvent({
-                    title: 'Error updating or reloading Accounts',
+                    title: 'Error updating or reloading Technicians',
                     message: error.body.message,
                     variant: 'error'
                 })

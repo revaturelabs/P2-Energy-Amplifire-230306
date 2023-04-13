@@ -8,31 +8,37 @@ export default class LightningDatatableLWCExample extends LightningElement {
             label: 'Lead name',
             fieldName: 'Name',
             type: 'text',
+            editable: true,
         },
         {
             label: 'Company',
             fieldName: 'Company',
             type: 'text',
+            editable: true,
         },
         {
             label: 'Phone',
             fieldName: 'Phone',
             type: 'phone',
+            editable: true,
         },
         {
             label: 'Email',
             fieldName: 'Email',
             type: 'text',
+            editable: true,
         },
         {
             label: 'Rating',
             fieldName: 'Rating',
             type: 'text',
+            editable: true,
         },
         {
             label: 'Status',
             fieldName: 'Status',
             type: 'text',
+            editable: true,
         },
     ];
  
