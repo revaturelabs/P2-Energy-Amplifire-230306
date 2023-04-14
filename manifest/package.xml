@@ -78,6 +78,10 @@
         <members>leadList</members>
         <members>accountSearch</members>
         <members>leadSearch</members>
+        <members>opportunityList</members>
+        <members>opportunitySearch</members>
+        <members>customerList</members>
+        <members>customerSearch</members>
         <members>mainPageHolder</members>
         <name>LightningComponentBundle</name>
     </types>

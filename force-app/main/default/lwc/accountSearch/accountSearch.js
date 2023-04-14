@@ -6,12 +6,15 @@ import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c';
 import ACCOUNT_OBJECT from '@salesforce/schema/Account';
 import INDUSTRY_FIELD from '@salesforce/schema/Account.Industry';
 import RATING_FIELD from '@salesforce/schema/Account.Rating';
+import NAME_FIELD from '@salesforce/schema/Account.Name';
+import PHONE_FIELD from '@salesforce/schema/Account.Phone';
 
 export default class AccountSearch extends LightningElement {
     industrySearchTerm;
     ratingSearchTerm;
     nameSearchTerm;
     phoneSearchTerm;
+    fields = [ NAME_FIELD, PHONE_FIELD, INDUSTRY_FIELD, RATING_FIELD ];
 
     @wire(MessageContext)
     messageContext;
@@ -73,6 +76,7 @@ handleIndustry(event) {
     publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
 }
 
-
-    
+    handleCreate(event){
+        this.create = !this.create;
+    }
 }

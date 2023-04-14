@@ -1,0 +1,15 @@
+<template>
+    <lightning-card title="Technician Search">
+        <div slot="actions" style="--slds-c-button-stateful-color-background-selected: #ffffff">
+            <lightning-button-stateful label-when-off="Create" label-when-on="Search" onclick={handleCreate} selected={create}></lightning-button-stateful>
+        </div>
+        <div if:false={create}>
+            <lightning-input class="slds-p-horizontal_small" type="text" label="First Name" value={firstNameSearchTerm} onchange={handleFirstName}></lightning-input>
+            <lightning-input class="slds-p-horizontal_small" type="text" label="Last Name" value={lastNameSearchTerm} onchange={handleLastName}></lightning-input>
+            <lightning-input class="slds-p-horizontal_small" type="text" label="Phone" value={phoneSearchTerm} onchange={handlePhone}></lightning-input>
+            <lightning-input class="slds-p-horizontal_small" type="text" label="Email" value={emailSearchTerm} onchange={handleEmail}></lightning-input>
+            <lightning-input class="slds-p-horizontal_small" type="text" label="Account" value={accountSearchTerm} onchange={handleAccount}></lightning-input>
+        </div>
+        <lightning-record-form if:true={create} object-api-name="Contact" fields={fields} record-type-id={recordTypeId}></lightning-record-form>
+    </lightning-card>
+</template>

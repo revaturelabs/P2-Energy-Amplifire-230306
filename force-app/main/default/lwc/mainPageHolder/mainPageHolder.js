@@ -1,66 +1,42 @@
 import { LightningElement } from 'lwc';
 import FBC_LOGO from '@salesforce/resourceUrl/Logo';
-import LEAD_STATUS_FIELD from '@salesforce/schema/Lead.Status';
-import LEAD_RATING_FIELD from '@salesforce/schema/Lead.Rating';
-import LEAD_NAME_FIELD from '@salesforce/schema/Lead.Name';
-import LEAD_COMPANY_FIELD from '@salesforce/schema/Lead.Company';
-import LEAD_PHONE_FIELD from '@salesforce/schema/Lead.Phone';
-import LEAD_EMAIL_FIELD from '@salesforce/schema/Lead.Email';
+
 
 export default class MainPageHolder extends LightningElement {
     displayAcc = true;
+    displayLea = true;
     displayOpp = false;
     displayOrd = false;
-    displayCon = false;
+    displayCus = false;
+    displayTec = false;
     displayWO  = false;
     logo = FBC_LOGO;
-    leadFields = [ LEAD_NAME_FIELD, LEAD_COMPANY_FIELD, LEAD_PHONE_FIELD, LEAD_EMAIL_FIELD, LEAD_RATING_FIELD, LEAD_STATUS_FIELD ];
 
     handleAcc() {
-        this.displayAcc = true;
-        this.displayOpp = false;
-        this.displayOrd = false;
-        this.displayCon = false;
-        this.displayWO  = false;
+        this.displayAcc = !this.displayAcc
+    }
+
+    handleLea(){
+        this.displayLea = !this.displayLea
     }
 
     handleOpp() {
-        this.displayAcc = false;
-        this.displayOpp = true;
-        this.displayOrd = false;
-        this.displayCon = false;
-        this.displayWO  = false;
+        this.displayOpp = !this.displayOpp
     }
 
     handleOrd() {
-        this.displayAcc = false;
-        this.displayOpp = false;
-        this.displayOrd = true;
-        this.displayCon = false;
-        this.displayWO  = false;
+        this.displayOrd = !this.displayOrd
     }
 
-    handleCon() {
-        this.displayAcc = false;
-        this.displayOpp = false;
-        this.displayOrd = false;
-        this.displayCon = true;
-        this.displayWO  = false;
+    handleCus() {
+        this.displayCus = !this.displayCus
+    }
+
+    handleTec(){
+        this.displayTec = !this.displayTec
     }
 
     handleWO() {
-        this.displayAcc = false;
-        this.displayOpp = false;
-        this.displayOrd = false;
-        this.displayCon = false;
-        this.displayWO  = true;
+        this.displayWO  = !this.displayWO
     }
-
-    createLead = false;
-    createAccount = false;
-
-    handleCreateLead(){
-        this.createLead = !this.createLead;
-    }
-
 }

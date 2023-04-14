@@ -4,6 +4,10 @@ import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 import LEAD_OBJECT from '@salesforce/schema/Lead';
 import STATUS_FIELD from '@salesforce/schema/Lead.Status';
 import RATING_FIELD from '@salesforce/schema/Lead.Rating';
+import NAME_FIELD from '@salesforce/schema/Lead.Name';
+import COMPANY_FIELD from '@salesforce/schema/Lead.Company';
+import PHONE_FIELD from '@salesforce/schema/Lead.Phone';
+import EMAIL_FIELD from '@salesforce/schema/Lead.Email';
 
 export default class AccountSearch extends LightningElement {
     companySearchTerm;
@@ -12,6 +16,7 @@ export default class AccountSearch extends LightningElement {
     phoneSearchTerm;
     emailSearchTerm;
     statusSearchTerm;
+    fields = [ NAME_FIELD, COMPANY_FIELD, PHONE_FIELD, EMAIL_FIELD, RATING_FIELD, STATUS_FIELD ];
 
     @wire(getObjectInfo, { objectApiName: LEAD_OBJECT })
     leadMetadata;
@@ -56,7 +61,9 @@ export default class AccountSearch extends LightningElement {
         this.statusSearchTerm = event.detail.value;
     }
 
+    create = false;
+    
     handleCreate(event){
-        this.dispatchEvent(new CustomEvent('create'));
+        this.create = !this.create;
     }
 }
