@@ -22,6 +22,9 @@
             </lightning-layout-item>
         </lightning-layout>
     </div>
+
+    <!-- Accounts -->
+
     <lightning-layout if:true={displayAcc}>
         <lightning-layout-item size="3" padding="around-small">
                 <c-account-search></c-account-search>
@@ -30,6 +33,9 @@
                 <c-account-list></c-account-list>
         </lightning-layout-item>
     </lightning-layout>
+
+    <!-- Leads -->
+
     <lightning-layout if:true={displayLea}>
         <lightning-layout-item size="3" padding="around-small">
             <c-lead-search></c-lead-search>
@@ -38,6 +44,9 @@
             <c-lead-list></c-lead-list>
         </lightning-layout-item>
     </lightning-layout>
+
+    <!-- Opportunities -->
+
     <lightning-layout if:true={displayOpp}>
         <lightning-layout-item size="3" padding="around-small">
             <c-opportunity-search></c-opportunity-search>
@@ -46,6 +55,9 @@
             <c-opportunity-list></c-opportunity-list>
         </lightning-layout-item>
     </lightning-layout>
+
+    <!-- Customers -->
+
     <lightning-layout if:true={displayCus}>
         <lightning-layout-item size="3" padding="around-small">
             <c-customer-search></c-customer-search>
@@ -54,6 +66,9 @@
             <c-customer-list></c-customer-list>
         </lightning-layout-item>
     </lightning-layout>
+
+    <!-- Technicians -->
+
     <lightning-layout if:true={displayTec}>
         <lightning-layout-item size="3" padding="around-small">
             <c-tech-search></c-tech-search>
@@ -62,6 +77,9 @@
             <c-tech-list></c-tech-list>
         </lightning-layout-item>
     </lightning-layout>
+
+    <!-- Work Orders -->
+
     <lightning-layout if:true={displayWO}>
         <lightning-layout-item size="3" padding="around-small">
             <c-work-order-search></c-work-order-search>

@@ -37,7 +37,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
 
     @track error;
     @track oppList;
-    wiredOppResult;
+    wiredResult;
 
     @wire(getOppList,
         {
@@ -48,7 +48,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
         }
         )
     wiredOpps(result) {
-        this.wiredOppResult = result;
+        this.wiredResult = result;
         if (result.data) {
             this.oppList = result.data;
             this.oppList = this.oppList.map( item =>{
@@ -97,7 +97,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
                     variant: 'success'
                 })
             );
-            return refreshApex(this.wiredOppResult);
+            return refreshApex(this.wiredResult);
         })
         .catch((error) => {
             this.dispatchEvent(
@@ -133,7 +133,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
                     variant: 'success'
                 })
             );
-            await refreshApex(this.contacts);
+            await refreshApex(this.wiredResult);
 
         } catch (error) {
             this.dispatchEvent(

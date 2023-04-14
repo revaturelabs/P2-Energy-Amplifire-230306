@@ -1,12 +1,15 @@
 import { LightningElement , wire, track} from 'lwc';
 import getAccountList from '@salesforce/apex/LWCHelper.getAccountList';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
+import RATING_FIELD from '@salesforce/schema/Account.Rating';
+import ACCOUNT_OBJECT from '@salesforce/schema/Account';
 import  { subscribe, MessageContext, createMessageContext } from 'lightning/messageService';
 import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c';
 import DELETE from '@salesforce/apex/LWCHelper.deleter';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
 import { updateRecord } from 'lightning/uiRecordApi';
+import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 
 export default class LightningDatatableLWCExample extends LightningElement {
     @wire(MessageContext)
@@ -18,24 +21,23 @@ export default class LightningDatatableLWCExample extends LightningElement {
     accRatingSearch = '';
 
     subscribeToMessageChannel() {
-
-        
-        this.subscription = subscribe(
-            this.messageContext,
-            NAME_SELECTED_CHANNEL,
-            (message) => this.handleRating(message)
-          );
-     /*   
         this.subscription = subscribe(
             this.messageContext,
             NAME_SELECTED_CHANNEL,
             (message) => this.handleMessage(message)
-          );
-*/
+        );
+    }
 
-    
-      }
-      
+    @wire(getObjectInfo, { objectApiName: ACCOUNT_OBJECT })
+    accountMetadata;
+
+    @wire(getPicklistValues,
+        {
+            recordTypeId: '$accountMetadata.data.defaultRecordTypeId', 
+            fieldApiName: RATING_FIELD
+        }
+    )
+    ratingOptions;
  
     @track columns = [{
             label: 'Account name',
@@ -56,10 +58,10 @@ export default class LightningDatatableLWCExample extends LightningElement {
             editable: true,
         },
         {
-            label: 'Rating',
-            fieldName: 'Rating',
-            type: 'text',
-            editable: true,
+            label: 'Rating', 
+            fieldName: 'Rating', 
+            type: 'text', 
+            editable: true
         }
     ];
  
@@ -67,7 +69,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
 
     @track error;
     @track accList;
-    wiredAccountsResult;
+    wiredResult;
 
     @wire(getAccountList,
         {
@@ -78,7 +80,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
         }
         )
     wiredAccounts(result) {
-        this.wiredAccountsResult = result;
+        this.wiredResult = result;
         if (result.data) {
             this.accList = result.data;
             this.error = undefined;
@@ -115,7 +117,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
                     variant: 'success'
                 })
             );
-            return refreshApex(this.wiredAccountsResult);
+            return refreshApex(this.wiredResult);
         })
         .catch((error) => {
             this.dispatchEvent(
@@ -151,7 +153,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
                     variant: 'success'
                 })
             );
-            await refreshApex(this.wiredAccountsResult);
+            await refreshApex(this.wiredResult);
 
         } catch (error) {
             this.dispatchEvent(
@@ -164,20 +166,20 @@ export default class LightningDatatableLWCExample extends LightningElement {
         }
     }
 
-  handleMessage(message) {    
-  this.accNameSearch = message.nameField; 
-}
 
- handleRating(message) {
-    if (message.type === "rating")
-    this.accRatingSearch = message.ratingField;
-    if (message.type === "name")
-    this.accNameSearch = message.nameField;
-    if (message.type === "industry")
-    this.accIndustrySearch = message.industryField;
-    if (message.type === "phone")
-    this.accPhoneSearch = message.phoneField;
- }  
+    handleMessage(message) {
+        if (message.type === "rating")
+            this.accRatingSearch = message.ratingField;
+        if (message.type === "name")
+            this.accNameSearch = message.nameField;
+        if (message.type === "industry")
+            this.accIndustrySearch = message.industryField;
+        if (message.type === "phone")
+            this.accPhoneSearch = message.phoneField;
+        if (message.type === "accSubmit"){
+            const myTimeout = setTimeout(refreshApex, 500, this.wiredResult);
+        }
+    }
 
     connectedCallback() {
         this.subscribeToMessageChannel();
