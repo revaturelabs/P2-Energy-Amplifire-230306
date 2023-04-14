@@ -1,6 +1,8 @@
 import { LightningElement, wire } from 'lwc';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
+import  { publish,MessageContext } from 'lightning/messageService';
+import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c'; 
 import ACCOUNT_OBJECT from '@salesforce/schema/Account';
 import INDUSTRY_FIELD from '@salesforce/schema/Account.Industry';
 import RATING_FIELD from '@salesforce/schema/Account.Rating';
@@ -10,6 +12,9 @@ export default class AccountSearch extends LightningElement {
     ratingSearchTerm;
     nameSearchTerm;
     phoneSearchTerm;
+
+    @wire(MessageContext)
+    messageContext;
 
     @wire(getObjectInfo, { objectApiName: ACCOUNT_OBJECT })
     accountMetadata;
@@ -30,21 +35,44 @@ export default class AccountSearch extends LightningElement {
     )
     ratingOptions;
 
-    handleIndustry(event) {
-        this.industrySearchTerm = event.detail.value;
-        const selectedEvent = new CustomEvent("progressvaluechange", {detail: this.progressValue});
-        this.dispatchEvent(selectedEvent)
-    }
-
     handleRating(event) {
-        this.ratingSearchTerm = event.detail.value;
+      const rating = event.detail.value;
+      const payload = {
+         ratingField: rating,
+         type: "rating"
+     };
+    publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
+
     }
 
     handleName(event) {
-        this.nameSearchTerm = event.detail.value;
+        const name =  event.detail.value;
+        const payload = {
+            nameField: name,
+            type: "name"
+        };
+        publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
     }
 
-    handlePhone(event) {
-        this.phoneSearchTerm = event.detail.value;
-    }
+// Import message service features required for publishing and the message channel
+handlePhone(event) {
+    const phone =  event.detail.value;
+    const payload = {
+        phoneField: phone,
+        type: "phone"
+    };
+    publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
+}
+
+handleIndustry(event) {
+    const industry =  event.detail.value;
+    const payload = {
+        industryField: industry,
+        type: "industry"
+    };
+    publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
+}
+
+
+    
 }
