@@ -53,8 +53,14 @@ export default class LightningDatatableLWCExample extends LightningElement {
             this.oppList = result.data;
             this.oppList = this.oppList.map( item =>{
                 item = {...item};
-                item['accountName'] = item.Account.Name;
-                return item;
+                if(item.AccountId){
+                    item['accountName'] = item.Account.Name;
+                    return item;
+                }
+                else{
+                    item['accountName'] = '';
+                    return item;
+            }
             }
             )
             this.error = undefined;

@@ -47,9 +47,20 @@ export default class LightningDatatableLWCExample extends LightningElement {
             this.workOrderList = result.data;
             this.workOrderList = this.workOrderList.map( item =>{
                 item = {...item};
-                item['accountName'] = item.Account__r.Name;
-                item['pOwner'] = item.Product_Owner__r.Name;
-                return item;
+                if(item.Account__c){
+                    item['accountName'] = item.Account__r.Name;
+                }
+                else{
+                    item['accountName'] = '';
+                }
+                if(item.Product_Owner__c){
+                    item['pOwner'] = item.Product_Owner__r.Name;
+                    return item;
+                }
+                else{
+                    item['pOwner'] = '';
+                    return item;
+                }
             }
             )
             this.error = undefined;
