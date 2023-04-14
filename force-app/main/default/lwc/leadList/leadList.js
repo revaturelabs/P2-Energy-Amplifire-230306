@@ -6,7 +6,6 @@ import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
 
-
 export default class LightningDatatableLWCExample extends LightningElement {
     @track columns = [{
             label: 'Lead name',
@@ -58,7 +57,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
 
     @track error;
     @track leadList;
-    wiredLeadsResult;
+    wiredResult;
 
     subscribeToMessageChannel() {
     this.subscription = subscribe(
@@ -79,7 +78,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
         }
         )
     wiredLeads(result) {
-        this.wiredLeadsResult = result;
+        this.wiredResult = result;
         if (result.data) {
             this.leadList = result.data;
             this.error = undefined;
@@ -116,7 +115,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
                     variant: 'success'
                 })
             );
-            return refreshApex(this.wiredLeadsResult);
+            return refreshApex(this.wiredResult);
         })
         .catch((error) => {
             this.dispatchEvent(
@@ -171,7 +170,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
                     variant: 'success'
                 })
             );
-            await refreshApex(this.contacts);
+            await refreshApex(this.wiredResult);
 
         } catch (error) {
             this.dispatchEvent(

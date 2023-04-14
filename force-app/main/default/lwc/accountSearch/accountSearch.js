@@ -14,6 +14,8 @@ export default class AccountSearch extends LightningElement {
     ratingSearchTerm;
     nameSearchTerm;
     phoneSearchTerm;
+    nameTimer;
+    phoneTimer;
     fields = [ NAME_FIELD, PHONE_FIELD, INDUSTRY_FIELD, RATING_FIELD ];
 
     @wire(MessageContext)
@@ -45,38 +47,51 @@ export default class AccountSearch extends LightningElement {
          type: "accrating"
      };
     publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
-
     }
 
     handleName(event) {
         const name =  event.detail.value;
+        console.log(name);
         const payload = {
             nameField: name,
             type: "accname"
         };
+        clearTimeout(this.nameTimer);
+        this.nameTimer = setTimeout(publish, 300, this.messageContext, NAME_SELECTED_CHANNEL, payload);
+    }
+
+    // Import message service features required for publishing and the message channel
+    handlePhone(event) {
+        const phone =  event.detail.value;
+        const payload = {
+            phoneField: phone,
+            type: "accphone"
+        };
+        clearTimeout(this.phoneTimer);
+        this.phoneTimer = setTimeout(publish, 300, this.messageContext, NAME_SELECTED_CHANNEL, payload);
+    }
+
+    handleIndustry(event) {
+        const industry =  event.detail.value;
+        const payload = {
+            industryField: industry,
+            type: "accindustry"
+        };
         publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
     }
 
-// Import message service features required for publishing and the message channel
-handlePhone(event) {
-    const phone =  event.detail.value;
-    const payload = {
-        phoneField: phone,
-        type: "accphone"
-    };
-    publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
-}
-
-handleIndustry(event) {
-    const industry =  event.detail.value;
-    const payload = {
-        industryField: industry,
-        type: "accindustry"
-    };
-    publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
-}
+    create = false;
 
     handleCreate(event){
         this.create = !this.create;
+    }
+
+    handleSubmit(){
+        const submit =  true;
+        const payload = {
+            submitField: submit,
+            type: "accSubmit"
+        };
+        publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
     }
 }

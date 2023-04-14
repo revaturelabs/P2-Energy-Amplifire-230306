@@ -8,6 +8,6 @@
             <lightning-input class="slds-p-horizontal_small" type="text" label="Account" value={accountSearchTerm} onchange={handleAccount}></lightning-input>
             <lightning-input class="slds-p-horizontal_small" type="text" label="Product Owner" value={pOwnerSearchTerm} onchange={handlePOwner}></lightning-input>
         </div>
-        <lightning-record-form if:true={create} object-api-name="Work_Order__c" fields={fields}></lightning-record-form>
+        <lightning-record-form if:true={create} object-api-name="Work_Order__c" fields={fields} onsubmit={handleSubmit}></lightning-record-form>
     </lightning-card>
 </template>
