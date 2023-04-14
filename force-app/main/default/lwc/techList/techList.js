@@ -1,5 +1,5 @@
 import { LightningElement , wire, track} from 'lwc';
-import getTechList from '@salesforce/apex/LWCHelper.getTechList';
+import getCustomerList from '@salesforce/apex/LWCHelper.getTechList';
 import DELETE from '@salesforce/apex/LWCHelper.deleter';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
@@ -37,41 +37,45 @@ export default class LightningDatatableLWCExample extends LightningElement {
         },
     ];
  
-    techFirstNameSearch = '';
-    techLastNameSearch = '';
-    techPhoneSearch = '';
-    techEmailSearch = '';
-    techAccountSearch = '';
+    cusFirstNameSearch = '';
+    cusLastNameSearch = '';
+    cusPhoneSearch = '';
+    cusEmailSearch = '';
+    cusAccountSearch = '';
 
     @track error;
-    @track techList;
-    wiredTechResult;
+    @track customerList;
+    wiredCustomerResult;
 
-    @wire(getTechList,
+    @wire(getCustomerList,
         {
-            first: '$techFirstNameSearch', 
-            last: '$techLastNameSearch',
-            phone: '$techPhoneSearch',
-            email: '$techEmailSearch',
-            account: '$techAccountSearch',
+            first: '$cusFirstNameSearch', 
+            last: '$cusLastNameSearch',
+            phone: '$cusPhoneSearch',
+            email: '$cusEmailSearch',
+            account: '$cusAccountSearch',
         }
         )
-    wiredTechs(result) {
-        this.wiredTechResult = result;
+    wiredCustomers(result) {
+        this.wiredCustomerResult = result;
         if (result.data) {
-            console.log(result.data);
-            this.techList = result.data;
-            this.techList = this.techList.map( item =>{
+            this.customerList = result.data;
+            this.customerList = this.customerList.map( item =>{
                 item = {...item};
-                item['accountName'] = item.Account.Name;
-                return item;
+                if(item.AccountId){
+                    item['accountName'] = item.Account.Name;
+                    return item;
+                }
+                else{
+                    item['accountName'] = '';
+                    return item;
+            }
             }
             )
-            console.log(this.techList);
             this.error = undefined;
         } else if (result.error) {
             this.error = result.error;
-            this.techList = undefined;
+            this.customerList = [];
         }
     }
     selectedIds;
@@ -98,11 +102,11 @@ export default class LightningDatatableLWCExample extends LightningElement {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
-                    message: 'Technician deleted',
+                    message: 'Customer deleted',
                     variant: 'success'
                 })
             );
-            return refreshApex(this.wiredTechResult);
+            return refreshApex(this.wiredCustomerResult);
         })
         .catch((error) => {
             this.dispatchEvent(
@@ -139,7 +143,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
                     variant: 'success'
                 })
             );
-            await refreshApex(this.wiredTechResult);
+            await refreshApex(this.wiredCustomerResult);
 
         } catch (error) {
             this.dispatchEvent(

@@ -10,6 +10,6 @@
             <lightning-input class="slds-p-horizontal_small" type="text" label="Email" value={emailSearchTerm} onchange={handleEmail}></lightning-input>
             <lightning-input class="slds-p-horizontal_small" type="text" label="Account" value={accountSearchTerm} onchange={handleAccount}></lightning-input>
         </div>
-        <lightning-record-form if:true={create} object-api-name="Contact" fields={fields}></lightning-record-form>
+        <lightning-record-form if:true={create} object-api-name="Contact" fields={fields} record-type-id={recordTypeId}></lightning-record-form>
     </lightning-card>
 </template>
