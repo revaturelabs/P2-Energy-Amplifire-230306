@@ -33,6 +33,39 @@
     </lightningMessageFields>
     <lightningMessageFields>
         <fieldName>type</fieldName>
+        <description>This is the type of record being searched</description>   
+    </lightningMessageFields>  
+    <lightningMessageFields>
+        <fieldName>leadNameField</fieldName>
+        <description>The name of the lead being searched</description>
+    </lightningMessageFields> 
+    <lightningMessageFields>
+        <fieldName>leadCompanyField</fieldName>
+        <description>The name of the company being searched</description>
+    </lightningMessageFields> 
+    <lightningMessageFields>
+        <fieldName>leadPhoneField</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>leadStatusField</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>leadRatingField</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>leadEmailField</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>oppNameField</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>oppAccField</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>oppStageField</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>oppCloseField</fieldName>
         <description>This is the type of record being searched</description>
     </lightningMessageFields>
 </LightningMessageChannel>

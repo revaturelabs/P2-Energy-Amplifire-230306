@@ -1,6 +1,8 @@
 import { LightningElement, wire } from 'lwc';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
+import  { publish,MessageContext } from 'lightning/messageService';
+import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c'; 
 import OPPORTUNITY_OBJECT from '@salesforce/schema/Opportunity';
 import STAGE_FIELD from '@salesforce/schema/Opportunity.StageName';
 import NAME_FIELD from '@salesforce/schema/Opportunity.Name';
@@ -25,25 +27,51 @@ export default class OpportunitySearch extends LightningElement {
     )
     stageOptions;
 
-    handleName(event) {
-        this.nameSearchTerm = event.detail.value;
-    }
+    @wire(MessageContext)
+    messageContext;
+
+    
+handleName(event) {
+    const name = event.detail.value;
+    const payload = {
+        oppNameField: name,
+        type: "opportunityName"
+        };
+    publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
+}  
 
     handleAccount(event) {
-        this.accountSearchTerm = event.detail.value;
-    }
+        const acc = event.detail.value;
+        const payload = {
+            oppAccField: acc,
+            type: "opportunityAcc"
+            };
+        publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
+    }  
+    
 
     handleStage(event) {
-        this.stageSearchTerm = event.detail.value;
-    }
+        const stage = event.detail.value;
+        const payload = {
+            oppStageField: stage,
+            type: "opportunityStage"
+        };
+        publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
+        }
 
     handleClose(event) {
-        this.closeSearchTerm = event.detail.value;
+        const close = event.detail.value;
+        const payload = {
+            oppCloseField: close,
+            type: "opportunityClose"
+        };
+        publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
     }
+
     createOpp = false;
 
     handleCreate(event){
-       // this.dispatchEvent(new CustomEvent('create'));
+       
         this.createOpp = !this.createOpp
     }
 }

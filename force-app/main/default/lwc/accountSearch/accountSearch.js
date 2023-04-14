@@ -41,13 +41,12 @@ export default class AccountSearch extends LightningElement {
     ratingOptions;
 
     handleRating(event) {
-        const rating = event.detail.value;
-        const payload = {
-            ratingField: rating,
-            type: "rating"
-        };
-        publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
-
+      const rating = event.detail.value;
+      const payload = {
+         ratingField: rating,
+         type: "accrating"
+     };
+    publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
     }
 
     handleName(event) {
@@ -55,7 +54,7 @@ export default class AccountSearch extends LightningElement {
         console.log(name);
         const payload = {
             nameField: name,
-            type: "name"
+            type: "accname"
         };
         clearTimeout(this.nameTimer);
         this.nameTimer = setTimeout(publish, 300, this.messageContext, NAME_SELECTED_CHANNEL, payload);
@@ -66,7 +65,7 @@ export default class AccountSearch extends LightningElement {
         const phone =  event.detail.value;
         const payload = {
             phoneField: phone,
-            type: "phone"
+            type: "accphone"
         };
         clearTimeout(this.phoneTimer);
         this.phoneTimer = setTimeout(publish, 300, this.messageContext, NAME_SELECTED_CHANNEL, payload);
@@ -76,7 +75,7 @@ export default class AccountSearch extends LightningElement {
         const industry =  event.detail.value;
         const payload = {
             industryField: industry,
-            type: "industry"
+            type: "accindustry"
         };
         publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
     }

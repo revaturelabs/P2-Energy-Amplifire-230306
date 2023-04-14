@@ -165,17 +165,15 @@ export default class LightningDatatableLWCExample extends LightningElement {
             );
         }
     }
-
-
-    handleMessage(message) {
-        if (message.type === "rating")
-            this.accRatingSearch = message.ratingField;
-        if (message.type === "name")
-            this.accNameSearch = message.nameField;
-        if (message.type === "industry")
-            this.accIndustrySearch = message.industryField;
-        if (message.type === "phone")
-            this.accPhoneSearch = message.phoneField;
+ handleMessage(message) {
+    if (message.type === "accrating")
+    this.accRatingSearch = message.ratingField;
+    if (message.type === "accname")
+    this.accNameSearch = message.nameField;
+    if (message.type === "accindustry")
+    this.accIndustrySearch = message.industryField;
+    if (message.type === "accphone")
+    this.accPhoneSearch = message.phoneField;
         if (message.type === "accSubmit"){
             const myTimeout = setTimeout(refreshApex, 500, this.wiredResult);
         }
