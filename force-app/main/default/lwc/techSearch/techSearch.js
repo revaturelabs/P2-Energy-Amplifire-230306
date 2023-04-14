@@ -23,7 +23,7 @@ export default class AccountSearch extends LightningElement {
     getRecordType(result){
         if(result.data){
             console.log(result.data.recordTypeInfos);
-            const redTypes = result.data.recordTypeInfos;
+            const recTypes = result.data.recordTypeInfos;
             this.recordTypeId = Object.keys(recTypes).find(rt => recTypes[rt].name === 'Technician');
             this.error = undefined;
             console.log(this.recordTypeId);
