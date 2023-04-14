@@ -3,8 +3,21 @@ import getWOList from '@salesforce/apex/LWCHelper.getWOList';
 import DELETE from '@salesforce/apex/LWCHelper.deleter';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
+import  { subscribe, MessageContext, createMessageContext } from 'lightning/messageService';
+import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c';
 
 export default class LightningDatatableLWCExample extends LightningElement {
+    @wire(MessageContext)
+    messageContext;
+
+    subscribeToMessageChannel() {
+        this.subscription = subscribe(
+            this.messageContext,
+            NAME_SELECTED_CHANNEL,
+            (message) => this.handleMessage(message)
+        );
+    }
+
     @track columns = [{
             label: 'Name',
             fieldName: 'Name',
@@ -31,7 +44,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
 
     @track error;
     @track workOrderList;
-    wiredWorkOrderResult;
+    wiredResult;
 
     @wire(getWOList,
         {
@@ -41,7 +54,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
         }
         )
     wiredWO(result) {
-        this.wiredWorkOrderResult = result;
+        this.wiredResult = result;
         if (result.data) {
             console.log(result.data);
             this.workOrderList = result.data;
@@ -97,7 +110,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
                     variant: 'success'
                 })
             );
-            return refreshApex(this.wiredWorkOrderResult);
+            return refreshApex(this.wiredResult);
         })
         .catch((error) => {
             this.dispatchEvent(
@@ -134,7 +147,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
                     variant: 'success'
                 })
             );
-            await refreshApex(this.wiredWorkOrderResult);
+            await refreshApex(this.wiredResult);
 
         } catch (error) {
             this.dispatchEvent(
@@ -145,5 +158,21 @@ export default class LightningDatatableLWCExample extends LightningElement {
                 })
             );
         }
+    }
+
+    handleMessage(message) {
+        if (message.type === "workOrderName")
+            this.nameSearch = message.nameField;
+        if (message.type === "workOrderAccount")
+            this.accountSearch = message.accountField;
+        if (message.type === "workOrderPOwner")
+            this.productOwnerSearch = message.productOwnerField;
+        if (message.type === "workOrderSubmit"){
+            const myTimeout = setTimeout(refreshApex, 500, this.wiredResult);
+        }
+    }
+
+    connectedCallback() {
+        this.subscribeToMessageChannel();
     }
 }
