@@ -131,9 +131,9 @@ export default class LightningDatatableLWCExample extends LightningElement {
         this.draftValues = [];
 
         try {
-            const recordUpdatePromises = records.map((record) =>
-                updateRecord(record)
-                console.log(record);
+            const recordUpdatePromises = records.map((record) =>{
+                updateRecord(record);
+            }
             );
             await Promise.all(recordUpdatePromises);
 
