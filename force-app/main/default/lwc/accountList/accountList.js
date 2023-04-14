@@ -1,11 +1,42 @@
 import { LightningElement , wire, track} from 'lwc';
 import getAccountList from '@salesforce/apex/LWCHelper.getAccountList';
+import { getPicklistValues } from 'lightning/uiObjectInfoApi';
+import  { subscribe, MessageContext, createMessageContext } from 'lightning/messageService';
+import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c';
 import DELETE from '@salesforce/apex/LWCHelper.deleter';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
 import { updateRecord } from 'lightning/uiRecordApi';
 
 export default class LightningDatatableLWCExample extends LightningElement {
+    @wire(MessageContext)
+    messageContext;
+
+    accNameSearch = '';
+    accPhoneSearch = '';
+    accIndustrySearch = '';
+    accRatingSearch = '';
+
+    subscribeToMessageChannel() {
+
+        
+        this.subscription = subscribe(
+            this.messageContext,
+            NAME_SELECTED_CHANNEL,
+            (message) => this.handleRating(message)
+          );
+     /*   
+        this.subscription = subscribe(
+            this.messageContext,
+            NAME_SELECTED_CHANNEL,
+            (message) => this.handleMessage(message)
+          );
+*/
+
+    
+      }
+      
+ 
     @track columns = [{
             label: 'Account name',
             fieldName: 'Name',
@@ -32,10 +63,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
         }
     ];
  
-    accNameSearch = '';
-    accPhoneSearch = '';
-    accIndustrySearch = '';
-    accRatingSearch = '';
+
 
     @track error;
     @track accList;
@@ -135,4 +163,24 @@ export default class LightningDatatableLWCExample extends LightningElement {
             );
         }
     }
+
+  handleMessage(message) {    
+  this.accNameSearch = message.nameField; 
+}
+
+ handleRating(message) {
+    if (message.type === "rating")
+    this.accRatingSearch = message.ratingField;
+    if (message.type === "name")
+    this.accNameSearch = message.nameField;
+    if (message.type === "industry")
+    this.accIndustrySearch = message.industryField;
+    if (message.type === "phone")
+    this.accPhoneSearch = message.phoneField;
+ }  
+
+    connectedCallback() {
+        this.subscribeToMessageChannel();
+    }
+
 }
