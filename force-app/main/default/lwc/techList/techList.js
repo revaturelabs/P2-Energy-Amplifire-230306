@@ -133,7 +133,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
         try {
             const recordUpdatePromises = records.map((record) =>
                 updateRecord(record)
-                console.log(record);
+            
             );
             await Promise.all(recordUpdatePromises);
 

@@ -1,8 +1,12 @@
 import { LightningElement , wire, track} from 'lwc';
 import getLeadList from '@salesforce/apex/LWCHelper.getLeadList';
 import DELETE from '@salesforce/apex/LWCHelper.deleter';
+import  { subscribe, MessageContext} from 'lightning/messageService';
+import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
+
+
 export default class LightningDatatableLWCExample extends LightningElement {
     @track columns = [{
             label: 'Lead name',
@@ -41,6 +45,9 @@ export default class LightningDatatableLWCExample extends LightningElement {
             editable: true,
         },
     ];
+
+    @wire(MessageContext)
+    messageContext;
  
     leadNameSearch = '';
     leadCompanySearch = '';
@@ -52,6 +59,14 @@ export default class LightningDatatableLWCExample extends LightningElement {
     @track error;
     @track leadList;
     wiredLeadsResult;
+
+    subscribeToMessageChannel() {
+    this.subscription = subscribe(
+        this.messageContext,
+        NAME_SELECTED_CHANNEL,
+        (message) => this.handleMessage(message)
+      );
+    }
 
     @wire(getLeadList,
         {
@@ -114,6 +129,24 @@ export default class LightningDatatableLWCExample extends LightningElement {
         });
     }
 
+    handleMessage(message) {
+        if (message.type === "leadName")
+        this.leadNameSearch = message.leadNameField;
+        if (message.type === "leadCompany")
+        this.leadCompanySearch = message.leadCompanyField;
+        if (message.type === "leadPhone")
+        this.leadPhoneSearch = message.leadPhoneField;
+        if (message.type === "leadEmail")
+        this.leadEmailSearch = message.leadEmailField;
+        if (message.type === "leadStatus")
+        this.leadStatusSearch = message.leadStatusField;
+        if (message.type === "leadRating")
+        this.leadRatingSearch = message.leadRatingField;
+     }  
+
+     connectedCallback() {
+        this.subscribeToMessageChannel();
+    }
     
     draftValues = [];
 

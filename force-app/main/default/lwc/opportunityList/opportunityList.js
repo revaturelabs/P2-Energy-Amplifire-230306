@@ -1,4 +1,6 @@
 import { LightningElement , wire, track} from 'lwc';
+import  { subscribe, MessageContext} from 'lightning/messageService';
+import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c';
 import getOppList from '@salesforce/apex/LWCHelper.getOppList';
 import DELETE from '@salesforce/apex/LWCHelper.deleter';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -38,6 +40,17 @@ export default class LightningDatatableLWCExample extends LightningElement {
     @track error;
     @track oppList;
     wiredOppResult;
+
+    @wire(MessageContext)
+    messageContext;
+
+    subscribeToMessageChannel() { 
+        this.subscription = subscribe(
+            this.messageContext,
+            NAME_SELECTED_CHANNEL,
+            (message) => this.handleMessage(message)
+          );
+      }
 
     @wire(getOppList,
         {
@@ -109,8 +122,23 @@ export default class LightningDatatableLWCExample extends LightningElement {
             );
         });
     }
+
+    handleMessage(message) {
+        if (message.type === "opportunityName")
+        this.oppNameSearch = message.oppNameField;
+        if (message.type === "opportunityAcc")
+        this.oppAccountSearch = message.oppAccField;
+        if (message.type === "opportunityStage")
+        this.oppStageSearch = message.oppStageField;
+        if (message.type === "opportunityClose")
+        this.oppDateSearch = message.oppCloseField;
+    }
     
     draftValues = [];
+
+    connectedCallback() {
+        this.subscribeToMessageChannel();
+    }
 
     async handleSave(event) {
         const records = event.detail.draftValues.slice().map((draftValue) => {

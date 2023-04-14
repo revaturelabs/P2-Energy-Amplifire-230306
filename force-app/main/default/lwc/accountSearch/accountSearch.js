@@ -42,7 +42,7 @@ export default class AccountSearch extends LightningElement {
       const rating = event.detail.value;
       const payload = {
          ratingField: rating,
-         type: "rating"
+         type: "accrating"
      };
     publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
 
@@ -52,7 +52,7 @@ export default class AccountSearch extends LightningElement {
         const name =  event.detail.value;
         const payload = {
             nameField: name,
-            type: "name"
+            type: "accname"
         };
         publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
     }
@@ -62,7 +62,7 @@ handlePhone(event) {
     const phone =  event.detail.value;
     const payload = {
         phoneField: phone,
-        type: "phone"
+        type: "accphone"
     };
     publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
 }
@@ -71,7 +71,7 @@ handleIndustry(event) {
     const industry =  event.detail.value;
     const payload = {
         industryField: industry,
-        type: "industry"
+        type: "accindustry"
     };
     publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
 }

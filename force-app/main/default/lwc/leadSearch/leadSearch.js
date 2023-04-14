@@ -1,6 +1,8 @@
 import { LightningElement, wire } from 'lwc';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
+import  { publish,MessageContext } from 'lightning/messageService';
+import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c'; 
 import LEAD_OBJECT from '@salesforce/schema/Lead';
 import STATUS_FIELD from '@salesforce/schema/Lead.Status';
 import RATING_FIELD from '@salesforce/schema/Lead.Rating';
@@ -21,6 +23,9 @@ export default class AccountSearch extends LightningElement {
     @wire(getObjectInfo, { objectApiName: LEAD_OBJECT })
     leadMetadata;
 
+    @wire(MessageContext)
+    messageContext;
+
     @wire(getPicklistValues,
         {
             recordTypeId: '$leadMetadata.data.defaultRecordTypeId', 
@@ -38,29 +43,58 @@ export default class AccountSearch extends LightningElement {
     ratingOptions;
 
     handleCompany(event) {
-        this.companySearchTerm = event.detail.value;
+        const company = event.detail.value;
+        const payload = {
+            leadCompanyField: company,
+            type: "leadCompany"
+        };
+        publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
     }
 
     handleRating(event) {
-        this.ratingSearchTerm = event.detail.value;
+        const rating = event.detail.value;
+        const payload = {
+            leadRatingField: rating,
+            type: "leadRating"
+        };
+        publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
     }
 
     handleName(event) {
-        this.nameSearchTerm = event.detail.value;
+        const name = event.detail.value;
+        const payload = {
+            leadNameField: name,
+            type: "leadName"
+        };
+        publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
     }
-
-    handlePhone(event) {
-        this.phoneSearchTerm = event.detail.value;
+    
+     handlePhone(event) {
+        const phone = event.detail.value;
+        const payload = {
+            leadPhoneField: phone,
+            type: "leadPhone"
+        };
+        publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
     }
 
     handleEmail(event) {
-        this.emailSearchTerm = event.detail.value;
-    }
+        const email = event.detail.value;
+        const payload = {
+            leadEmailField: email,
+            type: "leadEmail"
+        };
+        publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
+    } 
 
     handleStatus(event) {
-        this.statusSearchTerm = event.detail.value;
+        const status = event.detail.value;
+        const payload = {
+            leadStatusField: status,
+            type: "leadStatus"
+        };
+        publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
     }
-
     create = false;
     
     handleCreate(event){

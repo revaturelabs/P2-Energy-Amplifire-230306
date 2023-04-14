@@ -1,7 +1,7 @@
 import { LightningElement , wire, track} from 'lwc';
 import getAccountList from '@salesforce/apex/LWCHelper.getAccountList';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
-import  { subscribe, MessageContext, createMessageContext } from 'lightning/messageService';
+import  { subscribe, MessageContext} from 'lightning/messageService';
 import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c';
 import DELETE from '@salesforce/apex/LWCHelper.deleter';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -23,15 +23,9 @@ export default class LightningDatatableLWCExample extends LightningElement {
         this.subscription = subscribe(
             this.messageContext,
             NAME_SELECTED_CHANNEL,
-            (message) => this.handleRating(message)
-          );
-     /*   
-        this.subscription = subscribe(
-            this.messageContext,
-            NAME_SELECTED_CHANNEL,
             (message) => this.handleMessage(message)
           );
-*/
+
 
     
       }
@@ -164,18 +158,16 @@ export default class LightningDatatableLWCExample extends LightningElement {
         }
     }
 
-  handleMessage(message) {    
-  this.accNameSearch = message.nameField; 
-}
 
- handleRating(message) {
-    if (message.type === "rating")
+
+ handleMessage(message) {
+    if (message.type === "accrating")
     this.accRatingSearch = message.ratingField;
-    if (message.type === "name")
+    if (message.type === "accname")
     this.accNameSearch = message.nameField;
-    if (message.type === "industry")
+    if (message.type === "accindustry")
     this.accIndustrySearch = message.industryField;
-    if (message.type === "phone")
+    if (message.type === "accphone")
     this.accPhoneSearch = message.phoneField;
  }  
 
