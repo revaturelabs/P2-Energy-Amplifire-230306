@@ -33,7 +33,6 @@ export default class AccountSearch extends LightningElement {
             this.recordTypeId = undefined;
         }
     }
-
     
     handleReset() {
         this.firstNameSearchTerm = "";
@@ -46,7 +45,6 @@ export default class AccountSearch extends LightningElement {
         };
        publish(this.messageContext,NAME_SELECTED_CHANNEL,payload); 
     }
-
     
     handleLastName(event) {
         this.lastNameSearchTerm = event.detail.value;
@@ -67,7 +65,6 @@ export default class AccountSearch extends LightningElement {
         };
         publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
     }
-
 
     handlePhone(event) {
         this.phoneSearchTerm = event.detail.value;
@@ -97,6 +94,14 @@ export default class AccountSearch extends LightningElement {
             type: "techAccount"
         };
         publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
-        
+    }
+
+    handleSubmit(){
+        const submit =  true;
+        const payload = {
+            submitField: submit,
+            type: "techSubmit"
+        };
+        publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
     }
 }

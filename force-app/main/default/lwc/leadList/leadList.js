@@ -131,30 +131,33 @@ export default class LightningDatatableLWCExample extends LightningElement {
 
     handleMessage(message) {
         if (message.type === "leadName")
-        this.leadNameSearch = message.leadNameField;
+            this.leadNameSearch = message.leadNameField;
         if (message.type === "leadCompany")
-        this.leadCompanySearch = message.leadCompanyField;
+            this.leadCompanySearch = message.leadCompanyField;
         if (message.type === "leadPhone")
-        this.leadPhoneSearch = message.leadPhoneField;
+            this.leadPhoneSearch = message.leadPhoneField;
         if (message.type === "leadEmail")
-        this.leadEmailSearch = message.leadEmailField;
+            this.leadEmailSearch = message.leadEmailField;
         if (message.type === "leadStatus")
-        this.leadStatusSearch = message.leadStatusField;
+            this.leadStatusSearch = message.leadStatusField;
         if (message.type === "leadRating")
-        this.leadRatingSearch = message.leadRatingField;
+            this.leadRatingSearch = message.leadRatingField;
         if (message.type === "renderLeads")
         {
-         this.leadNameSearch = "";
-         this.leadPhoneSearch = "";
-         this.leadEmailSearch = "";
-         this.leadRatingSearch = "";
-         this.leadCompanySearch = "";
-         this.leadStatusSearch = "";
-         this.renderedCallback();
+            this.leadNameSearch = "";
+            this.leadPhoneSearch = "";
+            this.leadEmailSearch = "";
+            this.leadRatingSearch = "";
+            this.leadCompanySearch = "";
+            this.leadStatusSearch = "";
+            this.renderedCallback();
+        }
+        if (message.type === "accSubmit"){
+            const myTimeout = setTimeout(refreshApex, 500, this.wiredResult);
         }
      }  
 
-     connectedCallback() {
+    connectedCallback() {
         this.subscribeToMessageChannel();
     }
     

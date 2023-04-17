@@ -31,15 +31,15 @@ export default class OpportunitySearch extends LightningElement {
     messageContext;
 
     
-handleName(event) {
-    this.nameSearchTerm = event.detail.value;
-    const name = event.detail.value;
-    const payload = {
-        oppNameField: name,
-        type: "opportunityName"
-        };
-    publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
-}  
+    handleName(event) {
+        this.nameSearchTerm = event.detail.value;
+        const name = event.detail.value;
+        const payload = {
+            oppNameField: name,
+            type: "opportunityName"
+            };
+        publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
+    }  
 
     handleAccount(event) {
         this.accountSearchTerm = event.detail.value;
@@ -73,10 +73,12 @@ handleName(event) {
       publish(this.messageContext,NAME_SELECTED_CHANNEL,payload); 
     }
 
-    createOpp = false;
-
-    handleCreate(event){
-       
-        this.createOpp = !this.createOpp
+    handleSubmit(){
+        const submit =  true;
+        const payload = {
+            submitField: submit,
+            type: "oppSubmit"
+        };
+        publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
     }
 }

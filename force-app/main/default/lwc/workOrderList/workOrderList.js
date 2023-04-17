@@ -176,6 +176,9 @@ export default class LightningDatatableLWCExample extends LightningElement {
             this.productOwnerSearch = '';
             refreshApex(this.wiredResult);
         }
+        if (message.type === "workOrderSubmit"){
+            const myTimeout = setTimeout(refreshApex, 500, this.wiredResult);
+        }
     }
 
     connectedCallback() {

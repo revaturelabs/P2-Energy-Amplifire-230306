@@ -139,6 +139,9 @@ export default class LightningDatatableLWCExample extends LightningElement {
             this.AccountSearch = "";
             this.renderedCallback();
         }
+        if (message.type === "techSubmit"){
+            const myTimeout = setTimeout(refreshApex, 500, this.wiredResult);
+        }
     }
     
     draftValues = [];
