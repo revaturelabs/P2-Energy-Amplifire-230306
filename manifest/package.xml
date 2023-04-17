@@ -87,6 +87,8 @@
         <members>techSearch</members>
         <members>workOrderList</members>
         <members>workOrderSearch</members>
+        <members>orderList</members>
+        <members>orderSearch</members>
         <name>LightningComponentBundle</name>
     </types>
 </Package>

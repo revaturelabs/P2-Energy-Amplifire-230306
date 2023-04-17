@@ -213,4 +213,45 @@ public with sharing class LWCHelper {
             throw new AuraHandledException(e.getMessage());
         }
     }
+
+    @auraEnabled(cacheable=true)
+    public static List<Order> getOrderList(String numberOrderSearchTerm, String accountNameOrderSearchTerm, String effectiveDateOrderSearchTerm, 
+                                           String statusOrderSearchTerm, String totalAmountOrderSearchTerm){
+        totalAmountOrderSearchTerm = totalAmountOrderSearchTerm.remove(',');
+        totalAmountOrderSearchTerm = totalAmountOrderSearchTerm.remove('$');
+        totalAmountOrderSearchTerm = totalAmountOrderSearchTerm.remove('.00');
+        List<Order> ordList = [SELECT Id, OrderNumber, Account.Name, EffectiveDate, Status, TotalAmount FROM Order LIMIT 50000];
+        List<Order> temp = new List<Order>();
+        for(Order ord : ordList){
+            String ordAccountId = '';
+            String ordAccountName = '';
+            Date ordEffectiveDate;
+            String ordStatus = '';
+            String ordTotalAmount = '';
+            String ordNumber = (String)ord.OrderNumber;
+            if(ord.AccountId != NULL){
+                ordAccountId = (String)ord.AccountId;
+            }
+            if(ord.Account.Name != NULL){
+                ordAccountName = (String)ord.Account.Name;
+            }
+            if(ord.EffectiveDate != NULL){
+                ordEffectiveDate = ord.EffectiveDate;
+            }
+            if(ord.Status != NULL){
+                ordStatus = (String)ord.Status;
+            }
+            if(ord.TotalAmount != NULL){
+                ordTotalAmount = String.valueOf(ord.TotalAmount.format());
+                ordTotalAmount = ordTotalAmount.remove(',');
+            }
+            if(ordNumber.containsIgnoreCase(numberOrderSearchTerm)
+                && ordAccountName.containsIgnoreCase(accountNameOrderSearchTerm)
+                && ordStatus.containsIgnoreCase(statusOrderSearchTerm)
+                && ordTotalAmount.containsIgnoreCase(totalAmountOrderSearchTerm)){
+                    temp.add(ord);
+            }
+        }       
+        return temp;
+    }
 }

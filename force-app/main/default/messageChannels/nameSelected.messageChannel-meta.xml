@@ -68,4 +68,24 @@
         <fieldName>oppCloseField</fieldName>
         <description>This is the type of record being searched</description>
     </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>orderNumberField</fieldName>
+        <description>The number of the order being searched.</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>orderAccountNameField</fieldName>
+        <description>The name of the account of the order being searched.</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>orderEffectiveDateField</fieldName>
+        <description>The start date of the order being searched</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>orderStatusField</fieldName>
+        <description>The status of the order being searched</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>orderTotalAmountField</fieldName>
+        <description>The total amount of the order being searched</description>
+    </lightningMessageFields>
 </LightningMessageChannel>
