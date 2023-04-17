@@ -107,6 +107,7 @@ export default class AccountSearch extends LightningElement {
            type: "reRender"
        };
       publish(this.messageContext,NAME_SELECTED_CHANNEL,payload); 
+    }
       
     handleSubmit(){
         const submit =  true;

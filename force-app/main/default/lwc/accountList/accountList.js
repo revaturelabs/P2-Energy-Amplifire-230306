@@ -182,7 +182,6 @@ export default class LightningDatatableLWCExample extends LightningElement {
    this.accRatingSearch = "";
    this.renderedCallback();
     }
- }  
         if (message.type === "accSubmit"){
             const myTimeout = setTimeout(refreshApex, 500, this.wiredResult);
         }
