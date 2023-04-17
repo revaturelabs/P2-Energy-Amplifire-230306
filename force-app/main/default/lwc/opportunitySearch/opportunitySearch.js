@@ -14,7 +14,7 @@ export default class OpportunitySearch extends LightningElement {
     accountSearchTerm;
     stageSearchTerm;
     closeSearchTerm;
-    oppFields = [ NAME_FIELD, ACCOUNT_FIELD, STAGE_FIELD, CLOSE_FIELD ];
+    fields = [ NAME_FIELD, ACCOUNT_FIELD, STAGE_FIELD, CLOSE_FIELD ];
 
     @wire(getObjectInfo, { objectApiName: OPPORTUNITY_OBJECT })
     oppMetadata;

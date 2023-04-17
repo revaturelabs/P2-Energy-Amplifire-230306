@@ -3,8 +3,25 @@ import getCustomerList from '@salesforce/apex/LWCHelper.getTechList';
 import DELETE from '@salesforce/apex/LWCHelper.deleter';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
+import  { subscribe, MessageContext, createMessageContext } from 'lightning/messageService';
+import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c';
 
 export default class LightningDatatableLWCExample extends LightningElement {
+    @wire(MessageContext)
+    messageContext;
+
+    subscribeToMessageChannel() {
+        this.subscription = subscribe(
+            this.messageContext,
+            NAME_SELECTED_CHANNEL,
+            (message) => this.handleMessage(message)
+        );
+    }
+
+    connectedCallback() {
+        this.subscribeToMessageChannel();
+    }
+
     @track columns = [{
             label: 'First name',
             fieldName: 'FirstName',
@@ -121,15 +138,15 @@ export default class LightningDatatableLWCExample extends LightningElement {
 
     handleMessage(message) {
         if (message.type === "techfname")
-        this.cusFirstNameSearch = message.techfnameField;
+            this.cusFirstNameSearch = message.techfnameField;
         if (message.type === "techlname")
-        this.cusLastNameSearch = message.techlnameField;
+            this.cusLastNameSearch = message.techlnameField;
         if (message.type === "techPhone")
-        this.cusPhoneSearch = message.techPhoneField;
+            this.cusPhoneSearch = message.techPhoneField;
         if (message.type === "techEmail")
-        this.cusEmailSearch = message.techEmailField;
+            this.cusEmailSearch = message.techEmailField;
         if (message.type === "techAccount")
-        this.cusAccountSearch = message.techAccountField;
+            this.cusAccountSearch = message.techAccountField;
         if (message.type === "techRender")
         {
             this.FirstNameSearch = "";
