@@ -22,7 +22,7 @@
     <lightningMessageFields>
         <fieldName>phoneField</fieldName>
         <description>This is the Phone that has been searched for</description>
-    </lightningMessageFields> 
+    </lightningMessageFields>
     <lightningMessageFields>
         <fieldName>industryField</fieldName>
         <description>This is the Industry that has been searched for</description>
@@ -33,16 +33,16 @@
     </lightningMessageFields>
     <lightningMessageFields>
         <fieldName>type</fieldName>
-        <description>This is the type of record being searched</description>   
-    </lightningMessageFields>  
+        <description>This is the type of record being searched</description>
+    </lightningMessageFields>
     <lightningMessageFields>
         <fieldName>leadNameField</fieldName>
         <description>The name of the lead being searched</description>
-    </lightningMessageFields> 
+    </lightningMessageFields>
     <lightningMessageFields>
         <fieldName>leadCompanyField</fieldName>
         <description>The name of the company being searched</description>
-    </lightningMessageFields> 
+    </lightningMessageFields>
     <lightningMessageFields>
         <fieldName>leadPhoneField</fieldName>
     </lightningMessageFields>
@@ -57,7 +57,7 @@
     </lightningMessageFields>
     <lightningMessageFields>
         <fieldName>leadType</fieldName>
-    </lightningMessageFields>  
+    </lightningMessageFields>
     <lightningMessageFields>
         <fieldName>oppNameField</fieldName>
     </lightningMessageFields>
@@ -96,13 +96,13 @@
     </lightningMessageFields>
     <lightningMessageFields>
         <fieldName>lnameField</fieldName>
-    </lightningMessageFields> 
+    </lightningMessageFields>
     <lightningMessageFields>
         <fieldName>cusAccountField</fieldName>
-    </lightningMessageFields> 
+    </lightningMessageFields>
     <lightningMessageFields>
         <fieldName>cusPhoneField</fieldName>
-    </lightningMessageFields> 
+    </lightningMessageFields>
     <lightningMessageFields>
         <fieldName>cusEmailField</fieldName>
     </lightningMessageFields>
@@ -111,14 +111,17 @@
     </lightningMessageFields>
     <lightningMessageFields>
         <fieldName>techlnameField</fieldName>
-    </lightningMessageFields> 
+    </lightningMessageFields>
     <lightningMessageFields>
         <fieldName>techAccountField</fieldName>
-    </lightningMessageFields> 
+    </lightningMessageFields>
     <lightningMessageFields>
         <fieldName>techPhoneField</fieldName>
-    </lightningMessageFields> 
+    </lightningMessageFields>
     <lightningMessageFields>
         <fieldName>techEmailField</fieldName>
-    </lightningMessageFields>        
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>submitTechField</fieldName>
+    </lightningMessageFields>
 </LightningMessageChannel>

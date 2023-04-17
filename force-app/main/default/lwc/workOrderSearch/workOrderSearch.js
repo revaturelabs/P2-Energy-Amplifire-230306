@@ -2,7 +2,7 @@ import { LightningElement, wire } from 'lwc';
 import NAME_FIELD from '@salesforce/schema/Work_Order__c.Name';
 import ACCOUNT_FIELD from '@salesforce/schema/Work_Order__c.Account__c';
 import PRODUCT_OWNER_FIELD from '@salesforce/schema/Work_Order__c.Product_Owner__c';
-import  { publish,MessageContext } from 'lightning/messageService';
+import  { publish, MessageContext } from 'lightning/messageService';
 import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c'; 
 
 export default class AccountSearch extends LightningElement {

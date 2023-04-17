@@ -4,6 +4,8 @@ import LASTNAME_FIELD from '@salesforce/schema/Contact.LastName';
 import PHONE_FIELD from '@salesforce/schema/Contact.Phone';
 import EMAIL_FIELD from '@salesforce/schema/Contact.Email';
 import ACCOUNT_FIELD from '@salesforce/schema/Contact.AccountId';
+import { publish, MessageContext } from 'lightning/messageService';
+import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c'; 
 
 import { getRecord } from "lightning/uiRecordApi";
 import CONTACT_RECORDTYPE_FIELD from '@salesforce/schema/Contact.RecordTypeId';
@@ -16,6 +18,9 @@ export default class AccountSearch extends LightningElement {
     emailSearchTerm;
     accountSearchTerm;
     fields = [ FIRSTNAME_FIELD, LASTNAME_FIELD, PHONE_FIELD, EMAIL_FIELD, ACCOUNT_FIELD ];
+
+    @wire(MessageContext)
+    messageContext;
 
     @track recordTypeId;
     @track error;
@@ -43,7 +48,7 @@ export default class AccountSearch extends LightningElement {
         const payload = {
             type: "techRender"
         };
-       publish(this.messageContext,NAME_SELECTED_CHANNEL,payload); 
+       publish(this.messageContext, NAME_SELECTED_CHANNEL, payload); 
     }
     
     handleLastName(event) {
@@ -98,8 +103,8 @@ export default class AccountSearch extends LightningElement {
 
     handleSubmit(){
         const submit =  true;
+        console.log('submitting');
         const payload = {
-            submitField: submit,
             type: "techSubmit"
         };
         publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
