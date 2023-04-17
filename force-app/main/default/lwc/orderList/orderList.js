@@ -146,9 +146,6 @@ export default class LightningDatatableLWCExample extends LightningElement {
         this.orderStatusSearch = message.orderStatusField;
         if (message.type === "orderAmount")
         this.orderTotalAmountSearch = message.orderTotalAmountField;
-        if (message.type === "ordSubmit"){
-            const myTimeout = setTimeout(refreshApex, 500, this.wiredResult);
-        }
         if  (message.type === "ordRender")
         {
             this.numberOrderSearchTerm = "";
