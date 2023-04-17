@@ -138,8 +138,6 @@ export default class LightningDatatableLWCExample extends LightningElement {
     handleMessage(message) {
         if (message.type === "orderNumber")
         this.orderNumberSearch = message.orderNumberField;
-        /*if (message.type === "orderAccountId")
-        this.orderAccountIdSearch = message.orderAccountIdField;*/
         if (message.type === "orderAccount")
         this.orderAccountNameSearch = message.orderAccountNameField;
         if (message.type === "orderEffectiveDate")
@@ -151,7 +149,18 @@ export default class LightningDatatableLWCExample extends LightningElement {
         if (message.type === "ordSubmit"){
             const myTimeout = setTimeout(refreshApex, 500, this.wiredResult);
         }
+        if  (message.type === "ordRender")
+        {
+            this.numberOrderSearchTerm = "";
+            this.accountIdOrderSearchTerm = "";
+            this.effectiveDateOrderSearchTerm = "";
+            this.statusOrderSearchTerm = "";
+            this.totalAmountOrderSearchTerm = "";
+            this.renderedCallback();
+        }
      }  
+
+  
 
      connectedCallback() {
         this.subscribeToMessageChannel();

@@ -80,6 +80,35 @@ export default class AccountSearch extends LightningElement {
         this.create = !this.create;
     }
 
+    numberSearchTerm;
+    accountNameSearchTerm;
+    effectiveDateSearchTerm;
+    statusSearchTerm;
+    totalAmountSearchTerm;
+
+    handleReset() {
+        this.accountNameSearchTerm = "";
+        this.numberSearchTerm = "";
+        this.statusSearchTerm = "";
+        this.totalAmountSearchTerm = "";
+        publish(this.messageContext,NAME_SELECTED_CHANNEL,"orderRender");
+        
+
+    }
+
+
+    handleReset()
+    {  this.nameSearchTerm = "";
+        this.phoneSearchTerm = "";
+        this.industrySearchTerm = "";
+        this.ratingSearchTerm = "";
+        const payload = {
+           type: "reRender"
+       };
+      publish(this.messageContext,NAME_SELECTED_CHANNEL,payload); 
+    }
+
+
     handleSubmit(){
         const submit =  true;
         const payload = {

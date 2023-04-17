@@ -21,6 +21,7 @@ export default class AccountSearch extends LightningElement {
 
 
     handleLastName(event) {
+        this.lastNameSearchTerm = event.detail.value;
         const name =  event.detail.value;
         const payload = {
             lnameField: name,
@@ -30,6 +31,7 @@ export default class AccountSearch extends LightningElement {
     }
 
     handleFirstName(event) {
+        this.firstNameSearchTerm = event.detail.value;
         const name =  event.detail.value;
         const payload = {
             fnameField: name,
@@ -40,6 +42,7 @@ export default class AccountSearch extends LightningElement {
 
 
     handlePhone(event) {
+        this.phoneSearchTerm = event.detail.value;
         const name =  event.detail.value;
         const payload = {
             cusPhoneField: name,
@@ -49,6 +52,7 @@ export default class AccountSearch extends LightningElement {
     }
 
     handleEmail(event) {
+        this.emailSearchTerm = event.detail.value;
         const name =  event.detail.value;
         const payload = {
             cusEmailField: name,
@@ -58,6 +62,7 @@ export default class AccountSearch extends LightningElement {
     }
 
     handleAccount(event) {
+        this.accountSearchTerm = event.detail.value;
         const name =  event.detail.value;
         const payload = {
             cusAccountField: name,
@@ -68,15 +73,18 @@ export default class AccountSearch extends LightningElement {
     }
 
     handleReset()
-    {
-       
+    {    
         this.firstNameSearchTerm = "";
         this.lastNameSearchTerm = "";
         this.emailSearchTerm = "";
         this.phoneSearchTerm = "";
         this.accountSearchTerm = "";
-        
-    }
+            const payload = {
+               type: "cusRender"
+           };
+          publish(this.messageContext,NAME_SELECTED_CHANNEL,payload); 
+        }       
+    
 
     create = false;
 
