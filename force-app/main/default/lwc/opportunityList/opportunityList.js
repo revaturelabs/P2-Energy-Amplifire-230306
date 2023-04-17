@@ -39,7 +39,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
 
     @track error;
     @track oppList;
-    wiredResult;
+    wiredOppResult;
 
     @wire(MessageContext)
     messageContext;
@@ -61,7 +61,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
         }
         )
     wiredOpps(result) {
-        this.wiredResult = result;
+        this.wiredOppResult = result;
         if (result.data) {
             this.oppList = result.data;
             this.oppList = this.oppList.map( item =>{
@@ -110,7 +110,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
                     variant: 'success'
                 })
             );
-            return refreshApex(this.wiredResult);
+            return refreshApex(this.wiredOppResult);
         })
         .catch((error) => {
             this.dispatchEvent(
@@ -132,6 +132,13 @@ export default class LightningDatatableLWCExample extends LightningElement {
         this.oppStageSearch = message.oppStageField;
         if (message.type === "opportunityClose")
         this.oppDateSearch = message.oppCloseField;
+        if (message.type === "oppRender")
+        {
+            this.oppNameSearch = "";
+            this.oppAccountSearch = "";
+            this.oppStageSearch = "";
+            this.renderedCallback();
+        }
     }
     
     draftValues = [];
@@ -161,7 +168,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
                     variant: 'success'
                 })
             );
-            await refreshApex(this.wiredResult);
+            await refreshApex(this.contacts);
 
         } catch (error) {
             this.dispatchEvent(

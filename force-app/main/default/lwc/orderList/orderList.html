@@ -1,8 +1,9 @@
 <template>
     <lightning-card  title="Orders">
         <div slot="actions">
-            <lightning-button-group>
-                <lightning-button label="Delete" onclick={handleDelete}></lightning-button>
+            <lightning-button-group slot="actions">
+                <lightning-button-stateful label-when-off="Create" label-when-on="Search" onclick={handleCreate} selected={create}></lightning-button-stateful>
+                <lightning-button label="Reset "  onclick={handleReset} class="slds-m-left_x-small"></lightning-button>
             </lightning-button-group>
         </div>
         <template if:true={ordList}>

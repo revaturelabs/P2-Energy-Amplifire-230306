@@ -20,6 +20,7 @@ export default class AccountSearch extends LightningElement {
 
     handleName(event) {
         const name = event.detail.value;
+        this.nameSearchTerm = event.detail.value;
         const payload = {
             nameField: name,
             type: "workOrderName"
@@ -30,6 +31,7 @@ export default class AccountSearch extends LightningElement {
     }
 
     handleAccount(event) {
+        this.accountSearchTerm = event.detail.value;
         const account =  event.detail.value;
         const payload = {
             accountField: account,
@@ -41,6 +43,7 @@ export default class AccountSearch extends LightningElement {
 
     // Import message service features required for publishing and the message channel
     handlePOwner(event) {
+        this.pOwnerSearchTerm = event.detial.value;
         const productOwner =  event.detail.value;
         const payload = {
             productOwnerField: productOwner,
@@ -64,5 +67,18 @@ export default class AccountSearch extends LightningElement {
         };
         publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
     }
+
+
+    handleReset()
+    {
+        this.nameSearchTerm = "";
+        this.accountSearchTerm = "";
+        this.pOwnerSearchTerm = "";
+        const payload = {
+          type: "workRender"
+       };
+      publish(this.messageContext,NAME_SELECTED_CHANNEL,payload); 
+    }
+
 
 }

@@ -58,6 +58,15 @@ export default class LightningDatatableLWCExample extends LightningElement {
         this.cusEmailSearch = message.cusEmailField;
         if (message.type === "cusaccount")
         this.cusAccountSearch = message.cusAccountField;
+        if (message.type === "cusRender")
+        {
+            this.cusFirstNameSearch = "";
+            this.cusLastNameSearch = "";
+            this.cusPhoneSearch = "";
+            this.cusEmailSearch = "";
+            this.cusAccountSearch = "";
+            this.renderedCallback();
+        }
     }
 
 

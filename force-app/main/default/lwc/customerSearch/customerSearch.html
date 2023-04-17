@@ -1,13 +1,10 @@
 <template>
     <lightning-card title="Customer Search">
-        <div slot="actions" style="--slds-c-button-stateful-color-background-selected: #ffffff">
-            <lightning-button-stateful label-when-off="Create" label-when-on="Search" onclick={handleCreate} selected={create}></lightning-button-stateful>
-        
         <BR>
-    
-             <lightning-button label="Reset "  onclick={handleReset} class="slds-m-left_x-small"></lightning-button>
-           </div>  
-     
+            <lightning-button-group slot="actions" style="--slds-c-button-stateful-color-background-selected: #ffffff">
+                    <lightning-button-stateful label-when-off="Create" label-when-on="Search" onclick={handleCreate} selected={create}></lightning-button-stateful>
+                    <lightning-button label="Reset "  onclick={handleReset}></lightning-button>
+            </lightning-button-group>
         <div if:false={create}>
             <lightning-input class="slds-p-horizontal_small" type="text" label="First Name" value={firstNameSearchTerm} onchange={handleFirstName}></lightning-input>
             <lightning-input class="slds-p-horizontal_small" type="text" label="Last Name" value={lastNameSearchTerm} onchange={handleLastName}></lightning-input>
