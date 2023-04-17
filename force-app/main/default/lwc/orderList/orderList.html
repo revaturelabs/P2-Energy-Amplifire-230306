@@ -7,7 +7,17 @@
             </lightning-button-group>
         </div>
         <template if:true={ordList}>
-            <lightning-datatable data={ordList} columns={columns} key-field="Id" onrowselection={getSelectedRec} onsave={handleSave} max-row-selection="1">
+            <lightning-datatable 
+            data={ordList} 
+            columns={columns} 
+            key-field="Id" 
+            onrowselection={getSelectedRec} 
+            onsave={handleSave} 
+            max-row-selection="1"
+            default-sort-direction="asc"
+            sorted-direction={sortDirection}
+            sorted-by={sortedBy}
+            onsort={updateColumnSorting}>
             </lightning-datatable>
         </template>
         <template if:true={error}>

@@ -19,8 +19,6 @@ export default class LightningDatatableLWCExample extends LightningElement {
     accPhoneSearch = '';
     accIndustrySearch = '';
     accRatingSearch = '';
-    sortedBy;
-    sortDirection = 'asc';
 
     subscribeToMessageChannel() {
         this.subscription = subscribe(
@@ -53,18 +51,21 @@ export default class LightningDatatableLWCExample extends LightningElement {
             fieldName: 'Phone',
             type: 'phone',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Industry',
             fieldName: 'Industry',
             type: 'text',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Rating', 
             fieldName: 'Rating', 
             type: 'text', 
-            editable: true
+            editable: true,
+            sortable: true,
         }
     ];
  
@@ -193,6 +194,9 @@ export default class LightningDatatableLWCExample extends LightningElement {
     connectedCallback() {
         this.subscribeToMessageChannel();
     }
+    
+    sortedBy;
+    sortDirection = 'asc';
 
     updateColumnSorting(event){
         this.sortedBy = event.detail.fieldName;
@@ -201,7 +205,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
     }
 
     sort(fieldName, direction){
-        let parseData = JSON.parse(JSON.stringify(this.accounts));
+        let parseData = JSON.parse(JSON.stringify(this.accList));
         let keyVal = (a) => {
             return a[fieldName]
         };
@@ -211,7 +215,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
             y = keyVal(y) ? keyVal(y) : '';
             return isReverse * ((x > y) - (y > x));
         });
-        this.accounts = parseData;
+        this.accList = parseData;
     }
 
 }
