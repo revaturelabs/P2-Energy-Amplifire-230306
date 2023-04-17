@@ -125,19 +125,22 @@ export default class LightningDatatableLWCExample extends LightningElement {
 
     handleMessage(message) {
         if (message.type === "opportunityName")
-        this.oppNameSearch = message.oppNameField;
+            this.oppNameSearch = message.oppNameField;
         if (message.type === "opportunityAcc")
-        this.oppAccountSearch = message.oppAccField;
+            this.oppAccountSearch = message.oppAccField;
         if (message.type === "opportunityStage")
-        this.oppStageSearch = message.oppStageField;
+            this.oppStageSearch = message.oppStageField;
         if (message.type === "opportunityClose")
-        this.oppDateSearch = message.oppCloseField;
+            this.oppDateSearch = message.oppCloseField;
         if (message.type === "oppRender")
         {
             this.oppNameSearch = "";
             this.oppAccountSearch = "";
             this.oppStageSearch = "";
             this.renderedCallback();
+        }
+        if (message.type === "oppSubmit"){
+            const myTimeout = setTimeout(refreshApex, 500, this.wiredResult);
         }
     }
     

@@ -52,13 +52,7 @@ export default class AccountSearch extends LightningElement {
         clearTimeout(this.pOwnerTimer);
         this.pOwnerTimer = setTimeout(publish, 300, this.messageContext, NAME_SELECTED_CHANNEL, payload);
     }
-
-    create = false;
-
-    handleCreate(event){
-        this.create = !this.create;
-    }
-
+    
     handleSubmit(){
         const submit =  true;
         const payload = {

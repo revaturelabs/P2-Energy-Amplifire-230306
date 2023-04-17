@@ -49,15 +49,15 @@ export default class LightningDatatableLWCExample extends LightningElement {
 
     handleMessage(message) {
         if (message.type === "cusfname")
-        this.cusFirstNameSearch = message.fnameField;
+            this.cusFirstNameSearch = message.fnameField;
         if (message.type === "cuslname")
-        this.cusLastNameSearch = message.lnameField;
+            this.cusLastNameSearch = message.lnameField;
         if (message.type === "cusphone")
-        this.cusPhoneSearch = message.cusPhoneField;
+            this.cusPhoneSearch = message.cusPhoneField;
         if (message.type === "cusemail")
-        this.cusEmailSearch = message.cusEmailField;
+            this.cusEmailSearch = message.cusEmailField;
         if (message.type === "cusaccount")
-        this.cusAccountSearch = message.cusAccountField;
+            this.cusAccountSearch = message.cusAccountField;
         if (message.type === "cusRender")
         {
             this.cusFirstNameSearch = "";
@@ -66,6 +66,9 @@ export default class LightningDatatableLWCExample extends LightningElement {
             this.cusEmailSearch = "";
             this.cusAccountSearch = "";
             this.renderedCallback();
+        }
+        if (message.type === "cusSubmit"){
+            const myTimeout = setTimeout(refreshApex, 500, this.wiredResult);
         }
     }
 

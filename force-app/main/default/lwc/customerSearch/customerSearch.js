@@ -68,7 +68,7 @@ export default class AccountSearch extends LightningElement {
             cusAccountField: name,
             type: "cusaccount"
         };
-        publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);    
+        publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);        
     }
 
     handleReset()
@@ -82,12 +82,14 @@ export default class AccountSearch extends LightningElement {
                type: "cusRender"
            };
           publish(this.messageContext,NAME_SELECTED_CHANNEL,payload); 
-        }       
+        }
     
-
-    create = false;
-
-    handleCreate(event){
-        this.create = !this.create;
+    handleSubmit(){
+        const submit =  true;
+        const payload = {
+            submitField: submit,
+            type: "cusSubmit"
+        };
+        publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
     }
 }
