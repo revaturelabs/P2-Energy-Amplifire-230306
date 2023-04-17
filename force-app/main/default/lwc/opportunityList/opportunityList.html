@@ -6,7 +6,16 @@
             </lightning-button-group>
         </div>
         <template if:true={oppList}>
-            <lightning-datatable data={oppList} columns={columns} key-field="Id" onrowselection={getSelectedRec} onsave={handleSave}>
+            <lightning-datatable 
+            data={oppList} 
+            columns={columns} 
+            key-field="Id" 
+            onrowselection={getSelectedRec} 
+            onsave={handleSave}
+            default-sort-direction="asc"
+            sorted-direction={sortDirection}
+            sorted-by={sortedBy}
+            onsort={updateColumnSorting}>
             </lightning-datatable>
         </template>
         <template if:true={error}>

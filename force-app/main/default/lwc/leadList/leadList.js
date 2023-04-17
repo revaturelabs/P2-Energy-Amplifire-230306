@@ -12,36 +12,42 @@ export default class LightningDatatableLWCExample extends LightningElement {
             fieldName: 'Name',
             type: 'text',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Company',
             fieldName: 'Company',
             type: 'text',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Phone',
             fieldName: 'Phone',
             type: 'phone',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Email',
             fieldName: 'Email',
             type: 'text',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Rating',
             fieldName: 'Rating',
             type: 'text',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Status',
             fieldName: 'Status',
             type: 'text',
             editable: true,
+            sortable: true,
         },
     ];
 
@@ -152,7 +158,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
             this.leadStatusSearch = "";
             this.renderedCallback();
         }
-        if (message.type === "accSubmit"){
+        if (message.type === "leadSubmit"){
             const myTimeout = setTimeout(refreshApex, 500, this.wiredResult);
         }
      }  
@@ -195,5 +201,28 @@ export default class LightningDatatableLWCExample extends LightningElement {
                 })
             );
         }
+    }
+    
+    sortedBy;
+    sortDirection = 'asc';
+
+    updateColumnSorting(event){
+        this.sortedBy = event.detail.fieldName;
+        this.sortDirection = event.detail.sortDirection;
+        this.sort(this.sortedBy,this.sortDirection);
+    }
+
+    sort(fieldName, direction){
+        let parseData = JSON.parse(JSON.stringify(this.leadList));
+        let keyVal = (a) => {
+            return a[fieldName]
+        };
+        let isReverse = direction === 'asc' ? 1 : -1;
+        parseData.sort((x,y) => {
+            x = keyVal(x) ? keyVal(x) : '';
+            y = keyVal(y) ? keyVal(y) : '';
+            return isReverse * ((x > y) - (y > x));
+        });
+        this.leadList = parseData;
     }
 }

@@ -11,24 +11,28 @@ export default class LightningDatatableLWCExample extends LightningElement {
             fieldName: 'Name',
             type: 'text',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Account Name',
             fieldName: 'accountName',
             type: 'text',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Stage',
             fieldName: 'StageName',
             type: 'text',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Close Date',
             fieldName: 'CloseDate',
             type: 'date',
             editable: true,
+            sortable: true,
         }
     ];
  
@@ -167,7 +171,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
-                    message: 'Accounts updated',
+                    message: 'Opportunities updated',
                     variant: 'success'
                 })
             );
@@ -176,11 +180,34 @@ export default class LightningDatatableLWCExample extends LightningElement {
         } catch (error) {
             this.dispatchEvent(
                 new ShowToastEvent({
-                    title: 'Error updating or reloading Accounts',
+                    title: 'Error updating or reloading Opportunities',
                     message: error.body.message,
                     variant: 'error'
                 })
             );
         }
+    }
+    
+    sortedBy;
+    sortDirection = 'asc';
+
+    updateColumnSorting(event){
+        this.sortedBy = event.detail.fieldName;
+        this.sortDirection = event.detail.sortDirection;
+        this.sort(this.sortedBy,this.sortDirection);
+    }
+
+    sort(fieldName, direction){
+        let parseData = JSON.parse(JSON.stringify(this.oppList));
+        let keyVal = (a) => {
+            return a[fieldName]
+        };
+        let isReverse = direction === 'asc' ? 1 : -1;
+        parseData.sort((x,y) => {
+            x = keyVal(x) ? keyVal(x) : '';
+            y = keyVal(y) ? keyVal(y) : '';
+            return isReverse * ((x > y) - (y > x));
+        });
+        this.oppList = parseData;
     }
 }

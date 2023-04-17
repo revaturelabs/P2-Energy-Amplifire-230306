@@ -23,18 +23,21 @@ export default class LightningDatatableLWCExample extends LightningElement {
             fieldName: 'Name',
             type: 'text',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Account',
             fieldName: 'accountName',
             type: 'text',
             editable: false,
+            sortable: true,
         },
         {
             label: 'Product Owner',
             fieldName: 'pOwner',
             type: 'text',
             editable: false,
+            sortable: true,
         },
     ];
  
@@ -183,5 +186,28 @@ export default class LightningDatatableLWCExample extends LightningElement {
 
     connectedCallback() {
         this.subscribeToMessageChannel();
+    }
+    
+    sortedBy;
+    sortDirection = 'asc';
+
+    updateColumnSorting(event){
+        this.sortedBy = event.detail.fieldName;
+        this.sortDirection = event.detail.sortDirection;
+        this.sort(this.sortedBy,this.sortDirection);
+    }
+
+    sort(fieldName, direction){
+        let parseData = JSON.parse(JSON.stringify(this.workOrderList));
+        let keyVal = (a) => {
+            return a[fieldName]
+        };
+        let isReverse = direction === 'asc' ? 1 : -1;
+        parseData.sort((x,y) => {
+            x = keyVal(x) ? keyVal(x) : '';
+            y = keyVal(y) ? keyVal(y) : '';
+            return isReverse * ((x > y) - (y > x));
+        });
+        this.workOrderList = parseData;
     }
 }

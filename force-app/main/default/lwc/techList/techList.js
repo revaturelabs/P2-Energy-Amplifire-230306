@@ -27,30 +27,35 @@ export default class LightningDatatableLWCExample extends LightningElement {
             fieldName: 'FirstName',
             type: 'text',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Last Name',
             fieldName: 'LastName',
             type: 'text',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Phone',
             fieldName: 'Phone',
             type: 'phone',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Email',
             fieldName: 'Email',
             type: 'text',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Account',
             fieldName: 'accountName',
             type: 'text',
             editable: false,
+            sortable: true,
         },
     ];
  
@@ -196,5 +201,28 @@ export default class LightningDatatableLWCExample extends LightningElement {
                 })
             );
         }
+    }
+    
+    sortedBy;
+    sortDirection = 'asc';
+
+    updateColumnSorting(event){
+        this.sortedBy = event.detail.fieldName;
+        this.sortDirection = event.detail.sortDirection;
+        this.sort(this.sortedBy,this.sortDirection);
+    }
+
+    sort(fieldName, direction){
+        let parseData = JSON.parse(JSON.stringify(this.customerList));
+        let keyVal = (a) => {
+            return a[fieldName]
+        };
+        let isReverse = direction === 'asc' ? 1 : -1;
+        parseData.sort((x,y) => {
+            x = keyVal(x) ? keyVal(x) : '';
+            y = keyVal(y) ? keyVal(y) : '';
+            return isReverse * ((x > y) - (y > x));
+        });
+        this.customerList = parseData;
     }
 }
