@@ -148,16 +148,16 @@ export default class LightningDatatableLWCExample extends LightningElement {
             this.orderTotalAmountSearch = message.orderTotalAmountField;
         if  (message.type === "ordRender")
         {
-            this.numberOrderSearchTerm = "";
-            this.accountIdOrderSearchTerm = "";
-            this.effectiveDateOrderSearchTerm = "";
-            this.statusOrderSearchTerm = "";
-            this.totalAmountOrderSearchTerm = "";
+            this.orderNumberSearch = "";
+            this.orderAccountNameSearch = "";
+            this.orderEffectiveDateSearch = "";
+            this.orderStatusSearch = "";
+            this.orderTotalAmountSearch = "";
             this.renderedCallback();
         }
-        if (message.type === "ordSubmit"){
+     /*   if (message.type === "ordSubmit"){
             const myTimeout = setTimeout(refreshApex, 500, this.wiredResult);
-        }
+        } */
      }  
 
   
