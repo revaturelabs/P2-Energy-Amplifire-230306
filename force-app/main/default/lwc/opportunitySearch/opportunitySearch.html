@@ -13,7 +13,6 @@
             <template lwc:else>
                 <lightning-combobox class="slds-p-horizontal_small" name="DisabledStage" label="Stage" value="" disabled></lightning-combobox>
             </template>
-            <lightning-input class="slds-p-horizontal_small" type="Date" name="closeDate" label="Close Date" value={closeSearchTerm} onchange={handleClose}></lightning-input>
         </div>
         <lightning-record-form if:true={createOpp} object-api-name="Opportunity" fields={oppFields}></lightning-record-form>
     </lightning-card>
