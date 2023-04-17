@@ -1,33 +1,34 @@
 <template>
     <lightning-card  title="Lead Search">
-        <lightning-button-group slot="actions">
-            <lightning-button-stateful label-when-off="Create" label-when-on="Search" onclick={handleCreate} selected={create}></lightning-button-stateful>
-            <lightning-button label="Reset "  onclick={handleReset}></lightning-button>
-    </lightning-button-group>
-<div>
+        <lightning-tabset>
+            <lightning-tab label="Search">
+                <lightning-input class="slds-p-horizontal_small" type="text" label="Name" value={nameSearchTerm} onchange={handleName}></lightning-input>
+                <lightning-input class="slds-p-horizontal_small" type="text" label="Company" value={companySearchTerm} onchange={handleCompany}></lightning-input>
+                <lightning-input class="slds-p-horizontal_small" type="text" label="Phone" value={phoneSearchTerm} onchange={handlePhone}></lightning-input>
+                <lightning-input class="slds-p-horizontal_small" type="text" label="Email" value={emailSearchTerm} onchange={handleEmail}></lightning-input>
+                <template lwc:if={ratingOptions.data}>
+                    <lightning-combobox class="slds-p-horizontal_small" name="Rating" label="Rating" value={ratingSearchTerm} 
+                                        options={ratingOptions.data.values} onchange={handleRating} ></lightning-combobox>
+                </template>
+                <template lwc:else>
+                    <lightning-combobox class="slds-p-horizontal_small" name="DisabledRating" label="Rating" value="" disabled></lightning-combobox>
+                </template>
+                <template lwc:if={statusOptions.data}>
+                    <lightning-combobox class="slds-p-horizontal_small" name="Status" label="Lead Status" value={statusSearchTerm} 
+                                        options={statusOptions.data.values} onchange={handleStatus} ></lightning-combobox>
+                </template>
+                <template lwc:else>
+                    <lightning-combobox class="slds-p-horizontal_small" name="DisabledStatus" label="Status" value="" disabled></lightning-combobox>
+                </template>
+                <br/>
+                <p>
+                    <lightning-button label="Reset" onclick={handleReset} class="slds-align_absolute-center"></lightning-button>
+                </p>
+            </lightning-tab>
 
-    </div>
-        
-        <div if:false={create}>
-            <lightning-input class="slds-p-horizontal_small" type="text" label="Name" value={nameSearchTerm} onchange={handleName}></lightning-input>
-            <lightning-input class="slds-p-horizontal_small" type="text" label="Company" value={companySearchTerm} onchange={handleCompany}></lightning-input>
-            <lightning-input class="slds-p-horizontal_small" type="text" label="Phone" value={phoneSearchTerm} onchange={handlePhone}></lightning-input>
-            <lightning-input class="slds-p-horizontal_small" type="text" label="Email" value={emailSearchTerm} onchange={handleEmail}></lightning-input>
-            <template lwc:if={ratingOptions.data}>
-                <lightning-combobox class="slds-p-horizontal_small" name="Rating" label="Rating" value={ratingSearchTerm} 
-                                    options={ratingOptions.data.values} onchange={handleRating} ></lightning-combobox>
-            </template>
-            <template lwc:else>
-                <lightning-combobox class="slds-p-horizontal_small" name="DisabledRating" label="Rating" value="" disabled></lightning-combobox>
-            </template>
-            <template lwc:if={statusOptions.data}>
-                <lightning-combobox class="slds-p-horizontal_small" name="Status" label="Lead Status" value={statusSearchTerm} 
-                                    options={statusOptions.data.values} onchange={handleStatus} ></lightning-combobox>
-            </template>
-            <template lwc:else>
-                <lightning-combobox class="slds-p-horizontal_small" name="DisabledStatus" label="Status" value="" disabled></lightning-combobox>
-            </template>
-        </div>
-        <lightning-record-form if:true={create} object-api-name="Lead" fields={fields}></lightning-record-form>
+            <lightning-tab label="Create" title="2nd tab extended title">
+                <lightning-record-form object-api-name="Lead" fields={fields} onsubmit={handleSubmit}></lightning-record-form>
+            </lightning-tab>
+        </lightning-tabset>
     </lightning-card>
 </template>

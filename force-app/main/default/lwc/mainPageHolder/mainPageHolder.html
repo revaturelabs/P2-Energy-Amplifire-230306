@@ -56,6 +56,17 @@
         </lightning-layout-item>
     </lightning-layout>
 
+    <!-- Orders -->
+
+    <lightning-layout if:true={displayOrd}>
+        <lightning-layout-item size="3" padding="around-small">
+                <c-order-search></c-order-search>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small">
+                <c-order-list></c-order-list>
+        </lightning-layout-item>
+    </lightning-layout>
+
     <!-- Customers -->
 
     <lightning-layout if:true={displayCus}>
@@ -86,17 +97,6 @@
         </lightning-layout-item>
         <lightning-layout-item padding="around-small">
             <c-work-order-list></c-work-order-list>
-        </lightning-layout-item>
-    </lightning-layout>
-
-    <!-- Orders -->
-
-    <lightning-layout if:true={displayOrd}>
-        <lightning-layout-item size="3" padding="around-small">
-                <c-order-search></c-order-search>
-        </lightning-layout-item>
-        <lightning-layout-item padding="around-small">
-                <c-order-list></c-order-list>
         </lightning-layout-item>
     </lightning-layout>
 </template>

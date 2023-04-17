@@ -53,10 +53,4 @@ export default class AccountSearch extends LightningElement {
     handleAccount(event) {
         this.accountSearchTerm = event.detail.value;
     }
-
-    create = false;
-
-    handleCreate(event){
-        this.create = !this.create;
-    }
 }
