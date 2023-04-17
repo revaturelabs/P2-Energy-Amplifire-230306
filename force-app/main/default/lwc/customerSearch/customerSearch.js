@@ -68,8 +68,7 @@ export default class AccountSearch extends LightningElement {
             cusAccountField: name,
             type: "cusaccount"
         };
-        publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
-        
+        publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);    
     }
 
     handleReset()

@@ -1,7 +1,7 @@
 import { LightningElement, wire } from 'lwc';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
-import  { publish,MessageContext } from 'lightning/messageService';
+import { publish,MessageContext } from 'lightning/messageService';
 import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c'; 
 import LEAD_OBJECT from '@salesforce/schema/Lead';
 import STATUS_FIELD from '@salesforce/schema/Lead.Status';
@@ -89,7 +89,7 @@ export default class AccountSearch extends LightningElement {
             leadEmailField: email,
             type: "leadEmail"
         };
-        publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
+        publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
     } 
 
     handleStatus(event) {
@@ -99,7 +99,7 @@ export default class AccountSearch extends LightningElement {
             leadStatusField: status,
             type: "leadStatus"
         };
-        publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
+        publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
     }
 
     handleReset()
@@ -111,9 +111,9 @@ export default class AccountSearch extends LightningElement {
         this.emailSearchTerm = "";
         this.companySearchTerm =  "";
         const payload = {
-                  type: "renderLeads"
-       };
-      publish(this.messageContext,NAME_SELECTED_CHANNEL,payload); 
+            type: "renderLeads"
+        };
+        publish(this.messageContext, NAME_SELECTED_CHANNEL, payload); 
     }
 
     create = false;
