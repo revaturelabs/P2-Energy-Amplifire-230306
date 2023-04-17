@@ -44,6 +44,9 @@
         <fieldName>leadEmailField</fieldName>
     </lightningMessageFields>
     <lightningMessageFields>
+        <fieldName>leadType</fieldName>
+    </lightningMessageFields>  
+    <lightningMessageFields>
         <fieldName>oppNameField</fieldName>
     </lightningMessageFields>
     <lightningMessageFields>
@@ -55,4 +58,19 @@
     <lightningMessageFields>
         <fieldName>oppCloseField</fieldName>
     </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>fnameField</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>lnameField</fieldName>
+    </lightningMessageFields> 
+    <lightningMessageFields>
+        <fieldName>cusAccountField</fieldName>
+    </lightningMessageFields> 
+    <lightningMessageFields>
+        <fieldName>cusPhoneField</fieldName>
+    </lightningMessageFields> 
+    <lightningMessageFields>
+        <fieldName>cusEmailField</fieldName>
+    </lightningMessageFields>       
 </LightningMessageChannel>

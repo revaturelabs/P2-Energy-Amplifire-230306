@@ -25,9 +25,6 @@ export default class LightningDatatableLWCExample extends LightningElement {
             NAME_SELECTED_CHANNEL,
             (message) => this.handleMessage(message)
           );
-
-
-    
       }
       
  
@@ -169,6 +166,15 @@ export default class LightningDatatableLWCExample extends LightningElement {
     this.accIndustrySearch = message.industryField;
     if (message.type === "accphone")
     this.accPhoneSearch = message.phoneField;
+    if (message.type === "reRender")
+    {
+
+   this.accNameSearch = "";
+   this.accPhoneSearch = "";
+   this.accIndustrySearch = "";
+   this.accRatingSearch = "";
+   this.renderedCallback();
+    }
  }  
 
     connectedCallback() {

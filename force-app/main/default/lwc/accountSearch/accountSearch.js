@@ -15,6 +15,7 @@ export default class AccountSearch extends LightningElement {
     nameSearchTerm;
     phoneSearchTerm;
     fields = [ NAME_FIELD, PHONE_FIELD, INDUSTRY_FIELD, RATING_FIELD ];
+  //  start = true;
 
     @wire(MessageContext)
     messageContext;
@@ -30,6 +31,14 @@ export default class AccountSearch extends LightningElement {
     )
     industryOptions;
 
+    resetValues() {
+        this.industrySearchTerm = '';
+        this.ratingSearchTerm = '';
+        this.nameSearchTerm = "";
+        this.phoneSearchTerm = "";
+       // this.renderedCallback();
+    }
+
     @wire(getPicklistValues,
         {
             recordTypeId: '$accountMetadata.data.defaultRecordTypeId', 
@@ -39,6 +48,7 @@ export default class AccountSearch extends LightningElement {
     ratingOptions;
 
     handleRating(event) {
+        this.ratingSearchTerm = event.detail.value;
       const rating = event.detail.value;
       const payload = {
          ratingField: rating,
@@ -49,16 +59,18 @@ export default class AccountSearch extends LightningElement {
     }
 
     handleName(event) {
+        this.nameSearchTerm = event.detail.value;
         const name =  event.detail.value;
         const payload = {
             nameField: name,
             type: "accname"
-        };
+        }
         publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
     }
 
 // Import message service features required for publishing and the message channel
 handlePhone(event) {
+    this.phoneSearchTerm = event.detail.value;
     const phone =  event.detail.value;
     const payload = {
         phoneField: phone,
@@ -68,6 +80,7 @@ handlePhone(event) {
 }
 
 handleIndustry(event) {
+    this.industrySearchTerm = event.detail.value;
     const industry =  event.detail.value;
     const payload = {
         industryField: industry,
@@ -78,5 +91,17 @@ handleIndustry(event) {
 
     handleCreate(event){
         this.create = !this.create;
+    }
+
+    handleReset()
+    {  this.nameSearchTerm = "";
+        this.phoneSearchTerm = "";
+        this.industrySearchTerm = "";
+        this.ratingSearchTerm = "";
+        const payload = {
+        
+           type: "reRender"
+       };
+      publish(this.messageContext,NAME_SELECTED_CHANNEL,payload); 
     }
 }
