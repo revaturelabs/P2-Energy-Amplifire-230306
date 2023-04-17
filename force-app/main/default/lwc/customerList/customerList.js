@@ -1,5 +1,7 @@
 import { LightningElement , wire, track} from 'lwc';
 import getCustomerList from '@salesforce/apex/LWCHelper.getCustomerList';
+import  { subscribe, MessageContext} from 'lightning/messageService';
+import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c';
 import DELETE from '@salesforce/apex/LWCHelper.deleter';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
@@ -36,16 +38,47 @@ export default class LightningDatatableLWCExample extends LightningElement {
             editable: false,
         },
     ];
- 
+
+    
     cusFirstNameSearch = '';
     cusLastNameSearch = '';
     cusPhoneSearch = '';
     cusEmailSearch = '';
     cusAccountSearch = '';
 
+
+    handleMessage(message) {
+        if (message.type === "cusfname")
+        this.cusFirstNameSearch = message.fnameField;
+        if (message.type === "cuslname")
+        this.cusLastNameSearch = message.lnameField;
+        if (message.type === "cusphone")
+        this.cusPhoneSearch = message.cusPhoneField;
+        if (message.type === "cusemail")
+        this.cusEmailSearch = message.cusEmailField;
+        if (message.type === "cusaccount")
+        this.cusAccountSearch = message.cusAccountField;
+    }
+
+
     @track error;
     @track customerList;
     wiredResult;
+
+    subscribeToMessageChannel() {  
+        this.subscription = subscribe(
+            this.messageContext,
+            NAME_SELECTED_CHANNEL,
+            (message) => this.handleMessage(message)
+          );
+      }
+
+      connectedCallback() {
+        this.subscribeToMessageChannel();
+    }
+
+    @wire(MessageContext)
+    messageContext;
 
     @wire(getCustomerList,
         {

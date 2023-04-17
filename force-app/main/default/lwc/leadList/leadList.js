@@ -77,6 +77,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
             statusLeadSearchTerm: '$leadStatusSearch',
         }
         )
+
     wiredLeads(result) {
         this.wiredResult = result;
         if (result.data) {
@@ -141,6 +142,16 @@ export default class LightningDatatableLWCExample extends LightningElement {
         this.leadStatusSearch = message.leadStatusField;
         if (message.type === "leadRating")
         this.leadRatingSearch = message.leadRatingField;
+        if (message.type === "renderLeads")
+        {
+         this.leadNameSearch = "";
+         this.leadPhoneSearch = "";
+         this.leadEmailSearch = "";
+         this.leadRatingSearch = "";
+         this.leadCompanySearch = "";
+         this.leadStatusSearch = "";
+         this.renderedCallback();
+        }
      }  
 
      connectedCallback() {

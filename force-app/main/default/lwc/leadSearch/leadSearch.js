@@ -43,6 +43,7 @@ export default class AccountSearch extends LightningElement {
     ratingOptions;
 
     handleCompany(event) {
+        this.companySearchTerm = event.detail.value;
         const company = event.detail.value;
         const payload = {
             leadCompanyField: company,
@@ -52,6 +53,7 @@ export default class AccountSearch extends LightningElement {
     }
 
     handleRating(event) {
+        this.ratingSearchTerm = event.detail.value;
         const rating = event.detail.value;
         const payload = {
             leadRatingField: rating,
@@ -61,6 +63,7 @@ export default class AccountSearch extends LightningElement {
     }
 
     handleName(event) {
+        this.nameSearchTerm = event.detail.value;
         const name = event.detail.value;
         const payload = {
             leadNameField: name,
@@ -70,6 +73,7 @@ export default class AccountSearch extends LightningElement {
     }
     
      handlePhone(event) {
+        this.phoneSearchTerm = event.detail.value;
         const phone = event.detail.value;
         const payload = {
             leadPhoneField: phone,
@@ -79,6 +83,7 @@ export default class AccountSearch extends LightningElement {
     }
 
     handleEmail(event) {
+        this.emailSearchTerm = event.detail.value;
         const email = event.detail.value;
         const payload = {
             leadEmailField: email,
@@ -88,6 +93,7 @@ export default class AccountSearch extends LightningElement {
     } 
 
     handleStatus(event) {
+        this.statusSearchTerm = event.detail.value;
         const status = event.detail.value;
         const payload = {
             leadStatusField: status,
@@ -95,7 +101,22 @@ export default class AccountSearch extends LightningElement {
         };
         publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
     }
-    create = false;
+
+    handleReset()
+    {
+        this.nameSearchTerm = "";
+        this.phoneSearchTerm = "";
+        this.statusSearchTerm = "";
+        this.ratingSearchTerm = "";
+        this.emailSearchTerm = "";
+        this.companySearchTerm =  "";
+        const payload = {
+                  type: "renderLeads"
+       };
+      publish(this.messageContext,NAME_SELECTED_CHANNEL,payload); 
+    }
+
+ //   create = false;
     
     handleCreate(event){
         this.create = !this.create;

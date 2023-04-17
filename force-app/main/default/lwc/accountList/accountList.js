@@ -174,6 +174,15 @@ export default class LightningDatatableLWCExample extends LightningElement {
     this.accIndustrySearch = message.industryField;
     if (message.type === "accphone")
     this.accPhoneSearch = message.phoneField;
+    if (message.type === "reRender")
+    {
+   this.accNameSearch = "";
+   this.accPhoneSearch = "";
+   this.accIndustrySearch = "";
+   this.accRatingSearch = "";
+   this.renderedCallback();
+    }
+ }  
         if (message.type === "accSubmit"){
             const myTimeout = setTimeout(refreshApex, 500, this.wiredResult);
         }

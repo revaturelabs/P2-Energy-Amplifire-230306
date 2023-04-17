@@ -1,10 +1,17 @@
 <template>
     <lightning-card title="Account Search">
+       <BR>
         <div slot="actions" style="--slds-c-button-stateful-color-background-selected: #ffffff">
-            <lightning-button-stateful label-when-off="Create" label-when-on="Search" onclick={handleCreate} selected={create}></lightning-button-stateful>
-        </div>
+            <div class="slds-p--vertical_medium">
+                <BR>
+                <lightning-button-stateful label-when-off="Create" label-when-on="Search" onclick={handleCreate} selected={create}></lightning-button-stateful>
+               <BR>
+               </div>
+                    <lightning-button label="Reset "  onclick={handleReset} class="slds-m-left_x-small"></lightning-button>
+                    
+            </div>  
         <div if:false={create}>
-            <lightning-input class="slds-p-horizontal_small" type="text" label="Name" value={nameSearchTerm} onchange={handleName}></lightning-input>
+            <lightning-input class="slds-p-horizontal_small" type="text" name = "nameField" label="Name" value={nameSearchTerm} onchange={handleName}></lightning-input>
             <lightning-input class="slds-p-horizontal_small" type="text" label="Phone" value={phoneSearchTerm} onchange={handlePhone}></lightning-input>
             
             <template lwc:if={industryOptions.data}>
