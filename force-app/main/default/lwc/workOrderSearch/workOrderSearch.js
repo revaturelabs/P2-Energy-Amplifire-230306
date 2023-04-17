@@ -65,4 +65,14 @@ export default class AccountSearch extends LightningElement {
         publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
     }
 
+    handleReset(){
+        this.nameSearchTerm = '';
+        this.accountSearchTerm = '';
+        this.pOwnerSearchTerm = '';
+        const payload = {
+            type: "workOrderReset"
+        };
+        publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
+    }
+
 }

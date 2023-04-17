@@ -170,6 +170,12 @@ export default class LightningDatatableLWCExample extends LightningElement {
         if (message.type === "workOrderSubmit"){
             const myTimeout = setTimeout(refreshApex, 500, this.wiredResult);
         }
+        if (message.type === "workOrderReset"){
+            this.nameSearch = '';
+            this.accountSearch = '';
+            this.productOwnerSearch = '';
+            refreshApex(this.wiredResult);
+        }
     }
 
     connectedCallback() {
