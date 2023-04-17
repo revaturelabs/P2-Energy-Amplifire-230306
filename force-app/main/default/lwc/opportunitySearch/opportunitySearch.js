@@ -13,7 +13,6 @@ export default class OpportunitySearch extends LightningElement {
     nameSearchTerm;
     accountSearchTerm;
     stageSearchTerm;
-    closeSearchTerm;
     oppFields = [ NAME_FIELD, ACCOUNT_FIELD, STAGE_FIELD, CLOSE_FIELD ];
 
     @wire(getObjectInfo, { objectApiName: OPPORTUNITY_OBJECT })
@@ -47,8 +46,7 @@ handleName(event) {
             type: "opportunityAcc"
             };
         publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
-    }  
-    
+    }
 
     handleStage(event) {
         const stage = event.detail.value;
@@ -58,15 +56,6 @@ handleName(event) {
         };
         publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
         }
-
-    handleClose(event) {
-        const close = event.detail.value;
-        const payload = {
-            oppCloseField: close,
-            type: "opportunityClose"
-        };
-        publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
-    }
 
     createOpp = false;
 

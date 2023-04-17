@@ -70,7 +70,7 @@ public with sharing class LWCHelper {
     }
 
     @AuraEnabled(cacheable=true)
-    public static List<Opportunity> getOppList(String name, String account, String stage, String close){
+    public static List<Opportunity> getOppList(String name, String account, String stage){
         try {
             List<Opportunity> fullOppList = [SELECT Id, Name, Account.Name, StageName, CloseDate FROM Opportunity];
             List<Opportunity> temp = new List<Opportunity>();
@@ -78,7 +78,7 @@ public with sharing class LWCHelper {
                 String oppName = opp.Name;
                 String oppAccount = '';
                 String oppStage = '';
-                String oppDate = '';
+                Date oppDate = NULL;
                 if(opp.Account.Name != NULL){
                     oppAccount = (String)opp.Account.Name;
                 }
@@ -86,13 +86,12 @@ public with sharing class LWCHelper {
                     OppStage = (String)opp.StageName;
                 }
                 if(Opp.CloseDate != NULL){
-                    OppDate = Opp.CloseDate.format();
+                    OppDate = Opp.CloseDate;
                 }
                 if(OppName.containsIgnoreCase(Name) &&
                     OppAccount.containsIgnoreCase(Account) &&
-                    OppStage.containsIgnoreCase(Stage) &&
-                    OppDate.containsIgnoreCase(Close)){
-                                temp.add(opp);
+                    OppStage.containsIgnoreCase(Stage)){
+                        temp.add(opp);
                 }
             }
             return temp;
