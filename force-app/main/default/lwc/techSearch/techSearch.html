@@ -1,5 +1,19 @@
 <template>
     <lightning-card title="Technician Search">
+<<<<<<< HEAD
+        <lightning-button-group slot="actions">
+            <lightning-button-stateful label-when-off="Create" label-when-on="Search" onclick={handleCreate} selected={create}></lightning-button-stateful>
+            <lightning-button label="Reset "  onclick={handleReset} class="slds-m-left_x-small"></lightning-button>
+        </lightning-button-group>
+        <div if:false={create}>
+            <lightning-input class="slds-p-horizontal_small" type="text" label="First Name" value={firstNameSearchTerm} onchange={handleFirstName}></lightning-input>
+            <lightning-input class="slds-p-horizontal_small" type="text" label="Last Name" value={lastNameSearchTerm} onchange={handleLastName}></lightning-input>
+            <lightning-input class="slds-p-horizontal_small" type="text" label="Phone" value={phoneSearchTerm} onchange={handlePhone}></lightning-input>
+            <lightning-input class="slds-p-horizontal_small" type="text" label="Email" value={emailSearchTerm} onchange={handleEmail}></lightning-input>
+            <lightning-input class="slds-p-horizontal_small" type="text" label="Account" value={accountSearchTerm} onchange={handleAccount}></lightning-input>
+        </div>
+        <lightning-record-form if:true={create} object-api-name="Contact" fields={fields} record-type-id={recordTypeId}></lightning-record-form>
+=======
         <lightning-tabset>
             <lightning-tab label="Search">
                 <lightning-input class="slds-p-horizontal_small" type="text" label="First Name" value={firstNameSearchTerm} onchange={handleFirstName}></lightning-input>
@@ -17,5 +31,6 @@
                 <lightning-record-form object-api-name="Contact" fields={fields} onsubmit={handleSubmit}></lightning-record-form>
             </lightning-tab>
         </lightning-tabset>
+>>>>>>> c2a561c3195c9192b5d67dc2ab755110cd649cfd
     </lightning-card>
 </template>
