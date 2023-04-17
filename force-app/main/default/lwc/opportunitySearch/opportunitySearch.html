@@ -1,12 +1,9 @@
 <template>
     <lightning-card  title="Opportunity Search">
-        <div slot="actions">
+        <lightning-button-group slot="actions">
             <lightning-button-stateful label-when-off="Create" label-when-on="Search" onclick={handleCreate} selected={create}></lightning-button-stateful>
-        </div>
-    </div>
-    <lightning-button label="Reset "  onclick={handleReset} class="slds-m-left_x-small"></lightning-button>
-    
-</div>  
+            <lightning-button label="Reset "  onclick={handleReset} class="slds-m-left_x-small"></lightning-button>
+        </lightning-button-group>
         <div if:false={createOpp}>
             <lightning-input class="slds-p-horizontal_small" type="text" label="Name" value={nameSearchTerm} onchange={handleName}></lightning-input>
             <lightning-input class="slds-p-horizontal_small" type="text" label="Account" value={accountSearchTerm} onchange={handleAccount}></lightning-input>
