@@ -119,6 +119,27 @@ export default class LightningDatatableLWCExample extends LightningElement {
         });
     }
 
+    handleMessage(message) {
+        if (message.type === "techfname")
+        this.cusFirstNameSearch = message.techfnameField;
+        if (message.type === "techlname")
+        this.cusLastNameSearch = message.techlnameField;
+        if (message.type === "techPhone")
+        this.cusPhoneSearch = message.techPhoneField;
+        if (message.type === "techEmail")
+        this.cusEmailSearch = message.techEmailField;
+        if (message.type === "techAccount")
+        this.cusAccountSearch = message.techAccountField;
+        if (message.type === "techRender")
+        {
+            this.FirstNameSearch = "";
+            this.LastNameSearch = "";
+            this.CellPhoneSearch = "";
+            this.EmailSearch = "";
+            this.AccountSearch = "";
+            this.renderedCallback();
+        }
+    }
     
     draftValues = [];
 

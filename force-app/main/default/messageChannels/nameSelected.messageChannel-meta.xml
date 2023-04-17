@@ -105,5 +105,20 @@
     </lightningMessageFields> 
     <lightningMessageFields>
         <fieldName>cusEmailField</fieldName>
-    </lightningMessageFields>       
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>techfnameField</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>techlnameField</fieldName>
+    </lightningMessageFields> 
+    <lightningMessageFields>
+        <fieldName>techAccountField</fieldName>
+    </lightningMessageFields> 
+    <lightningMessageFields>
+        <fieldName>techPhoneField</fieldName>
+    </lightningMessageFields> 
+    <lightningMessageFields>
+        <fieldName>techEmailField</fieldName>
+    </lightningMessageFields>        
 </LightningMessageChannel>
