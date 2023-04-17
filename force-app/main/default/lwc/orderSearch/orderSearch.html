@@ -1,0 +1,21 @@
+<template>
+    <lightning-card  title="Order Search">
+        <div slot="actions">
+            <lightning-button-stateful label-when-off="Create" label-when-on="Search" onclick={handleCreate} selected={create}></lightning-button-stateful>
+        </div>
+        <div if:false={create}>
+            <lightning-input class="slds-p-horizontal_small" type="text" label="Number" value={numberSearchTerm} onchange={handleNumber}></lightning-input>
+            <lightning-input class="slds-p-horizontal_small" type="text" label="Account Name" value={accountNameSearchTerm} onchange={handleAccountName}></lightning-input>
+            <lightning-input class="slds-p-horizontal_small" type="date" label="Start Date" value={effectiveDateSearchTerm} onchange={handleEffectiveDate}></lightning-input>
+            <template lwc:if={statusOptions.data}>
+                <lightning-combobox class="slds-p-horizontal_small" name="Status" label="Status" value={statusSearchTerm} 
+                                    options={statusOptions.data.values} onchange={handleStatus} ></lightning-combobox>
+            </template>
+            <template lwc:else>
+                <lightning-combobox class="slds-p-horizontal_small" name="DisabledStatus" label="Status" value="" disabled></lightning-combobox>
+            </template>
+            <lightning-input class="slds-p-horizontal_small" type="text" label="Total Amount" value={totalAmountSearchTerm} onchange={handleTotalAmount}></lightning-input>
+        </div>
+        <lightning-record-form if:true={create} object-api-name="Order" fields={fields} onsubmit={handleSubmit}></lightning-record-form>
+    </lightning-card>
+</template>

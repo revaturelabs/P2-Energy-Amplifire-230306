@@ -6,20 +6,32 @@
     <lightningMessageFields>
         <fieldName>nameField</fieldName>
         <description>This is the Name that has been searched for</description>
-    </lightningMessageFields>  
-    <lightningMessageFields>  
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>accountField</fieldName>
+        <description>This is the Account that has been searched for</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>productOwnerField</fieldName>
+        <description>This is the Product Owner that has been searched for</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
         <fieldName>ratingField</fieldName>
-        <description>This is the Rating that has been searched for</description>   
-    </lightningMessageFields>    
-    <lightningMessageFields>  
+        <description>This is the Rating that has been searched for</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
         <fieldName>phoneField</fieldName>
-        <description>This is the Phone that has been searched for</description>   
-    </lightningMessageFields> 
-    <lightningMessageFields>  
+        <description>This is the Phone that has been searched for</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
         <fieldName>industryField</fieldName>
-        <description>This is the Industry that has been searched for</description>   
-    </lightningMessageFields>     
-    <lightningMessageFields>  
+        <description>This is the Industry that has been searched for</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>submitField</fieldName>
+        <description>This is for refreshing the list after a create function</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
         <fieldName>type</fieldName>
         <description>This is the type of record being searched</description>   
     </lightningMessageFields>  
@@ -57,6 +69,27 @@
     </lightningMessageFields>
     <lightningMessageFields>
         <fieldName>oppCloseField</fieldName>
+        <description>This is the type of record being searched</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>orderNumberField</fieldName>
+        <description>The number of the order being searched.</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>orderAccountNameField</fieldName>
+        <description>The name of the account of the order being searched.</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>orderEffectiveDateField</fieldName>
+        <description>The start date of the order being searched</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>orderStatusField</fieldName>
+        <description>The status of the order being searched</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>orderTotalAmountField</fieldName>
+        <description>The total amount of the order being searched</description>
     </lightningMessageFields>
     <lightningMessageFields>
         <fieldName>fnameField</fieldName>

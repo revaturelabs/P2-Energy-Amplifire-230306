@@ -75,14 +75,20 @@
     </types>
     <types>
         <members>accountList</members>
-        <members>leadList</members>
         <members>accountSearch</members>
-        <members>leadSearch</members>
-        <members>opportunityList</members>
-        <members>opportunitySearch</members>
         <members>customerList</members>
         <members>customerSearch</members>
+        <members>leadList</members>
+        <members>leadSearch</members>
         <members>mainPageHolder</members>
+        <members>opportunityList</members>
+        <members>opportunitySearch</members>
+        <members>techList</members>
+        <members>techSearch</members>
+        <members>workOrderList</members>
+        <members>workOrderSearch</members>
+        <members>orderList</members>
+        <members>orderSearch</members>
         <name>LightningComponentBundle</name>
     </types>
 </Package>

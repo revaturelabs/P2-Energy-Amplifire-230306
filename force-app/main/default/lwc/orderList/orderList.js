@@ -1,40 +1,29 @@
 import { LightningElement , wire, track} from 'lwc';
-import getLeadList from '@salesforce/apex/LWCHelper.getLeadList';
+import getOrderList from '@salesforce/apex/LWCHelper.getOrderList';
 import DELETE from '@salesforce/apex/LWCHelper.deleter';
 import  { subscribe, MessageContext} from 'lightning/messageService';
 import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
+import { updateRecord } from 'lightning/uiRecordApi';
 
 export default class LightningDatatableLWCExample extends LightningElement {
     @track columns = [{
-            label: 'Lead name',
-            fieldName: 'Name',
-            type: 'text',
-            editable: true,
+            label: 'Order Number',
+            fieldName: 'OrderNumber',
+            type: 'auto number',
+            editable: false,
         },
         {
-            label: 'Company',
-            fieldName: 'Company',
+            label: 'Account Name',
+            fieldName: 'accountName',
             type: 'text',
-            editable: true,
+            editable: false,
         },
         {
-            label: 'Phone',
-            fieldName: 'Phone',
-            type: 'phone',
-            editable: true,
-        },
-        {
-            label: 'Email',
-            fieldName: 'Email',
-            type: 'text',
-            editable: true,
-        },
-        {
-            label: 'Rating',
-            fieldName: 'Rating',
-            type: 'text',
+            label: 'Start Date',
+            fieldName: 'EffectiveDate',
+            type: 'date',
             editable: true,
         },
         {
@@ -43,20 +32,26 @@ export default class LightningDatatableLWCExample extends LightningElement {
             type: 'text',
             editable: true,
         },
+        {
+            label: 'Total Amount',
+            fieldName: 'TotalAmount',
+            type: 'currency',
+            editable: false,
+        },
     ];
 
     @wire(MessageContext)
     messageContext;
  
-    leadNameSearch = '';
-    leadCompanySearch = '';
-    leadPhoneSearch = '';
-    leadEmailSearch = '';
-    leadRatingSearch = '';
-    leadStatusSearch = '';
+    orderNumberSearch = '';
+    orderAccountIdSearch = '';
+    orderAccountNameSearch = '';
+    orderEffectiveDateSearch = '';
+    orderStatusSearch = '';
+    orderTotalAmountSearch = '';
 
     @track error;
-    @track leadList;
+    @track ordList;
     wiredResult;
 
     subscribeToMessageChannel() {
@@ -67,25 +62,36 @@ export default class LightningDatatableLWCExample extends LightningElement {
       );
     }
 
-    @wire(getLeadList,
+    @wire(getOrderList,
         {
-            nameLeadSearchTerm: '$leadNameSearch', 
-            companyLeadSearchTerm: '$leadCompanySearch',
-            phoneLeadSearchTerm: '$leadPhoneSearch',
-            emailLeadSearchTerm: '$leadEmailSearch',
-            ratingLeadSearchTerm: '$leadRatingSearch',
-            statusLeadSearchTerm: '$leadStatusSearch',
+            numberOrderSearchTerm: '$orderNumberSearch', 
+            accountIdOrderSearchTerm: '$orderAccountIdSearch',
+            accountNameOrderSearchTerm: '$orderAccountNameSearch',
+            effectiveDateOrderSearchTerm: '$orderEffectiveDateSearch',
+            statusOrderSearchTerm: '$orderStatusSearch',
+            totalAmountOrderSearchTerm: '$orderTotalAmountSearch',
         }
         )
-
-    wiredLeads(result) {
+    wiredOrders(result) {
         this.wiredResult = result;
-        if (result.data) {
-            this.leadList = result.data;
+        if (result.data) {console.log(result.data);
+            this.ordList = result.data;
+            this.ordList = this.ordList.map( item =>{
+                item = {...item};
+                if(item.AccountId){
+                    item['accountName'] = item.Account.Name;
+                    return item;
+                }
+                else{
+                    item['accountName'] = '';
+                    return item;
+            }
+            }
+            )
             this.error = undefined;
-        } else if (result.error) {
+        } else if (result.error) {console.log(result.error);
             this.error = result.error;
-            this.leadList = undefined;
+            this.ordList = undefined;
         }
     }
     selectedIds;
@@ -106,13 +112,13 @@ export default class LightningDatatableLWCExample extends LightningElement {
     handleDelete() {
         DELETE({
             idsToDelete: this.selectedIds, 
-            sObjectType: 'Lead',
+            sObjectType: 'Order',
         })
         .then(() => {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
-                    message: 'Lead deleted',
+                    message: 'Order deleted',
                     variant: 'success'
                 })
             );
@@ -130,27 +136,20 @@ export default class LightningDatatableLWCExample extends LightningElement {
     }
 
     handleMessage(message) {
-        if (message.type === "leadName")
-        this.leadNameSearch = message.leadNameField;
-        if (message.type === "leadCompany")
-        this.leadCompanySearch = message.leadCompanyField;
-        if (message.type === "leadPhone")
-        this.leadPhoneSearch = message.leadPhoneField;
-        if (message.type === "leadEmail")
-        this.leadEmailSearch = message.leadEmailField;
-        if (message.type === "leadStatus")
-        this.leadStatusSearch = message.leadStatusField;
-        if (message.type === "leadRating")
-        this.leadRatingSearch = message.leadRatingField;
-        if (message.type === "renderLeads")
-        {
-         this.leadNameSearch = "";
-         this.leadPhoneSearch = "";
-         this.leadEmailSearch = "";
-         this.leadRatingSearch = "";
-         this.leadCompanySearch = "";
-         this.leadStatusSearch = "";
-         this.renderedCallback();
+        if (message.type === "orderNumber")
+        this.orderNumberSearch = message.orderNumberField;
+        /*if (message.type === "orderAccountId")
+        this.orderAccountIdSearch = message.orderAccountIdField;*/
+        if (message.type === "orderAccount")
+        this.orderAccountNameSearch = message.orderAccountNameField;
+        if (message.type === "orderEffectiveDate")
+        this.orderEffectiveDateSearch = message.orderEffectiveDateField;
+        if (message.type === "orderStatus")
+        this.orderStatusSearch = message.orderStatusField;
+        if (message.type === "orderAmount")
+        this.orderTotalAmountSearch = message.orderTotalAmountField;
+        if (message.type === "ordSubmit"){
+            const myTimeout = setTimeout(refreshApex, 500, this.wiredResult);
         }
      }  
 
@@ -177,7 +176,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
-                    message: 'Leads updated',
+                    message: 'Orders updated',
                     variant: 'success'
                 })
             );
@@ -186,7 +185,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
         } catch (error) {
             this.dispatchEvent(
                 new ShowToastEvent({
-                    title: 'Error updating or reloading Leads',
+                    title: 'Error updating or reloading Orders',
                     message: error.body.message,
                     variant: 'error'
                 })

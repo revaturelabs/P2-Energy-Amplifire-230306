@@ -45,7 +45,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
 
     @track error;
     @track customerList;
-    wiredCustomerResult;
+    wiredResult;
 
     @wire(getCustomerList,
         {
@@ -57,7 +57,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
         }
         )
     wiredCustomers(result) {
-        this.wiredCustomerResult = result;
+        this.wiredResult = result;
         if (result.data) {
             this.customerList = result.data;
             this.customerList = this.customerList.map( item =>{
@@ -106,7 +106,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
                     variant: 'success'
                 })
             );
-            return refreshApex(this.wiredCustomerResult);
+            return refreshApex(this.wiredResult);
         })
         .catch((error) => {
             this.dispatchEvent(
@@ -131,9 +131,9 @@ export default class LightningDatatableLWCExample extends LightningElement {
         this.draftValues = [];
 
         try {
-            const recordUpdatePromises = records.map((record) =>
-                updateRecord(record)
-            
+            const recordUpdatePromises = records.map((record) =>{
+                updateRecord(record);
+            }
             );
             await Promise.all(recordUpdatePromises);
 
@@ -144,7 +144,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
                     variant: 'success'
                 })
             );
-            await refreshApex(this.wiredCustomerResult);
+            await refreshApex(this.wiredResult);
 
         } catch (error) {
             this.dispatchEvent(
