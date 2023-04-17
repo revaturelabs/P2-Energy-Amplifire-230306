@@ -31,6 +31,7 @@ export default class AccountSearch extends LightningElement {
     statusOptions;
 
     handleNumber(event) {
+        this.numberSearchTerm = event.detail.value;
         const number = event.detail.value;
         const payload = {
             orderNumberField: number,
@@ -40,6 +41,7 @@ export default class AccountSearch extends LightningElement {
     }
 
     handleAccountName(event) {
+        this.accountNameSearchTerm = event.detail.value;
         const account = event.detail.value;
         const payload = {
             orderAccountNameField: account,
@@ -49,6 +51,7 @@ export default class AccountSearch extends LightningElement {
     }
 
     handleEffectiveDate(event) {
+        this.effectiveDateSearchTerm = event.detail.value;
         const start = event.detail.value;
         const payload = {
             orderEffectiveDateField: start,
@@ -58,6 +61,7 @@ export default class AccountSearch extends LightningElement {
     }
     
      handleStatus(event) {
+        this.statusSearchTerm = event.detail.value;
         const status = event.detail.value;
         const payload = {
             orderStatusField: status,
@@ -67,6 +71,7 @@ export default class AccountSearch extends LightningElement {
     }
 
     handleTotalAmount(event) {
+        this.totalAmountSearchTerm = event.detail.value;
         const amount = event.detail.value;
         const payload = {
             orderTotalAmountField: amount,
@@ -91,23 +96,11 @@ export default class AccountSearch extends LightningElement {
         this.numberSearchTerm = "";
         this.statusSearchTerm = "";
         this.totalAmountSearchTerm = "";
-        publish(this.messageContext,NAME_SELECTED_CHANNEL,"orderRender");
-        
-
-    }
-
-
-    handleReset()
-    {  this.nameSearchTerm = "";
-        this.phoneSearchTerm = "";
-        this.industrySearchTerm = "";
-        this.ratingSearchTerm = "";
         const payload = {
-           type: "reRender"
-       };
-      publish(this.messageContext,NAME_SELECTED_CHANNEL,payload); 
+            type: "ordRender"
+        };
+       publish(this.messageContext,NAME_SELECTED_CHANNEL,payload); 
     }
-
 
     handleSubmit(){
         const submit =  true;

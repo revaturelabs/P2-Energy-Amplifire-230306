@@ -34,23 +34,69 @@ export default class AccountSearch extends LightningElement {
         }
     }
 
-    handleFirstName(event) {
-        this.firstNameSearchTerm = event.detail.value;
+    
+    handleReset() {
+        this.firstNameSearchTerm = "";
+        this.lastNameSearchTerm = "";
+        this.phoneSearchTerm = "";
+        this.emailSearchTerm = "";
+        this.accountSearchTerm = "";
+        const payload = {
+            type: "techRender"
+        };
+       publish(this.messageContext,NAME_SELECTED_CHANNEL,payload); 
     }
 
+    
     handleLastName(event) {
         this.lastNameSearchTerm = event.detail.value;
+        const name =  event.detail.value;
+        const payload = {
+            techlnameField: name,
+            type: "techlname"
+        };
+        publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
     }
+
+    handleFirstName(event) {
+        this.firstNameSearchTerm = event.detail.value;
+        const name =  event.detail.value;
+        const payload = {
+            techfnameField: name,
+            type: "techfname"
+        };
+        publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
+    }
+
 
     handlePhone(event) {
         this.phoneSearchTerm = event.detail.value;
+        const name =  event.detail.value;
+        const payload = {
+            techPhoneField: name,
+            type: "techPhone"
+        };
+        publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
     }
 
     handleEmail(event) {
         this.emailSearchTerm = event.detail.value;
+        const name =  event.detail.value;
+        const payload = {
+            techEmailField: name,
+            type: "techEmail"
+        };
+        publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
     }
 
     handleAccount(event) {
         this.accountSearchTerm = event.detail.value;
+        const name =  event.detail.value;
+        const payload = {
+            techAccountField: name,
+            type: "techAccount"
+        };
+        publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
+        
     }
 }
