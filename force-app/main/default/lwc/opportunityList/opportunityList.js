@@ -137,6 +137,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
             this.oppNameSearch = "";
             this.oppAccountSearch = "";
             this.oppStageSearch = "";
+            this.oppDateSearch = "";
             this.renderedCallback();
         }
         if (message.type === "oppSubmit"){
