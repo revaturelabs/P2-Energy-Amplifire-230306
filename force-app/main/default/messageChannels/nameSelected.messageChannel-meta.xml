@@ -22,7 +22,7 @@
     <lightningMessageFields>
         <fieldName>phoneField</fieldName>
         <description>This is the Phone that has been searched for</description>
-    </lightningMessageFields>
+    </lightningMessageFields> 
     <lightningMessageFields>
         <fieldName>industryField</fieldName>
         <description>This is the Industry that has been searched for</description>
