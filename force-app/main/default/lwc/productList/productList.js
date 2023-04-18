@@ -15,16 +15,29 @@ export default class ProductList extends LightningElement {
     @wire(getObjectInfo, { objectApiName: ORDERITEM_OBJECT })
     orderItemMetadata;
     
-    @track columns = [{
-        label: 'Description',
-        fieldName: 'descriptionValue',
+    @track columns = [
+    {
+        label: 'Product Name',
+        fieldName: 'productName',
         type: 'text',
         editable: false,
     },
     {
-        label: 'Id',
-        fieldName: 'id',
-        type: 'text',
+        label: 'Unit Price',
+        fieldName: 'unitpriceValue',
+        type: 'currency',
+        editable: false,
+    },
+    {
+        label: 'Quantity',
+        fieldName: 'quantityValue',
+        type: 'number',
+        editable: true,
+    },
+    {
+        label: 'Total Price',
+        fieldName: 'totalpriceValue',
+        type: 'currency',
         editable: false,
     }
     ];
@@ -37,22 +50,41 @@ export default class ProductList extends LightningElement {
     @wire(getRelatedListRecords, {
         parentRecordId: '$whatever',
         relatedListId: 'OrderItems',
-        fields: ['OrderItem.Description']
+        fields: ['OrderItem.Product2.Name', 'OrderItem.UnitPrice', 'OrderItem.Quantity', 'OrderItem.TotalPrice']
     })listInfo({ error, data }) {
         if (data) {
             this.wiredResult = data;
             console.log(data);
             this.records = data.records;
+            console.log(this.records);
             this.records = this.records.map( item =>{
                 item = {...item};
-                if(item.fields.Description.value){
-                    item['descriptionValue'] = item.fields.Description.value;
-                    return item;
+                if(item.fields.Product2.value.fields.Name.value){
+                    item['productName'] = item.fields.Product2.value.fields.Name.value;
                 }
                 else{
-                    item['descriptionValue'] = '';
-                    return item;
+                    item['productName'] = '';
                 }
+                if(item.fields.Quantity.value){
+                    item['quantityValue'] = item.fields.Quantity.value;
+                }
+                else{
+                    item['quantityValue'] = '';
+                }
+                if(item.fields.UnitPrice.value){
+                    item['unitpriceValue'] = item.fields.UnitPrice.value;
+                }
+                else{
+                    item['unitpriceValue'] = '';
+                }
+                if(item.fields.TotalPrice.value){
+                    item['totalpriceValue'] = item.fields.TotalPrice.value;
+                }
+                else{
+                    item['totalpriceValue'] = '';
+                }
+
+                return item;
             }
             )
             this.error = undefined;
