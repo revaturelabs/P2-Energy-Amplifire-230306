@@ -1,0 +1,16 @@
+<template><div class="slds-m-top_medium" lwc:if={whatever}>
+    <lightning-card  title="Products">
+        <div slot="actions">
+            <lightning-button-group>
+                <lightning-button label="Delete" onclick={handleDelete}></lightning-button>
+            </lightning-button-group>
+        </div>
+        <template if:true={records}>
+            <lightning-datatable data={records} columns={columns} key-field="id" onrowselection={getSelectedRec} onsave={handleSave}>
+            </lightning-datatable>
+        </template>
+        <template if:true={error}>
+            {error}
+        </template>
+    </lightning-card>
+</div></template>

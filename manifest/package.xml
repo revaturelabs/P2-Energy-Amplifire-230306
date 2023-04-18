@@ -89,7 +89,13 @@
         <members>workOrderSearch</members>
         <members>orderList</members>
         <members>orderSearch</members>
+        <members>productList</members>
         <name>LightningComponentBundle</name>
+    </types>
+    <types>
+        <members>nameSelected</members>
+        <members>orderSelected</members>
+        <name>LightningMessageChannel</name>
     </types>
 </Package>
 
