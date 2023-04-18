@@ -79,6 +79,17 @@ export default class AccountSearch extends LightningElement {
         };
         publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
     } 
+    create = false;
+    
+    handleCreate(event){
+        this.create = !this.create;
+    }
+
+    numberSearchTerm;
+    accountNameSearchTerm;
+    effectiveDateSearchTerm;
+    statusSearchTerm;
+    totalAmountSearchTerm;
 
     handleReset() {
         this.accountNameSearchTerm = "";
@@ -86,10 +97,12 @@ export default class AccountSearch extends LightningElement {
         this.statusSearchTerm = "";
         this.totalAmountSearchTerm = "";
         const payload = {
-            type: "ordRender"
+          type: "ordRender"
         };
        publish(this.messageContext,NAME_SELECTED_CHANNEL,payload); 
     }
+
+    
 
     handleSubmit(){
         const submit =  true;

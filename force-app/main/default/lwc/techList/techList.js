@@ -59,11 +59,11 @@ export default class LightningDatatableLWCExample extends LightningElement {
         },
     ];
  
-    cusFirstNameSearch = '';
-    cusLastNameSearch = '';
-    cusPhoneSearch = '';
-    cusEmailSearch = '';
-    cusAccountSearch = '';
+    cusFirstNameSearch = "";
+    cusLastNameSearch = "";
+    cusPhoneSearch = "";
+    cusEmailSearch = "";
+    cusAccountSearch = "";
 
     @track error;
     @track customerList;
@@ -147,18 +147,18 @@ export default class LightningDatatableLWCExample extends LightningElement {
         if (message.type === "techlname")
             this.cusLastNameSearch = message.techlnameField;
         if (message.type === "techPhone")
-            this.cusPhoneSearch = message.techPhoneField;
+            this.cuPhoneSearch = message.techPhoneField;
         if (message.type === "techEmail")
             this.cusEmailSearch = message.techEmailField;
         if (message.type === "techAccount")
             this.cusAccountSearch = message.techAccountField;
         if (message.type === "techRender")
         {
-            this.FirstNameSearch = "";
-            this.LastNameSearch = "";
-            this.CellPhoneSearch = "";
-            this.EmailSearch = "";
-            this.AccountSearch = "";
+            this.cusFirstNameSearch = "";
+            this.cusLastNameSearch = "";
+            this.cusPhoneSearch = "";
+            this.cusEmailSearch = "";
+            this.cusAccountSearch = "";
             this.renderedCallback();
         }
         if (message.type === "techSubmit"){
