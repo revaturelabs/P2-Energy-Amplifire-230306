@@ -5,6 +5,7 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
 import  { subscribe, MessageContext, createMessageContext } from 'lightning/messageService';
 import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c';
+import { updateRecord } from 'lightning/uiRecordApi';
 
 export default class LightningDatatableLWCExample extends LightningElement {
     @wire(MessageContext)

@@ -4,6 +4,7 @@ import  { subscribe, MessageContext} from 'lightning/messageService';
 import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c';
 import DELETE from '@salesforce/apex/LWCHelper.deleter';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { updateRecord } from 'lightning/uiRecordApi';
 import { refreshApex } from '@salesforce/apex';
 
 export default class LightningDatatableLWCExample extends LightningElement {

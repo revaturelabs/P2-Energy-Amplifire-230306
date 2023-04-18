@@ -3,6 +3,7 @@ import getLeadList from '@salesforce/apex/LWCHelper.getLeadList';
 import DELETE from '@salesforce/apex/LWCHelper.deleter';
 import  { subscribe, MessageContext} from 'lightning/messageService';
 import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c';
+import { updateRecord } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
 

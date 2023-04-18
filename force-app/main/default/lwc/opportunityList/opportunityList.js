@@ -4,7 +4,9 @@ import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c';
 import getOppList from '@salesforce/apex/LWCHelper.getOppList';
 import DELETE from '@salesforce/apex/LWCHelper.deleter';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { updateRecord } from 'lightning/uiRecordApi';
 import { refreshApex } from '@salesforce/apex';
+
 export default class LightningDatatableLWCExample extends LightningElement {
     @track columns = [{
             label: 'Opportunity name',
@@ -66,6 +68,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
         )
     wiredOpps(result) {
         this.wiredResult = result;
+        console.log(result.data);
         if (result.data) {
             this.oppList = result.data;
             this.oppList = this.oppList.map( item =>{
@@ -114,7 +117,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
                     variant: 'success'
                 })
             );
-            return refreshApex(this.wiredOppResult);
+            return refreshApex(this.wiredResult);
         })
         .catch((error) => {
             this.dispatchEvent(
@@ -176,7 +179,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
                     variant: 'success'
                 })
             );
-            await refreshApex(this.contacts);
+            await refreshApex(this.wiredResult);
 
         } catch (error) {
             this.dispatchEvent(
