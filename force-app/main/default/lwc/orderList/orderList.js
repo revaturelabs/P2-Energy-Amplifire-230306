@@ -160,9 +160,9 @@ export default class LightningDatatableLWCExample extends LightningElement {
             this.orderTotalAmountSearch = "";
             this.renderedCallback();
         }
-     /*   if (message.type === "ordSubmit"){
+        if (message.type === "ordSubmit"){
             const myTimeout = setTimeout(refreshApex, 500, this.wiredResult);
-        } */
+        }
      }  
 
   
@@ -213,7 +213,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
     updateColumnSorting(event){
         this.sortedBy = event.detail.fieldName;
         this.sortDirection = event.detail.sortDirection;
-        this.sort(this.sortedBy,this.sortDirection);
+        this.ordList = this.sortData(this.sortedBy, this.sortDirection);
     }
 
     sort(fieldName, direction){
