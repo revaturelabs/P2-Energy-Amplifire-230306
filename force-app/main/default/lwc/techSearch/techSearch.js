@@ -6,9 +6,8 @@ import EMAIL_FIELD from '@salesforce/schema/Contact.Email';
 import ACCOUNT_FIELD from '@salesforce/schema/Contact.AccountId';
 import { publish, MessageContext } from 'lightning/messageService';
 import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c'; 
+import { refreshApex } from '@salesforce/apex';
 
-import { getRecord } from "lightning/uiRecordApi";
-import CONTACT_RECORDTYPE_FIELD from '@salesforce/schema/Contact.RecordTypeId';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 
 export default class AccountSearch extends LightningElement {
@@ -26,6 +25,7 @@ export default class AccountSearch extends LightningElement {
     @track error;
     @wire(getObjectInfo, {objectApiName: 'Contact'})
     getRecordType(result){
+        this.wiredResult = result;
         if(result.data){
             console.log(result.data.recordTypeInfos);
             const recTypes = result.data.recordTypeInfos;
@@ -101,12 +101,25 @@ export default class AccountSearch extends LightningElement {
         publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
     }
 
+    create = true;
+    timer1;
+    timer2;
+
     handleSubmit(){
-        const submit =  true;
         console.log('submitting');
         const payload = {
             type: "techSubmit"
         };
         publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
+        this.timer1 = setTimeout(() => {
+            this.toggleCreate();
+          }, 3000);
+        this.timer2 = setTimeout(() => {
+            this.toggleCreate();
+          }, 2700);;
+    }
+
+    toggleCreate(){
+        this.create = !this.create;
     }
 }

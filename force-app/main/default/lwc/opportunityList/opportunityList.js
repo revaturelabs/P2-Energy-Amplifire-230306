@@ -43,7 +43,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
 
     @track error;
     @track oppList;
-    wiredOppResult;
+    wiredResult;
 
     @wire(MessageContext)
     messageContext;
@@ -65,7 +65,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
         }
         )
     wiredOpps(result) {
-        this.wiredOppResult = result;
+        this.wiredResult = result;
         if (result.data) {
             this.oppList = result.data;
             this.oppList = this.oppList.map( item =>{

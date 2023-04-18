@@ -147,7 +147,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
         if (message.type === "techlname")
             this.cusLastNameSearch = message.techlnameField;
         if (message.type === "techPhone")
-            this.cuPhoneSearch = message.techPhoneField;
+            this.cusPhoneSearch = message.techPhoneField;
         if (message.type === "techEmail")
             this.cusEmailSearch = message.techEmailField;
         if (message.type === "techAccount")
@@ -156,7 +156,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
         {
             this.cusFirstNameSearch = "";
             this.cusLastNameSearch = "";
-            this.cusCellPhoneSearch = "";
+            this.cusPhoneSearch = "";
             this.cusEmailSearch = "";
             this.cusAccountSearch = "";
             this.renderedCallback();
