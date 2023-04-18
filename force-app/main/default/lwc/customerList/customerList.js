@@ -4,6 +4,7 @@ import  { subscribe, MessageContext} from 'lightning/messageService';
 import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c';
 import DELETE from '@salesforce/apex/LWCHelper.deleter';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { updateRecord } from 'lightning/uiRecordApi';
 import { refreshApex } from '@salesforce/apex';
 
 export default class LightningDatatableLWCExample extends LightningElement {
@@ -12,30 +13,35 @@ export default class LightningDatatableLWCExample extends LightningElement {
             fieldName: 'FirstName',
             type: 'text',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Last Name',
             fieldName: 'LastName',
             type: 'text',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Phone',
             fieldName: 'Phone',
             type: 'phone',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Email',
             fieldName: 'Email',
             type: 'text',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Account',
             fieldName: 'accountName',
             type: 'text',
             editable: false,
+            sortable: true,
         },
     ];
 
@@ -49,15 +55,15 @@ export default class LightningDatatableLWCExample extends LightningElement {
 
     handleMessage(message) {
         if (message.type === "cusfname")
-        this.cusFirstNameSearch = message.fnameField;
+            this.cusFirstNameSearch = message.fnameField;
         if (message.type === "cuslname")
-        this.cusLastNameSearch = message.lnameField;
+            this.cusLastNameSearch = message.lnameField;
         if (message.type === "cusphone")
-        this.cusPhoneSearch = message.cusPhoneField;
+            this.cusPhoneSearch = message.cusPhoneField;
         if (message.type === "cusemail")
-        this.cusEmailSearch = message.cusEmailField;
+            this.cusEmailSearch = message.cusEmailField;
         if (message.type === "cusaccount")
-        this.cusAccountSearch = message.cusAccountField;
+            this.cusAccountSearch = message.cusAccountField;
         if (message.type === "cusRender")
         {
             this.cusFirstNameSearch = "";
@@ -66,6 +72,9 @@ export default class LightningDatatableLWCExample extends LightningElement {
             this.cusEmailSearch = "";
             this.cusAccountSearch = "";
             this.renderedCallback();
+        }
+        if (message.type === "cusSubmit"){
+            const myTimeout = setTimeout(refreshApex, 500, this.wiredResult);
         }
     }
 
@@ -196,5 +205,28 @@ export default class LightningDatatableLWCExample extends LightningElement {
                 })
             );
         }
+    }
+    
+    sortedBy;
+    sortDirection = 'asc';
+
+    updateColumnSorting(event){
+        this.sortedBy = event.detail.fieldName;
+        this.sortDirection = event.detail.sortDirection;
+        this.sort(this.sortedBy,this.sortDirection);
+    }
+
+    sort(fieldName, direction){
+        let parseData = JSON.parse(JSON.stringify(this.customerList));
+        let keyVal = (a) => {
+            return a[fieldName]
+        };
+        let isReverse = direction === 'asc' ? 1 : -1;
+        parseData.sort((x,y) => {
+            x = keyVal(x) ? keyVal(x) : '';
+            y = keyVal(y) ? keyVal(y) : '';
+            return isReverse * ((x > y) - (y > x));
+        });
+        this.customerList = parseData;
     }
 }

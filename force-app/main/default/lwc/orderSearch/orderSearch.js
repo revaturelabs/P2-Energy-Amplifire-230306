@@ -31,6 +31,7 @@ export default class AccountSearch extends LightningElement {
     statusOptions;
 
     handleNumber(event) {
+        this.numberSearchTerm = event.detail.value;
         const number = event.detail.value;
         const payload = {
             orderNumberField: number,
@@ -40,6 +41,7 @@ export default class AccountSearch extends LightningElement {
     }
 
     handleAccountName(event) {
+        this.accountNameSearchTerm = event.detail.value;
         const account = event.detail.value;
         const payload = {
             orderAccountNameField: account,
@@ -49,6 +51,7 @@ export default class AccountSearch extends LightningElement {
     }
 
     handleEffectiveDate(event) {
+        this.effectiveDateSearchTerm = event.detail.value;
         const start = event.detail.value;
         const payload = {
             orderEffectiveDateField: start,
@@ -58,6 +61,7 @@ export default class AccountSearch extends LightningElement {
     }
     
      handleStatus(event) {
+        this.statusSearchTerm = event.detail.value;
         const status = event.detail.value;
         const payload = {
             orderStatusField: status,
@@ -67,49 +71,47 @@ export default class AccountSearch extends LightningElement {
     }
 
     handleTotalAmount(event) {
+        this.totalAmountSearchTerm = event.detail.value;
         const amount = event.detail.value;
         const payload = {
             orderTotalAmountField: amount,
             type: "orderAmount"
         };
         publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
-    }
-
-    numberSearchTerm;
-    accountNameSearchTerm;
-    effectiveDateSearchTerm;
-    statusSearchTerm;
-    totalAmountSearchTerm;
+    } 
 
     handleReset() {
         this.accountNameSearchTerm = "";
         this.numberSearchTerm = "";
         this.statusSearchTerm = "";
         this.totalAmountSearchTerm = "";
-        publish(this.messageContext,NAME_SELECTED_CHANNEL,"orderRender");
-        
-
-    }
-
-
-    handleReset()
-    {  this.nameSearchTerm = "";
-        this.phoneSearchTerm = "";
-        this.industrySearchTerm = "";
-        this.ratingSearchTerm = "";
         const payload = {
-           type: "reRender"
-       };
-      publish(this.messageContext,NAME_SELECTED_CHANNEL,payload); 
+          type: "ordRender"
+        };
+       publish(this.messageContext,NAME_SELECTED_CHANNEL,payload); 
     }
 
+    
+
+    create = true;
+    timer1;
+    timer2;
 
     handleSubmit(){
-        const submit =  true;
+        console.log('submitting');
         const payload = {
-            submitField: submit,
             type: "ordSubmit"
         };
         publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
+        this.timer1 = setTimeout(() => {
+            this.toggleCreate();
+          }, 3000);
+        this.timer2 = setTimeout(() => {
+            this.toggleCreate();
+          }, 2700);;
+    }
+
+    toggleCreate(){
+        this.create = !this.create;
     }
 }

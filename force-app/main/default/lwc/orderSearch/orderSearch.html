@@ -20,7 +20,7 @@
             </lightning-tab>
 
             <lightning-tab label="Create" title="2nd tab extended title">
-                <lightning-record-form object-api-name="Order" fields={fields} onsubmit={handleSubmit}></lightning-record-form>
+                <lightning-record-form lwc:if={create} object-api-name="Order" fields={fields} onsubmit={handleSubmit}></lightning-record-form>
             </lightning-tab>
         </lightning-tabset>
     </lightning-card>

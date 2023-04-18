@@ -14,30 +14,35 @@ export default class LightningDatatableLWCExample extends LightningElement {
             fieldName: 'OrderNumber',
             type: 'auto number',
             editable: false,
+            sortable: true,
         },
         {
             label: 'Account Name',
             fieldName: 'accountName',
             type: 'text',
             editable: false,
+            sortable: true,
         },
         {
             label: 'Start Date',
             fieldName: 'EffectiveDate',
             type: 'date',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Status',
             fieldName: 'Status',
             type: 'text',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Total Amount',
             fieldName: 'TotalAmount',
             type: 'currency',
             editable: false,
+            sortable: true,
         },
     ];
 
@@ -144,26 +149,26 @@ export default class LightningDatatableLWCExample extends LightningElement {
 
     handleMessage(message) {
         if (message.type === "orderNumber")
-        this.orderNumberSearch = message.orderNumberField;
+            this.orderNumberSearch = message.orderNumberField;
         if (message.type === "orderAccount")
-        this.orderAccountNameSearch = message.orderAccountNameField;
+            this.orderAccountNameSearch = message.orderAccountNameField;
         if (message.type === "orderEffectiveDate")
-        this.orderEffectiveDateSearch = message.orderEffectiveDateField;
+            this.orderEffectiveDateSearch = message.orderEffectiveDateField;
         if (message.type === "orderStatus")
-        this.orderStatusSearch = message.orderStatusField;
+            this.orderStatusSearch = message.orderStatusField;
         if (message.type === "orderAmount")
-        this.orderTotalAmountSearch = message.orderTotalAmountField;
-        if (message.type === "ordSubmit"){
-            const myTimeout = setTimeout(refreshApex, 500, this.wiredResult);
-        }
+            this.orderTotalAmountSearch = message.orderTotalAmountField;
         if  (message.type === "ordRender")
         {
-            this.numberOrderSearchTerm = "";
-            this.accountIdOrderSearchTerm = "";
-            this.effectiveDateOrderSearchTerm = "";
-            this.statusOrderSearchTerm = "";
-            this.totalAmountOrderSearchTerm = "";
+            this.orderNumberSearch = "";
+            this.orderAccountNameSearch = "";
+            this.orderEffectiveDateSearch = "";
+            this.orderStatusSearch = "";
+            this.orderTotalAmountSearch = "";
             this.renderedCallback();
+        }
+        if (message.type === "ordSubmit"){
+            const myTimeout = setTimeout(refreshApex, 500, this.wiredResult);
         }
      }  
 
@@ -207,5 +212,28 @@ export default class LightningDatatableLWCExample extends LightningElement {
                 })
             );
         }
+    }
+    
+    sortedBy;
+    sortDirection = 'asc';
+
+    updateColumnSorting(event){
+        this.sortedBy = event.detail.fieldName;
+        this.sortDirection = event.detail.sortDirection;
+        this.ordList = this.sortData(this.sortedBy, this.sortDirection);
+    }
+
+    sort(fieldName, direction){
+        let parseData = JSON.parse(JSON.stringify(this.ordList));
+        let keyVal = (a) => {
+            return a[fieldName]
+        };
+        let isReverse = direction === 'asc' ? 1 : -1;
+        parseData.sort((x,y) => {
+            x = keyVal(x) ? keyVal(x) : '';
+            y = keyVal(y) ? keyVal(y) : '';
+            return isReverse * ((x > y) - (y > x));
+        });
+        this.ordList = parseData;
     }
 }

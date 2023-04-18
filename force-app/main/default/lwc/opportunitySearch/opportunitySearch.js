@@ -14,7 +14,7 @@ export default class OpportunitySearch extends LightningElement {
     accountSearchTerm;
     stageSearchTerm;
     closeSearchTerm;
-    oppFields = [ NAME_FIELD, ACCOUNT_FIELD, STAGE_FIELD, CLOSE_FIELD ];
+    fields = [ NAME_FIELD, ACCOUNT_FIELD, STAGE_FIELD, CLOSE_FIELD ];
 
     @wire(getObjectInfo, { objectApiName: OPPORTUNITY_OBJECT })
     oppMetadata;
@@ -31,15 +31,15 @@ export default class OpportunitySearch extends LightningElement {
     messageContext;
 
     
-handleName(event) {
-    this.nameSearchTerm = event.detail.value;
-    const name = event.detail.value;
-    const payload = {
-        oppNameField: name,
-        type: "opportunityName"
-        };
-    publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
-}  
+    handleName(event) {
+        this.nameSearchTerm = event.detail.value;
+        const name = event.detail.value;
+        const payload = {
+            oppNameField: name,
+            type: "opportunityName"
+            };
+        publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
+    }  
 
     handleAccount(event) {
         this.accountSearchTerm = event.detail.value;
@@ -73,10 +73,25 @@ handleName(event) {
       publish(this.messageContext,NAME_SELECTED_CHANNEL,payload); 
     }
 
-    createOpp = false;
+    create = true;
+    timer1;
+    timer2;
 
-    handleCreate(event){
-       
-        this.createOpp = !this.createOpp
+    handleSubmit(){
+        console.log('submitting');
+        const payload = {
+            type: "oppSubmit"
+        };
+        publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
+        this.timer1 = setTimeout(() => {
+            this.toggleCreate();
+          }, 3000);
+        this.timer2 = setTimeout(() => {
+            this.toggleCreate();
+          }, 2700);;
+    }
+
+    toggleCreate(){
+        this.create = !this.create;
     }
 }

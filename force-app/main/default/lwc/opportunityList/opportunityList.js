@@ -4,31 +4,37 @@ import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c';
 import getOppList from '@salesforce/apex/LWCHelper.getOppList';
 import DELETE from '@salesforce/apex/LWCHelper.deleter';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { updateRecord } from 'lightning/uiRecordApi';
 import { refreshApex } from '@salesforce/apex';
+
 export default class LightningDatatableLWCExample extends LightningElement {
     @track columns = [{
             label: 'Opportunity name',
             fieldName: 'Name',
             type: 'text',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Account Name',
             fieldName: 'accountName',
             type: 'text',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Stage',
             fieldName: 'StageName',
             type: 'text',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Close Date',
             fieldName: 'CloseDate',
             type: 'date',
             editable: true,
+            sortable: true,
         }
     ];
  
@@ -39,7 +45,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
 
     @track error;
     @track oppList;
-    wiredOppResult;
+    wiredResult;
 
     @wire(MessageContext)
     messageContext;
@@ -61,7 +67,8 @@ export default class LightningDatatableLWCExample extends LightningElement {
         }
         )
     wiredOpps(result) {
-        this.wiredOppResult = result;
+        this.wiredResult = result;
+        console.log(result.data);
         if (result.data) {
             this.oppList = result.data;
             this.oppList = this.oppList.map( item =>{
@@ -110,7 +117,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
                     variant: 'success'
                 })
             );
-            return refreshApex(this.wiredOppResult);
+            return refreshApex(this.wiredResult);
         })
         .catch((error) => {
             this.dispatchEvent(
@@ -125,19 +132,23 @@ export default class LightningDatatableLWCExample extends LightningElement {
 
     handleMessage(message) {
         if (message.type === "opportunityName")
-        this.oppNameSearch = message.oppNameField;
+            this.oppNameSearch = message.oppNameField;
         if (message.type === "opportunityAcc")
-        this.oppAccountSearch = message.oppAccField;
+            this.oppAccountSearch = message.oppAccField;
         if (message.type === "opportunityStage")
-        this.oppStageSearch = message.oppStageField;
+            this.oppStageSearch = message.oppStageField;
         if (message.type === "opportunityClose")
-        this.oppDateSearch = message.oppCloseField;
+            this.oppDateSearch = message.oppCloseField;
         if (message.type === "oppRender")
         {
             this.oppNameSearch = "";
             this.oppAccountSearch = "";
             this.oppStageSearch = "";
+            this.oppDateSearch = "";
             this.renderedCallback();
+        }
+        if (message.type === "oppSubmit"){
+            const myTimeout = setTimeout(refreshApex, 500, this.wiredResult);
         }
     }
     
@@ -164,20 +175,43 @@ export default class LightningDatatableLWCExample extends LightningElement {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
-                    message: 'Accounts updated',
+                    message: 'Opportunities updated',
                     variant: 'success'
                 })
             );
-            await refreshApex(this.contacts);
+            await refreshApex(this.wiredResult);
 
         } catch (error) {
             this.dispatchEvent(
                 new ShowToastEvent({
-                    title: 'Error updating or reloading Accounts',
+                    title: 'Error updating or reloading Opportunities',
                     message: error.body.message,
                     variant: 'error'
                 })
             );
         }
+    }
+    
+    sortedBy;
+    sortDirection = 'asc';
+
+    updateColumnSorting(event){
+        this.sortedBy = event.detail.fieldName;
+        this.sortDirection = event.detail.sortDirection;
+        this.sort(this.sortedBy,this.sortDirection);
+    }
+
+    sort(fieldName, direction){
+        let parseData = JSON.parse(JSON.stringify(this.oppList));
+        let keyVal = (a) => {
+            return a[fieldName]
+        };
+        let isReverse = direction === 'asc' ? 1 : -1;
+        parseData.sort((x,y) => {
+            x = keyVal(x) ? keyVal(x) : '';
+            y = keyVal(y) ? keyVal(y) : '';
+            return isReverse * ((x > y) - (y > x));
+        });
+        this.oppList = parseData;
     }
 }

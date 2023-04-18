@@ -3,45 +3,68 @@ import getCustomerList from '@salesforce/apex/LWCHelper.getTechList';
 import DELETE from '@salesforce/apex/LWCHelper.deleter';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
+import  { subscribe, MessageContext, createMessageContext } from 'lightning/messageService';
+import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c';
+import { updateRecord } from 'lightning/uiRecordApi';
 
 export default class LightningDatatableLWCExample extends LightningElement {
+    @wire(MessageContext)
+    messageContext;
+
+    subscribeToMessageChannel() {
+        this.subscription = subscribe(
+            this.messageContext,
+            NAME_SELECTED_CHANNEL,
+            (message) => this.handleMessage(message)
+        );
+    }
+
+    connectedCallback() {
+        this.subscribeToMessageChannel();
+    }
+
     @track columns = [{
             label: 'First name',
             fieldName: 'FirstName',
             type: 'text',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Last Name',
             fieldName: 'LastName',
             type: 'text',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Phone',
             fieldName: 'Phone',
             type: 'phone',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Email',
             fieldName: 'Email',
             type: 'text',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Account',
             fieldName: 'accountName',
             type: 'text',
             editable: false,
+            sortable: true,
         },
     ];
  
-    cusFirstNameSearch = '';
-    cusLastNameSearch = '';
-    cusPhoneSearch = '';
-    cusEmailSearch = '';
-    cusAccountSearch = '';
+    cusFirstNameSearch = "";
+    cusLastNameSearch = "";
+    cusPhoneSearch = "";
+    cusEmailSearch = "";
+    cusAccountSearch = "";
 
     @track error;
     @track customerList;
@@ -119,6 +142,30 @@ export default class LightningDatatableLWCExample extends LightningElement {
         });
     }
 
+    handleMessage(message) {
+        if (message.type === "techfname")
+            this.cusFirstNameSearch = message.techfnameField;
+        if (message.type === "techlname")
+            this.cusLastNameSearch = message.techlnameField;
+        if (message.type === "techPhone")
+            this.cusPhoneSearch = message.techPhoneField;
+        if (message.type === "techEmail")
+            this.cusEmailSearch = message.techEmailField;
+        if (message.type === "techAccount")
+            this.cusAccountSearch = message.techAccountField;
+        if (message.type === "techRender")
+        {
+            this.cusFirstNameSearch = "";
+            this.cusLastNameSearch = "";
+            this.cusPhoneSearch = "";
+            this.cusEmailSearch = "";
+            this.cusAccountSearch = "";
+            this.renderedCallback();
+        }
+        if (message.type === "techSubmit"){
+            const myTimeout = setTimeout(refreshApex, 500, this.wiredResult);
+        }
+    }
     
     draftValues = [];
 
@@ -155,5 +202,28 @@ export default class LightningDatatableLWCExample extends LightningElement {
                 })
             );
         }
+    }
+    
+    sortedBy;
+    sortDirection = 'asc';
+
+    updateColumnSorting(event){
+        this.sortedBy = event.detail.fieldName;
+        this.sortDirection = event.detail.sortDirection;
+        this.sort(this.sortedBy,this.sortDirection);
+    }
+
+    sort(fieldName, direction){
+        let parseData = JSON.parse(JSON.stringify(this.customerList));
+        let keyVal = (a) => {
+            return a[fieldName]
+        };
+        let isReverse = direction === 'asc' ? 1 : -1;
+        parseData.sort((x,y) => {
+            x = keyVal(x) ? keyVal(x) : '';
+            y = keyVal(y) ? keyVal(y) : '';
+            return isReverse * ((x > y) - (y > x));
+        });
+        this.customerList = parseData;
     }
 }

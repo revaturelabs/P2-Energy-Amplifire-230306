@@ -2,7 +2,7 @@ import { LightningElement, wire } from 'lwc';
 import NAME_FIELD from '@salesforce/schema/Work_Order__c.Name';
 import ACCOUNT_FIELD from '@salesforce/schema/Work_Order__c.Account__c';
 import PRODUCT_OWNER_FIELD from '@salesforce/schema/Work_Order__c.Product_Owner__c';
-import  { publish,MessageContext } from 'lightning/messageService';
+import  { publish, MessageContext } from 'lightning/messageService';
 import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c'; 
 
 export default class AccountSearch extends LightningElement {
@@ -43,7 +43,7 @@ export default class AccountSearch extends LightningElement {
 
     // Import message service features required for publishing and the message channel
     handlePOwner(event) {
-        this.pOwnerSearchTerm = event.detial.value;
+        this.pOwnerSearchTerm = event.detail.value;
         const productOwner =  event.detail.value;
         const payload = {
             productOwnerField: productOwner,
@@ -52,20 +52,27 @@ export default class AccountSearch extends LightningElement {
         clearTimeout(this.pOwnerTimer);
         this.pOwnerTimer = setTimeout(publish, 300, this.messageContext, NAME_SELECTED_CHANNEL, payload);
     }
-
-    create = false;
-
-    handleCreate(event){
-        this.create = !this.create;
-    }
+    
+    create = true;
+    timer1;
+    timer2;
 
     handleSubmit(){
-        const submit =  true;
+        console.log('submitting');
         const payload = {
-            submitField: submit,
             type: "workOrderSubmit"
         };
         publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
+        this.timer1 = setTimeout(() => {
+            this.toggleCreate();
+          }, 3000);
+        this.timer2 = setTimeout(() => {
+            this.toggleCreate();
+          }, 2700);;
+    }
+
+    toggleCreate(){
+        this.create = !this.create;
     }
 
     handleReset(){

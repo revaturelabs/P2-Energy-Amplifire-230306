@@ -12,23 +12,10 @@ import { updateRecord } from 'lightning/uiRecordApi';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 
 export default class LightningDatatableLWCExample extends LightningElement {
-    @wire(MessageContext)
-    messageContext;
-
     accNameSearch = '';
     accPhoneSearch = '';
     accIndustrySearch = '';
-    accRatingSearch = '';
-    sortedBy;
-    sortDirection = 'asc';
-
-    subscribeToMessageChannel() {
-        this.subscription = subscribe(
-            this.messageContext,
-            NAME_SELECTED_CHANNEL,
-            (message) => this.handleMessage(message)
-        );
-    }
+    accRatingSearch = '';    
 
     @wire(getObjectInfo, { objectApiName: ACCOUNT_OBJECT })
     accountMetadata;
@@ -53,22 +40,23 @@ export default class LightningDatatableLWCExample extends LightningElement {
             fieldName: 'Phone',
             type: 'phone',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Industry',
             fieldName: 'Industry',
             type: 'text',
             editable: true,
+            sortable: true,
         },
         {
             label: 'Rating', 
             fieldName: 'Rating', 
             type: 'text', 
-            editable: true
+            editable: true,
+            sortable: true,
         }
     ];
- 
-
 
     @track error;
     @track accList;
@@ -168,31 +156,48 @@ export default class LightningDatatableLWCExample extends LightningElement {
             );
         }
     }
- handleMessage(message) {
-    if (message.type === "accrating")
-    this.accRatingSearch = message.ratingField;
-    if (message.type === "accname")
-    this.accNameSearch = message.nameField;
-    if (message.type === "accindustry")
-    this.accIndustrySearch = message.industryField;
-    if (message.type === "accphone")
-    this.accPhoneSearch = message.phoneField;
-    if (message.type === "reRender")
-    {
-   this.accNameSearch = "";
-   this.accPhoneSearch = "";
-   this.accIndustrySearch = "";
-   this.accRatingSearch = "";
-   this.renderedCallback();
+
+    @wire(MessageContext)
+    messageContext;
+
+    subscribeToMessageChannel() {
+        this.subscription = subscribe(
+            this.messageContext,
+            NAME_SELECTED_CHANNEL,
+            (message) => this.handleMessage(message)
+        );
     }
+
+    handleMessage(message) {
+        if (message.type === "accrating")
+            this.accRatingSearch = message.ratingField;
+        if (message.type === "accname")
+            this.accNameSearch = message.nameField;
+        if (message.type === "accindustry")
+            this.accIndustrySearch = message.industryField;
+        if (message.type === "accphone")
+            this.accPhoneSearch = message.phoneField;
+        if (message.type === "reRender")
+        {
+            this.accNameSearch = "";
+            this.accPhoneSearch = "";
+            this.accIndustrySearch = "";
+            this.accRatingSearch = "";
+            this.renderedCallback();
+        }
         if (message.type === "accSubmit"){
             const myTimeout = setTimeout(refreshApex, 500, this.wiredResult);
         }
-    }
+        }
 
     connectedCallback() {
         this.subscribeToMessageChannel();
     }
+    
+
+    // Sort function
+    sortedBy;
+    sortDirection = 'asc';
 
     updateColumnSorting(event){
         this.sortedBy = event.detail.fieldName;
@@ -201,7 +206,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
     }
 
     sort(fieldName, direction){
-        let parseData = JSON.parse(JSON.stringify(this.accounts));
+        let parseData = JSON.parse(JSON.stringify(this.accList));
         let keyVal = (a) => {
             return a[fieldName]
         };
@@ -211,7 +216,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
             y = keyVal(y) ? keyVal(y) : '';
             return isReverse * ((x > y) - (y > x));
         });
-        this.accounts = parseData;
+        this.accList = parseData;
     }
 
 }

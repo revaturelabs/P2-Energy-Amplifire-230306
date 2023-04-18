@@ -69,28 +69,24 @@ export default class AccountSearch extends LightningElement {
     }
 
 // Import message service features required for publishing and the message channel
-handlePhone(event) {
-    this.phoneSearchTerm = event.detail.value;
-    const phone =  event.detail.value;
-    const payload = {
-        phoneField: phone,
-        type: "accphone"
-    };
-    publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
-}
+    handlePhone(event) {
+        this.phoneSearchTerm = event.detail.value;
+        const phone =  event.detail.value;
+        const payload = {
+            phoneField: phone,
+            type: "accphone"
+        };
+        publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
+    }
 
-handleIndustry(event) {
-    this.industrySearchTerm = event.detail.value;
-    const industry =  event.detail.value;
-    const payload = {
-        industryField: industry,
-        type: "accindustry"
-    };
-    publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
-}
-
-    handleCreate(event){
-        this.create = !this.create;
+    handleIndustry(event) {
+        this.industrySearchTerm = event.detail.value;
+        const industry =  event.detail.value;
+        const payload = {
+            industryField: industry,
+            type: "accindustry"
+        };
+        publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
     }
 
     handleReset()
@@ -100,7 +96,29 @@ handleIndustry(event) {
         this.ratingSearchTerm = "";
         const payload = {
            type: "reRender"
-       };
-      publish(this.messageContext,NAME_SELECTED_CHANNEL,payload); 
+        };
+        publish(this.messageContext,NAME_SELECTED_CHANNEL,payload); 
+    }
+
+    create = true;
+    timer1;
+    timer2;
+
+    handleSubmit(){
+        console.log('submitting');
+        const payload = {
+            type: "accSubmit"
+        };
+        publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
+        this.timer1 = setTimeout(() => {
+            this.toggleCreate();
+          }, 3000);
+        this.timer2 = setTimeout(() => {
+            this.toggleCreate();
+          }, 2700);;
+    }
+
+    toggleCreate(){
+        this.create = !this.create;
     }
 }
