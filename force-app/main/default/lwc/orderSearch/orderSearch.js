@@ -73,11 +73,6 @@ export default class AccountSearch extends LightningElement {
             type: "orderAmount"
         };
         publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
-    } 
-    create = false;
-    
-    handleCreate(event){
-        this.create = !this.create;
     }
 
     numberSearchTerm;

@@ -1,8 +1,9 @@
 import { LightningElement , wire, track} from 'lwc';
 import getOrderList from '@salesforce/apex/LWCHelper.getOrderList';
 import DELETE from '@salesforce/apex/LWCHelper.deleter';
-import  { subscribe, MessageContext} from 'lightning/messageService';
+import  { subscribe, publish, MessageContext} from 'lightning/messageService';
 import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c';
+import ORDER_SELECTED_CHANNEL from '@salesforce/messageChannel/orderSelected__c';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
 import { updateRecord } from 'lightning/uiRecordApi';
@@ -97,7 +98,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
     selectedIds;
 
     getSelectedRec() {
-        var selectedRecords =  this.template.querySelector("lightning-datatable").getSelectedRows();
+        let selectedRecords =  this.template.querySelector("lightning-datatable").getSelectedRows();
         if(selectedRecords.length > 0){
             console.log('selectedRecords are ', selectedRecords);
    
@@ -106,7 +107,13 @@ export default class LightningDatatableLWCExample extends LightningElement {
                 ids = ids + ',' + currentItem.Id;
             });
             this.selectedIds = ids.replace(/^,/, '');
-        }   
+        }
+        const id = selectedRecords[0].Id;
+        const payload = {
+            orderIdField: id,
+            //type: "orderId"
+        };
+        publish(this.messageContext,ORDER_SELECTED_CHANNEL,payload);   
     }
 
     handleDelete() {
