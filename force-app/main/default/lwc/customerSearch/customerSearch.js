@@ -84,12 +84,25 @@ export default class AccountSearch extends LightningElement {
           publish(this.messageContext,NAME_SELECTED_CHANNEL,payload); 
         }
     
-    handleSubmit(){
-        const submit =  true;
-        const payload = {
-            submitField: submit,
-            type: "cusSubmit"
-        };
-        publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
-    }
+        create = true;
+        timer1;
+        timer2;
+    
+        handleSubmit(){
+            console.log('submitting');
+            const payload = {
+                type: "cusSubmit"
+            };
+            publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
+            this.timer1 = setTimeout(() => {
+                this.toggleCreate();
+              }, 3000);
+            this.timer2 = setTimeout(() => {
+                this.toggleCreate();
+              }, 2700);;
+        }
+    
+        toggleCreate(){
+            this.create = !this.create;
+        }
 }
