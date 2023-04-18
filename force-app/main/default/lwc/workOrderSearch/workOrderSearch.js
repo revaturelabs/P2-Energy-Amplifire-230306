@@ -43,7 +43,7 @@ export default class AccountSearch extends LightningElement {
 
     // Import message service features required for publishing and the message channel
     handlePOwner(event) {
-        this.pOwnerSearchTerm = event.detial.value;
+        this.pOwnerSearchTerm = event.detail.value;
         const productOwner =  event.detail.value;
         const payload = {
             productOwnerField: productOwner,

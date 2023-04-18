@@ -154,11 +154,11 @@ export default class LightningDatatableLWCExample extends LightningElement {
             this.cusAccountSearch = message.techAccountField;
         if (message.type === "techRender")
         {
-            this.FirstNameSearch = "";
-            this.LastNameSearch = "";
-            this.CellPhoneSearch = "";
-            this.EmailSearch = "";
-            this.AccountSearch = "";
+            this.cusFirstNameSearch = "";
+            this.cusLastNameSearch = "";
+            this.cusCellPhoneSearch = "";
+            this.cusEmailSearch = "";
+            this.cusAccountSearch = "";
             this.renderedCallback();
         }
         if (message.type === "techSubmit"){
