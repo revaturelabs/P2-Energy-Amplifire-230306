@@ -79,17 +79,6 @@ export default class AccountSearch extends LightningElement {
         };
         publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
     } 
-    create = false;
-    
-    handleCreate(event){
-        this.create = !this.create;
-    }
-
-    numberSearchTerm;
-    accountNameSearchTerm;
-    effectiveDateSearchTerm;
-    statusSearchTerm;
-    totalAmountSearchTerm;
 
     handleReset() {
         this.accountNameSearchTerm = "";

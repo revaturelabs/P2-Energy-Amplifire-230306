@@ -12,21 +12,10 @@ import { updateRecord } from 'lightning/uiRecordApi';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 
 export default class LightningDatatableLWCExample extends LightningElement {
-    @wire(MessageContext)
-    messageContext;
-
     accNameSearch = '';
     accPhoneSearch = '';
     accIndustrySearch = '';
-    accRatingSearch = '';
-
-    subscribeToMessageChannel() {
-        this.subscription = subscribe(
-            this.messageContext,
-            NAME_SELECTED_CHANNEL,
-            (message) => this.handleMessage(message)
-        );
-    }
+    accRatingSearch = '';    
 
     @wire(getObjectInfo, { objectApiName: ACCOUNT_OBJECT })
     accountMetadata;
@@ -68,8 +57,6 @@ export default class LightningDatatableLWCExample extends LightningElement {
             sortable: true,
         }
     ];
- 
-
 
     @track error;
     @track accList;
@@ -169,6 +156,18 @@ export default class LightningDatatableLWCExample extends LightningElement {
             );
         }
     }
+
+    @wire(MessageContext)
+    messageContext;
+
+    subscribeToMessageChannel() {
+        this.subscription = subscribe(
+            this.messageContext,
+            NAME_SELECTED_CHANNEL,
+            (message) => this.handleMessage(message)
+        );
+    }
+
     handleMessage(message) {
         if (message.type === "accrating")
             this.accRatingSearch = message.ratingField;
@@ -195,6 +194,8 @@ export default class LightningDatatableLWCExample extends LightningElement {
         this.subscribeToMessageChannel();
     }
     
+
+    // Sort function
     sortedBy;
     sortDirection = 'asc';
 
