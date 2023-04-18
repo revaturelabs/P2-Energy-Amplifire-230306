@@ -113,12 +113,13 @@ export default class LightningDatatableLWCExample extends LightningElement {
             });
             this.selectedIds = ids.replace(/^,/, '');
         }
-        const id = selectedRecords[0].Id;
-        const payload = {
-            orderIdField: id,
-            //type: "orderId"
-        };
-        publish(this.messageContext,ORDER_SELECTED_CHANNEL,payload);   
+        if(selectedRecords[0]){
+            const id = selectedRecords[0].Id;
+            const payload = {
+                orderIdField: id,
+            };
+            publish(this.messageContext,ORDER_SELECTED_CHANNEL,payload);
+        }
     }
 
     handleDelete() {
@@ -145,6 +146,11 @@ export default class LightningDatatableLWCExample extends LightningElement {
                 })
             );
         });
+        const prodReset = new CustomEvent(
+            'prodreset', {
+                detail: false 
+            });
+            this.dispatchEvent(prodReset);
     }
 
     handleMessage(message) {

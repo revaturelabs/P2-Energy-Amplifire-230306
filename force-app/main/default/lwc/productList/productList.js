@@ -74,8 +74,12 @@ export default class ProductList extends LightningElement {
     }
 
     handleMessage(message) {console.log(message.orderIdField);
-        //if (message.type === "orderId")
-        this.whatever = message.orderIdField;
+        if(message.orderIdField == 'reset'){
+            this.whatever;
+        }
+        else{
+            this.whatever = message.orderIdField;
+        }
     }
 
     connectedCallback() {
