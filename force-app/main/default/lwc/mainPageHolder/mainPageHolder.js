@@ -39,4 +39,19 @@ export default class MainPageHolder extends LightningElement {
     handleWO() {
         this.displayWO  = !this.displayWO
     }
+
+    timer1;
+    timer2;
+    displayProd = true;
+
+    handleProdReset(){
+        this.toggleProd();
+        this.timer2 = setTimeout(() => {
+            this.toggleProd();
+          }, 300);
+    }
+
+    toggleProd(){
+        this.displayProd = !this.displayProd;
+    }
 }

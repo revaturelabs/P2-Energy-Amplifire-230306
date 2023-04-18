@@ -63,8 +63,8 @@
                 <c-order-search></c-order-search>
         </lightning-layout-item>
         <lightning-layout-item padding="around-small">
-                <c-order-list></c-order-list>
-                <c-product-list></c-product-list>
+                <c-order-list onprodreset={handleProdReset}></c-order-list>
+                <c-product-list if:true={displayProd}></c-product-list>
         </lightning-layout-item>
     </lightning-layout>
 
