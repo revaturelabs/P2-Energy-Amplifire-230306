@@ -96,10 +96,10 @@ export default class AccountSearch extends LightningElement {
             publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
             this.timer1 = setTimeout(() => {
                 this.toggleCreate();
-              }, 3000);
+              }, 5000);
             this.timer2 = setTimeout(() => {
                 this.toggleCreate();
-              }, 2700);;
+              }, 4700);;
         }
     
         toggleCreate(){
