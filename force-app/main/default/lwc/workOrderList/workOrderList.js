@@ -127,16 +127,12 @@ export default class LightningDatatableLWCExample extends LightningElement {
         });
     }
 
-    
-    draftValues = [];
 
     async handleSave(event) {
         const records = event.detail.draftValues.slice().map((draftValue) => {
             const fields = Object.assign({}, draftValue);
             return { fields };
         });
-
-        this.draftValues = [];
 
         try {
             const recordUpdatePromises = records.map((record) =>
@@ -179,9 +175,6 @@ export default class LightningDatatableLWCExample extends LightningElement {
             this.accountSearch = '';
             this.productOwnerSearch = '';
             refreshApex(this.wiredResult);
-        }
-        if (message.type === "workOrderSubmit"){
-            const myTimeout = setTimeout(refreshApex, 500, this.wiredResult);
         }
     }
 

@@ -178,9 +178,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
         }
      }  
 
-  
-
-     connectedCallback() {
+    connectedCallback() {
         this.subscribeToMessageChannel();
     }
     

@@ -162,7 +162,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
         if (message.type === "leadSubmit"){
             const myTimeout = setTimeout(refreshApex, 500, this.wiredResult);
         }
-     }  
+     }
 
     connectedCallback() {
         this.subscribeToMessageChannel();
