@@ -285,7 +285,7 @@ export default class ProductList extends LightningElement {
         console.log(this.whatever);
         console.log(this.product);
         console.log(this.quantity);
-        await createProduct({
+        createProduct({
             OrderId: this.whatever,
             ProductId: this.product,
             Quant: this.quantity,
@@ -295,9 +295,6 @@ export default class ProductList extends LightningElement {
             type: "ordSubmit"
         };
         publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
-        const orderId = this.whatever.map((item) =>{
-            return { recordId: item };
-        })
-        await notifyRecordUpdateAvailable(orderId);
+        
     }
 }
