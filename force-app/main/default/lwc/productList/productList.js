@@ -1,23 +1,20 @@
 import { LightningElement , wire, track} from 'lwc';
-/*import getOrderList from '@salesforce/apex/LWCHelper.getOrderList';*/
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 import DELETE from '@salesforce/apex/LWCHelper.deleter';
-import  { subscribe, MessageContext} from 'lightning/messageService';
+import  { subscribe, publish, MessageContext } from 'lightning/messageService';
+import NAME_SELECTED_CHANNEL from '@salesforce/messageChannel/nameSelected__c';
 import ORDER_SELECTED_CHANNEL from '@salesforce/messageChannel/orderSelected__c';
 import ORDERITEM_OBJECT from '@salesforce/schema/OrderItem';
-import PRODUCT_FIELD from '@salesforce/schema/OrderItem.Product2Id';
-import QUANTITY_FIELD from '@salesforce/schema/OrderItem.Quantity';
-import ORDER_FIELD from '@salesforce/schema/OrderItem.OrderId';
-import PRICEBOOK_FIELD from '@salesforce/schema/OrderItem.PricebookEntryId'
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import { refreshApex } from '@salesforce/apex';
-import { notifyRecordUpdateAvailable } from 'lightning/uiRecordApi';
+import { notifyRecordUpdateAvailable, updateRecord } from 'lightning/uiRecordApi';
 import { getRelatedListRecords } from 'lightning/uiRelatedListApi';
 
 export default class ProductList extends LightningElement {
     @wire(getObjectInfo, { objectApiName: ORDERITEM_OBJECT })
     orderItemMetadata;
-    fields = [ PRODUCT_FIELD, QUANTITY_FIELD, ORDER_FIELD, PRICEBOOK_FIELD ];
+
+    @wire(MessageContext)
+    messageContext;
     
     @track columns = [
     {
@@ -145,31 +142,74 @@ export default class ProductList extends LightningElement {
             sObjectType: 'OrderItem',
         })
         
-        try {
-            let idString = this.selectedIds;
-            let ids = idString.split(',').map(item => {
-            return {recordId: item};});
-            console.log(ids);
-            console.log(typeof this.selectedIds);
-            await notifyRecordUpdateAvailable(ids);
+            try {
+                let idString = this.selectedIds;
+                let ids = idString.split(',').map(item => {
+                return {recordId: item};});
+                console.log(ids);
+                console.log(typeof this.selectedIds);
+                await notifyRecordUpdateAvailable(ids);
+                }
+            catch(error) {console.log(error.message);}
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Success',
+                    message: 'Product deleted',
+                    variant: 'success'
+                })
+            ); 
+    }
+
+    async handleSave(event) {
+        const records = event.detail.draftValues.slice().map((draftValue) => {
+            let fields = {};
+            for (let key in draftValue){
+                switch (key){
+                    case 'quantityValue' : fields['Quantity'] = draftValue[key];
+                    break;
+                    case 'id' : fields['Id'] = draftValue[key];
+                    break;
+                }
             }
-        catch(error) {console.log(error.message);}
-        this.dispatchEvent(
-            new ShowToastEvent({
-                title: 'Success',
-                message: 'Product deleted',
-                variant: 'success'
-            })
-        );
-    }
+            return { fields };
+        });
+        records.forEach(item => {
+            console.log(JSON.parse(JSON.stringify(item)));
+          });
+        console.log(records);
 
-    create = false;
+        try {console.log('dasda');
+            const recordUpdatePromises = records.map((record) =>
+                updateRecord(record)
+            );
+            console.log('fdsaf');
+            await Promise.all(recordUpdatePromises);
+            const recordIds = records.map((record) =>
+                {return {recordId: record.Id};}
+            );
 
-    handleCreate(){
-        this.create = !this.create;
-    }
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Success',
+                    message: 'Products updated',
+                    variant: 'success'
+                })
+            );
+            await notifyRecordUpdateAvailable(recordIds);
 
-    handleNew(){
+            const payload = {
+                type: "ordSubmit"
+            };
+            publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
 
+        } catch (error) {
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Error updating or reloading Products',
+                    message: error.body.message,
+                    variant: 'error'
+                })
+            );
+        }
     }
 }
