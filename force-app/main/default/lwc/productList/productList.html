@@ -3,6 +3,7 @@
         <div slot="actions">
             <lightning-button-group>
                 <lightning-button label="Delete" onclick={handleDelete}></lightning-button>
+                <lightning-button label="Create" onclick={handleCreate}></lightning-button>
             </lightning-button-group>
         </div>
         <template if:true={records}>
@@ -12,5 +13,8 @@
         <template if:true={error}>
             {error}
         </template>
+    </lightning-card>
+    <lightning-card title="Add a Product" if:true={create}>
+        <lightning-record-form object-api-name="OrderItem" fields={fields} onsubmit={handleNew}></lightning-record-form>
     </lightning-card>
 </div></template>

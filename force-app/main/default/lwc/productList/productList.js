@@ -5,7 +5,10 @@ import DELETE from '@salesforce/apex/LWCHelper.deleter';
 import  { subscribe, MessageContext} from 'lightning/messageService';
 import ORDER_SELECTED_CHANNEL from '@salesforce/messageChannel/orderSelected__c';
 import ORDERITEM_OBJECT from '@salesforce/schema/OrderItem';
-import DESCRIPTION_FIELD from '@salesforce/schema/OrderItem.Description';
+import PRODUCT_FIELD from '@salesforce/schema/OrderItem.Product2Id';
+import QUANTITY_FIELD from '@salesforce/schema/OrderItem.Quantity';
+import ORDER_FIELD from '@salesforce/schema/OrderItem.OrderId';
+import PRICEBOOK_FIELD from '@salesforce/schema/OrderItem.PricebookEntryId'
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
 import { notifyRecordUpdateAvailable } from 'lightning/uiRecordApi';
@@ -14,6 +17,7 @@ import { getRelatedListRecords } from 'lightning/uiRelatedListApi';
 export default class ProductList extends LightningElement {
     @wire(getObjectInfo, { objectApiName: ORDERITEM_OBJECT })
     orderItemMetadata;
+    fields = [ PRODUCT_FIELD, QUANTITY_FIELD, ORDER_FIELD, PRICEBOOK_FIELD ];
     
     @track columns = [
     {
@@ -141,23 +145,31 @@ export default class ProductList extends LightningElement {
             sObjectType: 'OrderItem',
         })
         
-            try {
-                let idString = this.selectedIds;
-                let ids = idString.split(',').map(item => {
-                return {recordId: item};});
-                console.log(ids);
-                console.log(typeof this.selectedIds);
-                await notifyRecordUpdateAvailable(ids);
-                }
-            catch(error) {console.log(error.message);}
-            this.dispatchEvent(
-                new ShowToastEvent({
-                    title: 'Success',
-                    message: 'Product deleted',
-                    variant: 'success'
-                })
-            );
-            //return refreshApex(this.wiredResult);
-            
+        try {
+            let idString = this.selectedIds;
+            let ids = idString.split(',').map(item => {
+            return {recordId: item};});
+            console.log(ids);
+            console.log(typeof this.selectedIds);
+            await notifyRecordUpdateAvailable(ids);
+            }
+        catch(error) {console.log(error.message);}
+        this.dispatchEvent(
+            new ShowToastEvent({
+                title: 'Success',
+                message: 'Product deleted',
+                variant: 'success'
+            })
+        );
+    }
+
+    create = false;
+
+    handleCreate(){
+        this.create = !this.create;
+    }
+
+    handleNew(){
+
     }
 }

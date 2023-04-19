@@ -174,6 +174,9 @@ export default class LightningDatatableLWCExample extends LightningElement {
             const fields = Object.assign({}, draftValue);
             return { fields };
         });
+        records.forEach(item => {
+            console.log(JSON.parse(JSON.stringify(item)));
+          });
 
         this.draftValues = [];
 
