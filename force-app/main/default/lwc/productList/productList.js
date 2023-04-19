@@ -8,6 +8,8 @@ import ORDERITEM_OBJECT from '@salesforce/schema/OrderItem';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { notifyRecordUpdateAvailable, updateRecord } from 'lightning/uiRecordApi';
 import { getRelatedListRecords } from 'lightning/uiRelatedListApi';
+import getProductOptions from '@salesforce/apex/LWCHelper.getProductOptions';
+import createProduct from '@salesforce/apex/LWCHelper.createProduct';
 
 export default class ProductList extends LightningElement {
     @wire(getObjectInfo, { objectApiName: ORDERITEM_OBJECT })
@@ -182,11 +184,10 @@ export default class ProductList extends LightningElement {
           });
         console.log(records);
 
-        try {console.log('dasda');
+        try {
             const recordUpdatePromises = records.map((record) =>
                 updateRecord(record)
             );
-            console.log('fdsaf');
             await Promise.all(recordUpdatePromises);
             const recordIds = records.map((record) =>
                 {return {recordId: record.Id};}
@@ -238,5 +239,65 @@ export default class ProductList extends LightningElement {
             return isReverse * ((x > y) - (y > x));
         });
         this.records = parseData;
+    }
+
+    productOptions = [];
+    create = false;
+    Opt;
+    
+    @wire(getProductOptions)
+    pOptions(result) {
+        console.log('pOptions:');
+        console.log(result.data)
+        if (result.data) {
+            console.log('in if statement');
+            this.productOptions = result.data.map((item) =>{
+                return { value: item.Id, label: item.Name };
+            });
+            console.log('my products Options are:')
+            this.productOptions.forEach( item =>
+                console.log(JSON.parse(JSON.stringify(item))))
+            this.error = undefined;
+        } else if (result.error) {
+            console.log('error in pOptions');
+            this.error = result.error;
+            this.oppList = undefined;
+        }
+    }
+
+    selectedIds;
+    product;
+    quantity;
+
+    handleCreate(){
+        this.create = !this.create;
+    }
+
+    handleProductChange(event){
+        this.product = event.detail.value;
+    }
+
+    handleQuantity(event){
+        this.quantity = event.detail.value;
+    }
+
+    async handleNewProduct(){
+        console.log(this.whatever);
+        console.log(this.product);
+        console.log(this.quantity);
+        await createProduct({
+            OrderId: this.whatever,
+            ProductId: this.product,
+            Quant: this.quantity,
+        })
+
+        const payload = {
+            type: "ordSubmit"
+        };
+        publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
+        const orderId = this.whatever.map((item) =>{
+            return { recordId: item };
+        })
+        await notifyRecordUpdateAvailable(orderId);
     }
 }
