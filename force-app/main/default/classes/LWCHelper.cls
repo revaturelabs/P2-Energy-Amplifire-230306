@@ -4,7 +4,7 @@ public with sharing class LWCHelper {
     public static List<Account> getAccountList(String nameAccountSearchTerm, String phoneAccountSearchTerm, 
                                                     String industryAccountSearchTerm, String ratingAccountSearchTerm){
         
-        List<Account> accList = [SELECT Id, Name, Phone, Industry, Rating FROM Account LIMIT 50000];
+        List<Account> accList = [SELECT Id, Name, Phone, Industry, Rating, Average_Amount_of_Opportunities__c FROM Account LIMIT 50000];
         List<account> temp = new List<Account>();
         for(Account acc : accList){
             String acctPhone = '';
@@ -252,5 +252,32 @@ public with sharing class LWCHelper {
             }
         }       
         return temp;
+    }
+
+    @AuraEnabled(cacheable=true)
+    public static List<Product2> getProductOptions(){
+        try {
+            return [SELECT Id, Name FROM Product2];
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    @AuraEnabled
+    public static void createProduct(String OrderId, String ProductId, String Quant){
+        try {
+            Order Ord = [SELECT Id, Pricebook2Id FROM Order WHERE Id = :OrderId];
+            Product2 Prod = [SELECT Id FROM Product2 WHERE Id = :ProductId];
+            PricebookEntry pbe = [SELECT UnitPrice FROM PricebookEntry WHERE Product2Id = :Prod.Id AND Pricebook2Id = :Ord.Pricebook2Id LIMIT 1];
+            OrderItem oi = new OrderItem(
+                OrderId = Ord.Id, 
+                Product2Id = ProductId, 
+                PricebookEntryId = pbe.Id, 
+                UnitPrice = pbe.UnitPrice, 
+                Quantity = decimal.valueOf(Quant));
+            insert oi;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
     }
 }

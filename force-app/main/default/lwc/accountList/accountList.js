@@ -55,6 +55,13 @@ export default class LightningDatatableLWCExample extends LightningElement {
             type: 'text', 
             editable: true,
             sortable: true,
+        }, 
+        {
+            label: 'Avg Opportunity', 
+            fieldName: 'Average_Amount_of_Opportunities__c', 
+            type: 'text', 
+            editable: false,
+            sortable: true,
         }
     ];
 

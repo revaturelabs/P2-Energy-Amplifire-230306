@@ -8,15 +8,15 @@
         </div>
         <template if:true={records}>
             <lightning-datatable 
-            data={records} 
-            columns={columns} 
-            key-field="id" 
-            onrowselection={getSelectedRec} 
-            onsave={handleSave}
-            default-sort-direction="asc"
-            sorted-direction={sortDirection}
-            sorted-by={sortedBy}
-            onsort={updateColumnSorting}>
+                data={records} 
+                columns={columns} 
+                key-field="id" 
+                onrowselection={getSelectedRec} 
+                onsave={handleSave}
+                default-sort-direction="asc"
+                sorted-direction={sortDirection}
+                sorted-by={sortedBy}
+                onsort={updateColumnSorting}>
             </lightning-datatable>
         </template>
         <template if:true={error}>
@@ -24,6 +24,15 @@
         </template>
     </lightning-card>
     <lightning-card title="Add a Product" if:true={create}>
-        <lightning-record-form object-api-name="OrderItem" fields={fields} onsubmit={handleNew}></lightning-record-form>
+        <lightning-combobox
+            name="Product"
+            label="Product"
+            placeholder="Pick a Product"
+            onchange={handleProductChange}
+            value={product}
+            options={productOptions}>
+        </lightning-combobox>
+        <lightning-input onchange={handleQuantity} label="Quantity" type="text" value={quantity}></lightning-input>
+        <lightning-button label="Add" onclick={handleNewProduct}></lightning-button>
     </lightning-card>
 </div></template>
