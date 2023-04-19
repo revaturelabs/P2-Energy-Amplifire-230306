@@ -104,7 +104,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
-                    message: 'Account deleted',
+                    message: 'Accounts deleted',
                     variant: 'success'
                 })
             );
@@ -113,7 +113,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
         .catch((error) => {
             this.dispatchEvent(
                 new ShowToastEvent({
-                    title: 'Error deleting record',
+                    title: 'Error deleting records',
                     message: reduceErrors(error).join(', '),
                     variant: 'error'
                 })

@@ -110,7 +110,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
-                    message: 'Work Order deleted',
+                    message: 'Work Orders deleted',
                     variant: 'success'
                 })
             );
@@ -119,7 +119,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
         .catch((error) => {
             this.dispatchEvent(
                 new ShowToastEvent({
-                    title: 'Error deleting record',
+                    title: 'Error deleting records',
                     message: reduceErrors(error).join(', '),
                     variant: 'error'
                 })
@@ -142,7 +142,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
-                    message: 'Work Order updated',
+                    message: 'Work Orders updated',
                     variant: 'success'
                 })
             );
@@ -151,7 +151,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
         } catch (error) {
             this.dispatchEvent(
                 new ShowToastEvent({
-                    title: 'Error updating or reloading Work Order',
+                    title: 'Error updating or reloading Work Orders',
                     message: error.body.message,
                     variant: 'error'
                 })

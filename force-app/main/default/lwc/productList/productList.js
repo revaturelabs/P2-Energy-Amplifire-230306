@@ -153,12 +153,16 @@ export default class ProductList extends LightningElement {
                 console.log(ids);
                 console.log(typeof this.selectedIds);
                 await notifyRecordUpdateAvailable(ids);
+                const payload = {
+                    type: "ordSubmit"
+                };
+                publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
                 }
             catch(error) {console.log(error.message);}
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
-                    message: 'Product deleted',
+                    message: 'Products deleted',
                     variant: 'success'
                 })
             ); 
