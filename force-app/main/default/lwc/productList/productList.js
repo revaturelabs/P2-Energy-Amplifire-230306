@@ -22,24 +22,28 @@ export default class ProductList extends LightningElement {
         fieldName: 'productName',
         type: 'text',
         editable: false,
+        sortable: true,
     },
     {
         label: 'Unit Price',
         fieldName: 'unitpriceValue',
         type: 'currency',
         editable: false,
+        sortable: true,
     },
     {
         label: 'Quantity',
         fieldName: 'quantityValue',
         type: 'number',
         editable: true,
+        sortable: true,
     },
     {
         label: 'Total Price',
         fieldName: 'totalpriceValue',
         type: 'currency',
         editable: false,
+        sortable: true,
     }
     ];
     
@@ -211,5 +215,28 @@ export default class ProductList extends LightningElement {
                 })
             );
         }
+    }
+
+    sortedBy;
+    sortDirection = 'asc';
+
+    updateColumnSorting(event){
+        this.sortedBy = event.detail.fieldName;
+        this.sortDirection = event.detail.sortDirection;
+        this.sort(this.sortedBy,this.sortDirection);
+    }
+
+    sort(fieldName, direction){
+        let parseData = JSON.parse(JSON.stringify(this.records));
+        let keyVal = (a) => {
+            return a[fieldName]
+        };
+        let isReverse = direction === 'asc' ? 1 : -1;
+        parseData.sort((x,y) => {
+            x = keyVal(x) ? keyVal(x) : '';
+            y = keyVal(y) ? keyVal(y) : '';
+            return isReverse * ((x > y) - (y > x));
+        });
+        this.records = parseData;
     }
 }

@@ -127,7 +127,6 @@ export default class LightningDatatableLWCExample extends LightningElement {
         });
     }
 
-
     async handleSave(event) {
         const records = event.detail.draftValues.slice().map((draftValue) => {
             const fields = Object.assign({}, draftValue);
