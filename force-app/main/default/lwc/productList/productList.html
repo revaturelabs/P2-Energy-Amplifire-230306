@@ -7,7 +7,16 @@
             </lightning-button-group>
         </div>
         <template if:true={records}>
-            <lightning-datatable data={records} columns={columns} key-field="id" onrowselection={getSelectedRec} onsave={handleSave}>
+            <lightning-datatable 
+            data={records} 
+            columns={columns} 
+            key-field="id" 
+            onrowselection={getSelectedRec} 
+            onsave={handleSave}
+            default-sort-direction="asc"
+            sorted-direction={sortDirection}
+            sorted-by={sortedBy}
+            onsort={updateColumnSorting}>
             </lightning-datatable>
         </template>
         <template if:true={error}>

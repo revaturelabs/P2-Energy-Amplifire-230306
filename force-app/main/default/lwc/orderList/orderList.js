@@ -224,7 +224,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
     updateColumnSorting(event){
         this.sortedBy = event.detail.fieldName;
         this.sortDirection = event.detail.sortDirection;
-        this.ordList = this.sortData(this.sortedBy, this.sortDirection);
+        this.sort(this.sortedBy, this.sortDirection);
     }
 
     sort(fieldName, direction){
