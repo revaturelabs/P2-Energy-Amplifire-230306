@@ -1,47 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
-    <masterLabel>nameSelected</masterLabel>
-    <isExposed>true</isExposed>
     <description>selected Name search term</description>
+    <isExposed>true</isExposed>
     <lightningMessageFields>
-        <fieldName>nameField</fieldName>
         <description>This is the Name that has been searched for</description>
+        <fieldName>nameField</fieldName>
     </lightningMessageFields>
     <lightningMessageFields>
-        <fieldName>accountField</fieldName>
         <description>This is the Account that has been searched for</description>
+        <fieldName>accountField</fieldName>
     </lightningMessageFields>
     <lightningMessageFields>
-        <fieldName>productOwnerField</fieldName>
         <description>This is the Product Owner that has been searched for</description>
+        <fieldName>productOwnerField</fieldName>
     </lightningMessageFields>
     <lightningMessageFields>
-        <fieldName>ratingField</fieldName>
         <description>This is the Rating that has been searched for</description>
+        <fieldName>ratingField</fieldName>
     </lightningMessageFields>
     <lightningMessageFields>
-        <fieldName>phoneField</fieldName>
         <description>This is the Phone that has been searched for</description>
+        <fieldName>phoneField</fieldName>
     </lightningMessageFields>
     <lightningMessageFields>
-        <fieldName>industryField</fieldName>
         <description>This is the Industry that has been searched for</description>
+        <fieldName>industryField</fieldName>
     </lightningMessageFields>
     <lightningMessageFields>
-        <fieldName>submitField</fieldName>
         <description>This is for refreshing the list after a create function</description>
+        <fieldName>submitField</fieldName>
     </lightningMessageFields>
     <lightningMessageFields>
-        <fieldName>type</fieldName>
         <description>This is the type of record being searched</description>
+        <fieldName>type</fieldName>
     </lightningMessageFields>
     <lightningMessageFields>
-        <fieldName>leadNameField</fieldName>
         <description>The name of the lead being searched</description>
+        <fieldName>leadNameField</fieldName>
     </lightningMessageFields>
     <lightningMessageFields>
-        <fieldName>leadCompanyField</fieldName>
         <description>The name of the company being searched</description>
+        <fieldName>leadCompanyField</fieldName>
     </lightningMessageFields>
     <lightningMessageFields>
         <fieldName>leadPhoneField</fieldName>
@@ -56,9 +55,6 @@
         <fieldName>leadEmailField</fieldName>
     </lightningMessageFields>
     <lightningMessageFields>
-        <fieldName>leadType</fieldName>
-    </lightningMessageFields>
-    <lightningMessageFields>
         <fieldName>oppNameField</fieldName>
     </lightningMessageFields>
     <lightningMessageFields>
@@ -68,28 +64,31 @@
         <fieldName>oppStageField</fieldName>
     </lightningMessageFields>
     <lightningMessageFields>
-        <fieldName>oppCloseField</fieldName>
         <description>This is the type of record being searched</description>
+        <fieldName>oppCloseField</fieldName>
     </lightningMessageFields>
     <lightningMessageFields>
-        <fieldName>orderNumberField</fieldName>
+        <fieldName>leadType</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
         <description>The number of the order being searched.</description>
+        <fieldName>orderNumberField</fieldName>
     </lightningMessageFields>
     <lightningMessageFields>
-        <fieldName>orderAccountNameField</fieldName>
         <description>The name of the account of the order being searched.</description>
+        <fieldName>orderAccountNameField</fieldName>
     </lightningMessageFields>
     <lightningMessageFields>
-        <fieldName>orderEffectiveDateField</fieldName>
         <description>The start date of the order being searched</description>
+        <fieldName>orderEffectiveDateField</fieldName>
     </lightningMessageFields>
     <lightningMessageFields>
-        <fieldName>orderStatusField</fieldName>
         <description>The status of the order being searched</description>
+        <fieldName>orderStatusField</fieldName>
     </lightningMessageFields>
     <lightningMessageFields>
-        <fieldName>orderTotalAmountField</fieldName>
         <description>The total amount of the order being searched</description>
+        <fieldName>orderTotalAmountField</fieldName>
     </lightningMessageFields>
     <lightningMessageFields>
         <fieldName>fnameField</fieldName>
@@ -124,4 +123,5 @@
     <lightningMessageFields>
         <fieldName>submitTechField</fieldName>
     </lightningMessageFields>
+    <masterLabel>nameSelected</masterLabel>
 </LightningMessageChannel>

@@ -10,6 +10,7 @@
     </types>
     <types>
         <members>Employee_Hub</members>
+        <members>Employees_Hub</members>
         <name>CustomTab</name>
     </types>
     <types>

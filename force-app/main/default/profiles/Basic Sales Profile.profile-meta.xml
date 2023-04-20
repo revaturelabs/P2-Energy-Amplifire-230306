@@ -37,6 +37,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>LWCHelper</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>NewWork</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -593,6 +597,10 @@
     </recordTypeVisibilities>
     <tabVisibilities>
         <tab>Employee_Hub</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>Employees_Hub</tab>
         <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <tabVisibilities>
