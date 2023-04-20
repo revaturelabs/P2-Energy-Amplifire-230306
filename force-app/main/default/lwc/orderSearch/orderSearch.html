@@ -4,7 +4,6 @@
             <lightning-tab label="Search">
                 <lightning-input class="slds-p-horizontal_small" type="text" label="Number" value={numberSearchTerm} onchange={handleNumber}></lightning-input>
                 <lightning-input class="slds-p-horizontal_small" type="text" label="Account Name" value={accountNameSearchTerm} onchange={handleAccountName}></lightning-input>
-                <lightning-input class="slds-p-horizontal_small" type="date" label="Start Date" value={effectiveDateSearchTerm} onchange={handleEffectiveDate}></lightning-input>
                 <template lwc:if={statusOptions.data}>
                     <lightning-combobox class="slds-p-horizontal_small" name="Status" label="Status" value={statusSearchTerm} 
                         options={statusOptions.data.values} onchange={handleStatus} ></lightning-combobox>

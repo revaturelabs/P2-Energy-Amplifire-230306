@@ -158,8 +158,6 @@ export default class LightningDatatableLWCExample extends LightningElement {
             this.orderNumberSearch = message.orderNumberField;
         if (message.type === "orderAccount")
             this.orderAccountNameSearch = message.orderAccountNameField;
-        if (message.type === "orderEffectiveDate")
-            this.orderEffectiveDateSearch = message.orderEffectiveDateField;
         if (message.type === "orderStatus")
             this.orderStatusSearch = message.orderStatusField;
         if (message.type === "orderAmount")

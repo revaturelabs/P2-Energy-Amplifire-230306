@@ -49,16 +49,6 @@ export default class AccountSearch extends LightningElement {
         };
         publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
     }
-
-    handleEffectiveDate(event) {
-        this.effectiveDateSearchTerm = event.detail.value;
-        const start = event.detail.value;
-        const payload = {
-            orderEffectiveDateField: start,
-            type: "orderStart"
-        };
-        publish(this.messageContext,NAME_SELECTED_CHANNEL,payload);
-    }
     
      handleStatus(event) {
         this.statusSearchTerm = event.detail.value;
