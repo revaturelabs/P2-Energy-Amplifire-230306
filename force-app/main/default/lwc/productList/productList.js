@@ -10,10 +10,12 @@ import { notifyRecordUpdateAvailable, updateRecord } from 'lightning/uiRecordApi
 import { getRelatedListRecords } from 'lightning/uiRelatedListApi';
 import getProductOptions from '@salesforce/apex/LWCHelper.getProductOptions';
 import createProduct from '@salesforce/apex/LWCHelper.createProduct';
+import { RefreshEvent } from 'lightning/refresh';
 
 export default class ProductList extends LightningElement {
     @wire(getObjectInfo, { objectApiName: ORDERITEM_OBJECT })
     orderItemMetadata;
+
 
     @wire(MessageContext)
     messageContext;
@@ -53,6 +55,8 @@ export default class ProductList extends LightningElement {
     @track records;
     whatever;
     wiredResult;
+
+    
     
     @wire(getRelatedListRecords, {
         parentRecordId: '$whatever',
@@ -248,11 +252,11 @@ export default class ProductList extends LightningElement {
     productOptions = [];
     create = false;
     Opt;
-    
+
     @wire(getProductOptions)
     pOptions(result) {
         console.log('pOptions:');
-        console.log(result.data)
+        console.log(result.data);
         if (result.data) {
             console.log('in if statement');
             this.productOptions = result.data.map((item) =>{
@@ -267,7 +271,7 @@ export default class ProductList extends LightningElement {
             this.error = result.error;
             this.oppList = undefined;
         }
-    }
+    } 
 
     selectedIds;
     product;
@@ -289,7 +293,7 @@ export default class ProductList extends LightningElement {
         console.log(this.whatever);
         console.log(this.product);
         console.log(this.quantity);
-        createProduct({
+        const recordId = await createProduct({
             OrderId: this.whatever,
             ProductId: this.product,
             Quant: this.quantity,
@@ -299,6 +303,14 @@ export default class ProductList extends LightningElement {
             type: "ordSubmit"
         };
         publish(this.messageContext, NAME_SELECTED_CHANNEL, payload);
+        const recordIds = this.records.map((record) =>
+                {return {recordId: record.id};}
+            );
+        await notifyRecordUpdateAvailable(recordIds);
+        this.records.forEach(item => {
+            console.log(JSON.parse(JSON.stringify(item)));
+          });
+        console.log(records);
         
     }
 }
