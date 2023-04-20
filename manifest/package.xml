@@ -14,6 +14,10 @@
         <name>CustomTab</name>
     </types>
     <types>
+        <members>Employees_Hub</members>
+        <name>FlexiPage</name>
+    </types>
+    <types>
         <members>Account-Account %28Sales%29 Layout</members>
         <members>Order-Order Layout</members>
         <members>Product2-Infrastructure Layout</members>
