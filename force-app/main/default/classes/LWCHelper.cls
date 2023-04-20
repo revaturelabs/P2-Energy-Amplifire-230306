@@ -255,16 +255,33 @@ public with sharing class LWCHelper {
     }
 
     @AuraEnabled(cacheable=true)
-    public static List<Product2> getProductOptions(){
+    public static List<Product2> getProductOptions(String OrderId){
         try {
-            return [SELECT Id, Name FROM Product2];
+                return [SELECT Id, Name FROM Product2];
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    @AuraEnabled(cacheable=true)
+    public static List<PricebookEntry> getProductOptions2(String OrderId){
+        try {
+            Order Ord = [SELECT Id, Pricebook2Id FROM Order WHERE Id = :OrderId LIMIT 1];
+            System.debug(Ord);
+            if(Ord.Pricebook2Id == NULL){
+                return NULL;
+            }
+            else{
+                return [SELECT Id, Name FROM PricebookEntry WHERE Pricebook2Id = :Ord.Pricebook2Id];
+            }
+
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
     }
 
     @AuraEnabled
-    public static void createProduct(String OrderId, String ProductId, String Quant){
+    public static String createProduct(String OrderId, String ProductId, String Quant){
         try {
             Order Ord = [SELECT Id, Pricebook2Id FROM Order WHERE Id = :OrderId];
             Product2 Prod = [SELECT Id FROM Product2 WHERE Id = :ProductId];
@@ -276,6 +293,7 @@ public with sharing class LWCHelper {
                 UnitPrice = pbe.UnitPrice, 
                 Quantity = decimal.valueOf(Quant));
             insert oi;
+            return oi.id;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }

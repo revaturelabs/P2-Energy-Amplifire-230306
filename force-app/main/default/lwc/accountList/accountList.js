@@ -59,7 +59,7 @@ export default class LightningDatatableLWCExample extends LightningElement {
         {
             label: 'Avg Opportunity', 
             fieldName: 'Average_Amount_of_Opportunities__c', 
-            type: 'text', 
+            type: 'currency', 
             editable: false,
             sortable: true,
         }

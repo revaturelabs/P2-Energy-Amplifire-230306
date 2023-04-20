@@ -1,5 +1,6 @@
 import { LightningElement } from 'lwc';
 import FBC_LOGO from '@salesforce/resourceUrl/Logo';
+import { registerRefreshContainer, unregisterRefreshContainer } from 'lightning/refresh';
 
 
 export default class MainPageHolder extends LightningElement {
@@ -11,6 +12,31 @@ export default class MainPageHolder extends LightningElement {
     displayTec = false;
     displayWO  = false;
     logo = FBC_LOGO;
+    refreshHandlerID;
+
+    refreshContainerID;
+    connectedCallback() {
+        this.refreshContainerID = registerRefreshContainer(this, this.refreshContainer);
+    }
+
+    disconnectedCallback() {
+        unregisterRefreshContainer(this.refreshContainerID);
+    }
+    
+    refreshContainer(refreshPromise) {
+        console.log('refreshing');
+        return refreshPromise.then((status) => {
+            if (status === REFRESH_COMPLETE) {
+                console.log('Done!');
+            }
+            else if (status === REFRESH_COMPLETE_WITH_ERRORS) {
+               console.warn('Done, with issues refreshing some components');
+            }
+            else if (status === REFRESH_ERROR) {
+               console.error('Major error with refresh.');
+            }
+         });
+    }
 
     handleAcc() {
         this.displayAcc = !this.displayAcc

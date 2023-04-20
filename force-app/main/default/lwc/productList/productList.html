@@ -1,4 +1,18 @@
 <template><div class="slds-m-top_medium" lwc:if={whatever}>
+    <lightning-card title="Add a Product" if:true={create}>
+        <lightning-combobox
+            name="Product"
+            label="Product"
+            placeholder="Pick a Product"
+            onchange={handleProductChange}
+            value={product}
+            options={productOptions}>
+        </lightning-combobox>
+        <lightning-input onchange={handleQuantity} label="Quantity" type="text" value={quantity}></lightning-input>
+        <br/>
+        <span class="slds-align_absolute-center"><lightning-button label="Add" onclick={handleNewProduct}></lightning-button></span>
+    </lightning-card>
+    <br/>
     <lightning-card  title="Products">
         <div slot="actions">
             <lightning-button-group>
@@ -22,17 +36,5 @@
         <template if:true={error}>
             {error}
         </template>
-    </lightning-card>
-    <lightning-card title="Add a Product" if:true={create}>
-        <lightning-combobox
-            name="Product"
-            label="Product"
-            placeholder="Pick a Product"
-            onchange={handleProductChange}
-            value={product}
-            options={productOptions}>
-        </lightning-combobox>
-        <lightning-input onchange={handleQuantity} label="Quantity" type="text" value={quantity}></lightning-input>
-        <lightning-button label="Add" onclick={handleNewProduct}></lightning-button>
     </lightning-card>
 </div></template>
